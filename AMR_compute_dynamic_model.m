@@ -243,6 +243,8 @@ invM = simplify(inv(M));
 
 eqs = simplify(subs(invM*(tau-c-G),[q;qd],[x(1:N);x(N+1:2*N)]));
 
+eqs = [x4;x5;x6;eqs];
+
 %% save equations in a file
 
 save("Tiago_eqs.mat","eqs");
@@ -262,6 +264,4 @@ function J_dot = jacobian_diff(J,var,dot_var)
             J_dot(i,j) = simplify(pd);
         end
     end
-end
-
- 
+end 
