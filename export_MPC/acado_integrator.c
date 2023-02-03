@@ -1226,6 +1226,9 @@ acadoWorkspace.rk_ttt = 0.0000000000000000e+00;
 acadoWorkspace.rk_xxx[6] = rk_eta[60];
 acadoWorkspace.rk_xxx[7] = rk_eta[61];
 acadoWorkspace.rk_xxx[8] = rk_eta[62];
+acadoWorkspace.rk_xxx[9] = rk_eta[63];
+acadoWorkspace.rk_xxx[10] = rk_eta[64];
+acadoWorkspace.rk_xxx[11] = rk_eta[65];
 
 for (run = 0; run < 2; ++run)
 {

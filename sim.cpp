@@ -62,6 +62,9 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     Control tau1;
     Control tau2;
     Control tau3;
+    OnlineData x_obs; 
+    OnlineData y_obs; 
+    OnlineData r_obs; 
     SIMexport ExportModule1( 1, 0.01 );
     ExportModule1.set( GENERATE_MATLAB_INTERFACE, 1 );
     uint options_flag;

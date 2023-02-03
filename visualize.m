@@ -8,17 +8,14 @@ p1 = dk_points(1,:);
 p2 = dk_points(2,:);
 p3 = dk_points(3,:);
 
-% temp_var = dk_tiago(Xref(end,1:3));
-% x_r = temp_var(3,1);
-% y_r = temp_var(3,2);
-
 x_r = Yref(1,1);
 y_r = Yref(1,2);
 
 subplot(3,1,[1 2]);
 
 % plot the robot body
-line([p1(1) p1(1)], [0 p1(2)], 'color', 'k', 'Linewidth',4,"color","Black"); hold on;
+line([p1(1)-rt4 p1(1)-rt4], [0 p1(2)], 'color', 'k', 'Linewidth',4,"color","Black"); hold on;
+line([p1(1)-rt4 p1(1)], [p1(2) p1(2)], 'color', 'k', 'Linewidth',4,"color","Black");
 plot(p1(1),p1(2),'ro','MarkerSize',10,'Linewidth',5);
 line([p1(1) p2(1)], [p1(2) p2(2)], 'color', 'k', 'Linewidth',4,"color","Blue");
 plot(p2(1),p2(2),'ro','MarkerSize',10,'Linewidth',5);
@@ -28,10 +25,13 @@ plot(p3(1),p3(2),'ro','MarkerSize',10,'Linewidth',5);
 % plot the target position of the end-effector
 plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2);
 
+% plot the obstacle
+viscircles(obs(1:2),obs(3));
+
 grid on;
-xlim([-5 5]);
+xlim([-3 3]);
 ylim([0 2]);
-pbaspect([2 1 1]);
+pbaspect([3 1 1]);
 
 subplot(3,1,3);
 semilogy(time(1:end-1),KKT_MPC,'linewidth',1.5,'color','k','linestyle','--','marker','.');hold on

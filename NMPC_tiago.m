@@ -9,6 +9,7 @@ BEGIN_ACADO; % Always start with "BEGIN_ACADO".
 
 DifferentialState x1 x2 x3 x4 x5 x6;
 Control tau1 tau2 tau3;
+OnlineData x_obs y_obs r_obs; 
 
 n_XD = length(diffStates);
 n_U = length(controls);
@@ -54,13 +55,9 @@ f = dot([x1;x2;x3;x4;x5;x6]) == [
     (4*(tau3 + (g0*l3*m3*sin(x2 + x3))/2 - (l2*l3*m3*x5^2*sin(x3))/2)*(8*I2zz*m1 + 8*I2zz*m2 + 8*I3zz*m1 + 8*I2zz*m3 + 8*I3zz*m2 + 8*I3zz*m3 + l2^2*m2^2 + 4*l2^2*m3^2 + l3^2*m3^2 + 2*l2^2*m1*m2 + 8*l2^2*m1*m3 + 6*l2^2*m2*m3 + 2*l3^2*m1*m3 + 2*l3^2*m2*m3 - l2^2*m2^2*cos(2*x2) - 4*l2^2*m3^2*cos(2*x2) - l3^2*m3^2*cos(2*x2 + 2*x3) - 4*l2*l3*m3^2*cos(2*x2 + x3) - 4*l2^2*m2*m3*cos(2*x2) + 4*l2*l3*m3^2*cos(x3) - 2*l2*l3*m2*m3*cos(2*x2 + x3) + 8*l2*l3*m1*m3*cos(x3) + 6*l2*l3*m2*m3*cos(x3)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*x2) - 16*I3zz*l2^2*m3^2*cos(2*x2) - 4*I2zz*l3^2*m3^2*cos(2*x2 + 2*x3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*x3) - 2*l2^2*l3^2*m2*m3^2*cos(2*x2) - l2^2*l3^2*m2^2*m3*cos(2*x2) - 2*l2^2*l3^2*m2*m3^2*cos(2*x3) - 16*I3zz*l2^2*m2*m3*cos(2*x2) + l2^2*l3^2*m2*m3^2*cos(2*x2 + 2*x3)) - (4*(tau2 + g0*m3*((l3*sin(x2 + x3))/2 + l2*sin(x2)) + (g0*l2*m2*sin(x2))/2 + (l2*l3*m3*x6*sin(x3)*(2*x5 + x6))/2)*(8*I3zz*m1 + 8*I3zz*m2 + 8*I3zz*m3 + l3^2*m3^2 + 2*l3^2*m1*m3 + 2*l3^2*m2*m3 - l3^2*m3^2*cos(2*x2 + 2*x3) - 2*l2*l3*m3^2*cos(2*x2 + x3) + 2*l2*l3*m3^2*cos(x3) - l2*l3*m2*m3*cos(2*x2 + x3) + 4*l2*l3*m1*m3*cos(x3) + 3*l2*l3*m2*m3*cos(x3)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*x2) - 16*I3zz*l2^2*m3^2*cos(2*x2) - 4*I2zz*l3^2*m3^2*cos(2*x2 + 2*x3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*x3) - 2*l2^2*l3^2*m2*m3^2*cos(2*x2) - l2^2*l3^2*m2^2*m3*cos(2*x2) - 2*l2^2*l3^2*m2*m3^2*cos(2*x3) - 16*I3zz*l2^2*m2*m3*cos(2*x2) + l2^2*l3^2*m2*m3^2*cos(2*x2 + 2*x3)) + (4*((l3*m3*x5^2*sin(x2 + x3))/2 - tau1 + (l3*m3*x6^2*sin(x2 + x3))/2 + (l2*m2*x5^2*sin(x2))/2 + l2*m3*x5^2*sin(x2) + l3*m3*x5*x6*sin(x2 + x3))*(l2*l3^2*m3^2*cos(x2) - 4*I2zz*l3*m3*cos(x2 + x3) - 2*l2^2*l3*m3^2*cos(x2 + x3) + 4*I3zz*l2*m2*cos(x2) + 8*I3zz*l2*m3*cos(x2) + 2*l2^2*l3*m3^2*cos(x2 - x3) - l2*l3^2*m3^2*cos(x2 + 2*x3) + l2*l3^2*m2*m3*cos(x2) + l2^2*l3*m2*m3*cos(x2 - x3)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*x2) - 16*I3zz*l2^2*m3^2*cos(2*x2) - 4*I2zz*l3^2*m3^2*cos(2*x2 + 2*x3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*x3) - 2*l2^2*l3^2*m2*m3^2*cos(2*x2) - l2^2*l3^2*m2^2*m3*cos(2*x2) - 2*l2^2*l3^2*m2*m3^2*cos(2*x3) - 16*I3zz*l2^2*m2*m3*cos(2*x2) + l2^2*l3^2*m2*m3^2*cos(2*x2 + 2*x3))
     ];
     
-% output function: joint positions
-% h = [diffStates; controls];
-% hN = [diffStates];
-
-% output function: E-E position
-h = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + l3*cos(x2 + x3) + l2*cos(x2), tau1, tau2, tau3};
-hN = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + l3*cos(x2 + x3) + l2*cos(x2)};
+% output functions: E-E position + E-E velocity + joint velocities + control inputs
+h = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + l3*cos(x2 + x3) + l2*cos(x2), x4 - x5*(l3*cos(x2 + x3) + l2*cos(x2)) - l3*x6*cos(x2 + x3), - x5*(l3*sin(x2 + x3) + l2*sin(x2)) - l3*x6*sin(x2 + x3), x4, x5, x6, tau1, tau2, tau3};
+hN = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + l3*cos(x2 + x3) + l2*cos(x2), x4 - x5*(l3*cos(x2 + x3) + l2*cos(x2)) - l3*x6*cos(x2 + x3), - x5*(l3*sin(x2 + x3) + l2*sin(x2)) - l3*x6*sin(x2 + x3), x4, x5, x6};
 
 
 %% SIMexport
@@ -91,26 +88,38 @@ acadoSet('problemname', 'mpc');
 N = 25;
 ocp = acado.OCP( 0.0, N*Ts, N );
 
-% W_mat = eye(n_XD+n_U,n_XD+n_U);
-% WN_mat = eye(n_XD,n_XD);
-% W = acado.BMatrix(W_mat);
-% WN = acado.BMatrix(WN_mat);
-
-W_mat = eye(5,5);
+% set eye matrices to default values: real values will be set before
+% simulation
+W_mat = eye(10,10);
 W = acado.BMatrix(W_mat);
-WN_mat = eye(2,2);
+WN_mat = eye(7,7);
 WN = acado.BMatrix(WN_mat);
 
-ocp.minimizeLSQ( W, h );
-ocp.minimizeLSQEndTerm( WN, hN );
+ocp.minimizeLSQ( W, h );   % set objective function
+ocp.minimizeLSQEndTerm( WN, hN );  % set objective function for final state
 
-ocp.subjectTo( -pi <= [x1;x2;x3] <= pi );  % joint limits
-ocp.subjectTo( -10.0 <= [x4;x5;x6] <= 10.0 );  % joint velocity limits
-% joint effort limits
-ocp.subjectTo(-1000 <= [tau2;tau3] <= 1000);
-ocp.subjectTo( -1000 <= tau1 <= 1000);
+% dynamic Model
+ocp.setModel(f);
 
-ocp.setModel(f);     % set the ODE as constriant
+% % joint limits
+% ocp.subjectTo( -pi <= [x1;x3] <= pi );
+% ocp.subjectTo( -2*pi <= x2 <= 2*pi );
+
+% joint velocity limits
+ocp.subjectTo( -1 <= x4 <= 1 );
+ocp.subjectTo( -5 <= x5 <= 5 );
+ocp.subjectTo( -5 <= x6 <= 5 );
+
+% joint force/torque limits
+ocp.subjectTo( -60 <= tau1 <= 60);
+ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
+
+
+% classical collision avoidance constraint
+ocp.subjectTo(norm([x1 - rt1 + rt4;(hb + ht)/2] - [x_obs;y_obs]) - r_obs - ((hb+ht)/2) >= 0);
+ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) >= 0);
+ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) >= 0);
+
 
 mpc = acado.OCPexport( ocp );
 
@@ -141,36 +150,46 @@ end
 
 END_ACADO; % End with "END ACADO" to compile.
 
-%% GENERATE REFERENCE
+%% PREPARE SIMULATION
 
+% generate reference
+syms t;
+h_x = 1*sin(1.1*t);
+h_y = 1.5+0.2*cos(1.1*t);
+% generate derivative of reference
+dh_x = diff(h_x,t);
+dh_y = diff(h_y,t);
+% evaluate trajectories numerically
 t = linspace(0,5,5/Ts);
-h_x = 2*sin(1.5*t);
-h_y = 1.4+0.2*cos(1.5*t);
-h_ref = [h_x.' h_y.'];
+h_ref = double([subs(h_x).' subs(h_y).']);
+dh_ref = double([subs(dh_x).' subs(dh_y).']);
+% generate obstacles
+obs = [0 1.3 0.1];
 
 %% PARAMETERS SIMULATION
-X0 = [1 pi/4 pi/4 0 0 0];
-% Xref = [1.5 pi/3 -pi/2 0 0 0];
-% input.x = repmat(Xref,N+1,1);   % x property can be always zero.
-input.x = zeros(N+1,n_XD);
-% Xref = repmat(Xref,N,1);
-input.od = [];
 
-Uref = zeros(N,n_U);   % the reference for input torques
+% initial state
+X0 = [0 pi/4 pi/4 0 0 0];
+
+% Xref = [1.5 pi/3 -pi/2 0 0 0];
+% input.x = repmat(Xref,N+1,1);
+input.x = zeros(N+1,n_XD);
+
+% Online data
+input.od = repmat(obs,N+1,1);
+
+% Input torques reference
+Uref = repmat(compute_gravity_term(X0(1:3)),N,1);
 input.u = Uref;
 
-Yref = h_ref(1:N,:);
-
-input.y = [Yref Uref];  % reference for the output
+% Output reference
+Yref = [h_ref(1:N,:) dh_ref(1:N,:) Uref];
+input.y = [Yref Uref];
 input.yN = Yref(N,:);
 
-% reference as joint trajectories
-%input.W = diag([10 1 1 1e-3 1e-3 1e-3 0 0 0]);  % weights on [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3];
-%input.WN = diag([10 1 1 1 1 1]);  % weights on [x1 x2 x3 x4 x5 x6];
-
-% reference as E-E trajectories
-input.W = diag([1 1 0 0 0]);  % weights on [x y tau1 tau2 tau3];
-input.WN = diag([10 10]);   % weights on [x y];
+% weight matrices
+input.W = diag([50 50 1 1 0 0.0002 0.0002 0 0.001 0.01]);  % weights on [x y dx dy x4 x5 x6 tau1 tau2 tau3];
+input.WN = diag([10 10 1 1 0 0 0]);   % weights on [x y dx dy x4 x5 x6];
 
 %% SIMULATION LOOP
 display('------------------------------------------------------------------')
@@ -189,9 +208,11 @@ while time(end) < Tf
     tic
     % Solve NMPC OCP
     input.x0 = state_sim(end,:);
-    Yref = get_ref(h_ref,iter,N);
+    Yref = [get_ref(h_ref,iter,N) get_ref(dh_ref,iter,N) zeros(N,3)];
+    Uref = repmat(compute_gravity_term(state_sim(1:3)),N,1);
+    input.u = Uref;
     input.y = [Yref Uref];  % reference for the output
-    input.yN = Yref(N,:);
+    input.yN = Yref(N,:);  % reference for the final output state
     output = acado_MPCstep(input);
     
     % Save the MPC step
@@ -224,9 +245,9 @@ end
 
 %% plot evolution of control inputs [tau1 tau2 tau3]
 
-stairs(time,input_sim); grid on; hold on; legend('tau1','tau2','tau3', "Location","best");
+%stairs(time,input_sim); grid on; hold on; legend('tau1','tau2','tau3', "Location","best");
 
-%% get the reference points
+%% function: get the reference points
 
 function samples = get_ref(ref,num_iter,N)
     num_iter = num_iter + 1;  % to be consistent with the inidces
@@ -240,4 +261,22 @@ function samples = get_ref(ref,num_iter,N)
         samples = [ref(num_iter:end,:);repmat(ref(end,:),-num_residual_samples-1,1)];
     end
     
+end
+
+%% function: compute the gravity term
+function g = compute_gravity_term(q)
+    g0 = 9.81;
+
+    q1 = q(1); q2 = q(2); q3 = q(3);
+
+    m2 = 2.08+1.79+2.28;
+    l2 = 0.32;
+
+    m3 = 1.89+1.07+0.2+0.6+0.2;
+    l3 = 0.34+0.25;
+
+    g(1) = 0;
+    g(2) = - g0*m3*((l3*sin(q2 + q3))/2 + l2*sin(q2)) - (g0*l2*m2*sin(q2))/2;
+    g(3) = -(g0*l3*m3*sin(q2 + q3))/2;
+
 end
