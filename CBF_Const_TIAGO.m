@@ -5,8 +5,8 @@
 %ocp.subjectTo(DHDT2{j}(i) >= - K{j,i}*[H(j,i) ; DHDT1{j}(i)]);  
 function [H, DHDT1, DHDT2, K]=CBF_Const_TIAGO(P_obs,r_obs,n_point_link, x0)
 format shortE;
-syms x [6 1] real; syms u [1 3] real; syms t real;
- dx = TIAGO(t,x,u,0,0);
+syms x [6 1] real; syms tau [1 3] real; syms t real;
+ dx = TIAGO(t,x,tau,0,0);
 %coordinate is (z0,x0), z0-horizontal =, x0-vertical like (x,y)
 % P1| z | x 
 % P2| z | x 
