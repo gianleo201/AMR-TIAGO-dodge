@@ -116,10 +116,31 @@ ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
 
 
 % classical collision avoidance constraint
-ocp.subjectTo(norm([x1 - rt1 + rt4;(hb + ht)/2] - [x_obs;y_obs]) - r_obs - ((hb+ht)/2) >= 0);
-ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) >= 0);
-ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) >= 0);
+% ocp.subjectTo(norm([x1 - rt1 + rt4;(hb + ht)/2] - [x_obs;y_obs]) - r_obs - ((hb+ht)/2) >= 0);
+% ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) >= 0);
+% ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) >= 0);
 
+
+%--------------------------------------------------------------------------
+                         % CBF-BASED CONSTRAINT
+%--------------------------------------------------------------------------
+x0=[0; pi/4; pi/4; 0; 0; 0];
+n_points_link=5;
+[H, DHDT1,DHDT2,K]=CBF_Const_TIAGO([0 1.3],0.1 ,n_points_link,x0);
+j=1;
+while j<= 4
+    i=1;
+    while i<= n_points_link+1 
+    if H(j,i) ==0
+            break
+    else
+    ocp.subjectTo(eval(DHDT2{j}(i) + K{j,i}*[H(j,i) ; DHDT1{j}(i)]) >=0);
+    end
+        i = i+1;
+    end
+        j =j+1;
+end
+%--------------------------------------------------------------------------
 
 mpc = acado.OCPexport( ocp );
 
