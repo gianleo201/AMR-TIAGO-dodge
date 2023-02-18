@@ -57,8 +57,8 @@ while j<= 4
     while i<= n_point_link+1
     v0=subs(H(j,i),x,x0);
     dv0=subs(DHDT1{j}(i), x, x0);
-    P(1)= max(-(dv0/v0), 3); % eignvalues of F-GK= - [P1 P2]; P>0
-    P(2)= 2;          % assumed and enforced by the control from NMPC.      
+    P(1)= max(-(dv0/v0), 17); % eignvalues of F-GK= - [P1 P2]; P>0
+    P(2)= 16.5;          % assumed and enforced by the control from NMPC.      
     K(j,i)={place(F,G,-P)};
     i = i+1;
     end
