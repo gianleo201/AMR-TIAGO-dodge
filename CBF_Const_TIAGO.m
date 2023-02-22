@@ -20,27 +20,27 @@ l3 = 0.34+0.25;
 P=cell([4 n_point_link+1]);
 H= sym(zeros([4 n_point_link+1]));
 P(1,1)= {[x1 , 0]};
-H(1,1)= simplify(norm(P{1,1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*(hb + ht))^2);
+H(1,1)= simplify(norm(P{1,1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*(hb + ht))^2);
 P(2,1)= {[x1 - rt1 + rt4 , hb + ht]};
-H(2,1)= simplify(norm(P{2,1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*l2)^2);
+H(2,1)= simplify(norm(P{2,1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*l2)^2);
 P(3,1)= {[x1 - rt1 + rt4 - l2*sin(x2) , hb + ht + l2*cos(x2)]};
-H(3,1)= simplify(norm(P{3,1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*l3)^2);
+H(3,1)= simplify(norm(P{3,1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*l3)^2);
 P(4,1)= {[x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2) , hb + ht + l3*cos(x2 + x3) + l2*cos(x2)]};
-H(4,1)= simplify(norm(P{4,1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*l3)^2);
+H(4,1)= simplify(norm(P{4,1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*l3)^2);
 
 i=1;
 while i <= n_point_link
     %link1
     P(1,i+1)= {[x1 - rt1 + rt4 , (i/(n_point_link+1))*(hb + ht)]}; 
-    H(1,i+1)= simplify(norm(P{1,i+1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*(hb + ht))^2);
+    H(1,i+1)= simplify(norm(P{1,i+1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*(hb + ht))^2);
     %link2
     l2_i= (i/(n_point_link+1))*l2;
     P(2,i+1)= {[x1 - rt1 + rt4 - l2_i*sin(x2) , hb + ht + l2_i*cos(x2)]};
-    H(2,i+1)= simplify(norm(P{2,i+1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*l2)^2);
+    H(2,i+1)= simplify(norm(P{2,i+1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*l2)^2);
     %link3
     l3_i= (i/(n_point_link+1))*l3;
     P(3,i+1)={[x1 - rt1 + rt4 - l3_i*sin(x2 + x3) - l2*sin(x2) , hb + ht + l3_i*cos(x2 + x3) + l2*cos(x2)]};
-    H(3,i+1)= simplify(norm(P{3,i+1}-P_obs)^2 - (r_obs + (1/(n_point_link+2))*l3)^2);
+    H(3,i+1)= simplify(norm(P{3,i+1}-P_obs)^2 - (r_obs + (1/(2*n_point_link+2))*l3)^2);
     i = i+1;
 end
 DHDT2=cell([4 1]);
