@@ -66,7 +66,7 @@ extern "C"
 /** Number of online data values. */
 #define ACADO_NOD 3
 /** Number of path constraints. */
-#define ACADO_NPAC 3
+#define ACADO_NPAC 19
 /** Number of control variables. */
 #define ACADO_NU 3
 /** Number of differential variables. */
@@ -242,26 +242,26 @@ real_t QN1[ 36 ];
 /** Matrix of size: 6 x 7 (row major format) */
 real_t QN2[ 42 ];
 
-/** Column vector of size: 88 */
-real_t conAuxVar[ 88 ];
+/** Column vector of size: 15631 */
+real_t conAuxVar[ 15631 ];
 
 /** Row vector of size: 12 */
 real_t conValueIn[ 12 ];
 
-/** Row vector of size: 30 */
-real_t conValueOut[ 30 ];
+/** Row vector of size: 190 */
+real_t conValueOut[ 190 ];
 
-/** Column vector of size: 75 */
-real_t evH[ 75 ];
+/** Column vector of size: 475 */
+real_t evH[ 475 ];
 
-/** Matrix of size: 75 x 6 (row major format) */
-real_t evHx[ 450 ];
+/** Matrix of size: 475 x 6 (row major format) */
+real_t evHx[ 2850 ];
 
-/** Matrix of size: 75 x 3 (row major format) */
-real_t evHu[ 225 ];
+/** Matrix of size: 475 x 3 (row major format) */
+real_t evHu[ 1425 ];
 
-/** Column vector of size: 3 */
-real_t evHxd[ 3 ];
+/** Column vector of size: 19 */
+real_t evHxd[ 19 ];
 
 /** Column vector of size: 156 */
 real_t sbar[ 156 ];
@@ -293,8 +293,8 @@ real_t w2[ 6 ];
 /** Matrix of size: 75 x 75 (row major format) */
 real_t H[ 5625 ];
 
-/** Matrix of size: 150 x 75 (row major format) */
-real_t A[ 11250 ];
+/** Matrix of size: 550 x 75 (row major format) */
+real_t A[ 41250 ];
 
 /** Column vector of size: 75 */
 real_t g[ 75 ];
@@ -305,17 +305,17 @@ real_t lb[ 75 ];
 /** Column vector of size: 75 */
 real_t ub[ 75 ];
 
-/** Column vector of size: 150 */
-real_t lbA[ 150 ];
+/** Column vector of size: 550 */
+real_t lbA[ 550 ];
 
-/** Column vector of size: 150 */
-real_t ubA[ 150 ];
+/** Column vector of size: 550 */
+real_t ubA[ 550 ];
 
 /** Column vector of size: 75 */
 real_t x[ 75 ];
 
-/** Column vector of size: 225 */
-real_t y[ 225 ];
+/** Column vector of size: 625 */
+real_t y[ 625 ];
 
 
 } ACADOworkspace;

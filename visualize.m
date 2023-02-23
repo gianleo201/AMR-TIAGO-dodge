@@ -11,7 +11,7 @@ p3 = dk_points(3,:);
 x_r = Yref(1,1);
 y_r = Yref(1,2);
 
-subplot(3,1,[1 2]);
+subplot(4,1,[1 2]);
 
 % plot the robot body
 line([p1(1)-rt4 p1(1)-rt4], [0 p1(2)], 'color', 'k', 'Linewidth',4,"color","Black"); hold on;
@@ -23,17 +23,20 @@ line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
 plot(p3(1),p3(2),'ro','MarkerSize',10,'Linewidth',5);
 
 % plot the target position of the end-effector
-plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2);
+plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
 
 % plot the obstacle
 viscircles(obs(1:2),obs(3));
+
+% plot trajectory
+plot(h_ref(:,1),h_ref(:,2),"LineWidth",2.0,"LineStyle","--","Color","cyan");
 
 grid on;
 xlim([-3 3]);
 ylim([0 2]);
 pbaspect([3 1 1]);
 
-subplot(3,1,3);
+subplot(4,1,3);
 semilogy(time(1:end-1),KKT_MPC,'linewidth',1.5,'color','k','linestyle','--','marker','.');hold on
 
 grid on;

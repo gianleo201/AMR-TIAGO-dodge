@@ -124,7 +124,7 @@ ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
 %--------------------------------------------------------------------------
                          % CBF-BASED CONSTRAINT
 %--------------------------------------------------------------------------
-x0=[0; pi/4; pi/4; 0; 0; 0];
+x0=[-2; -pi/4; -pi/4; 0; 0; 0];
 n_points_link=5;
 [H, DHDT1,DHDT2,K]=CBF_Const_TIAGO([0 1.3],0.1 ,n_points_link,x0);
 j=1;
@@ -175,22 +175,22 @@ END_ACADO; % End with "END ACADO" to compile.
 
 % generate reference
 syms t;
-h_x = 1*sin(1.1*t);
-h_y = 1.5+0.2*cos(1.1*t);
+h_x = -1.25+0.5*t;
+h_y = 1.4+0.25*sin(t);
 % generate derivative of reference
 dh_x = diff(h_x,t);
 dh_y = diff(h_y,t);
 % evaluate trajectories numerically
 t = linspace(0,5,5/Ts);
-h_ref = double([subs(h_x).' subs(h_y).']);
-dh_ref = double([subs(dh_x).' subs(dh_y).']);
+h_ref = double([subs(h_x,t).' subs(h_y,t).']);
+dh_ref = double([subs(dh_x,t).' subs(dh_y,t).']);
 % generate obstacles
-obs = [0 1.3 0.1];
+obs = [0 1.5 0.25];
 
 %% PARAMETERS SIMULATION
 
 % initial state
-X0 = [0 pi/4 pi/4 0 0 0];
+X0 = [-2 -pi/4 -pi/4 0 0 0];
 
 % Xref = [1.5 pi/3 -pi/2 0 0 0];
 % input.x = repmat(Xref,N+1,1);
@@ -219,7 +219,7 @@ display('------------------------------------------------------------------')
 
 iter = 0; time = 0;
 Tf = 5;
-KKT_MPC = []; INFO_MPC = [];
+KKT_MPC = []; INFO_MPC = []; INFO_CPU_TIME = [];
 controls_MPC = [];
 state_sim = X0;
 input_sim = zeros(1,n_U);
@@ -239,6 +239,7 @@ while time(end) < Tf
     % Save the MPC step
     INFO_MPC = [INFO_MPC; output.info];
     KKT_MPC = [KKT_MPC; output.info.kktValue];
+    INFO_CPU_TIME = [INFO_CPU_TIME;output.info.cpuTime];
     controls_MPC = [controls_MPC; output.u(1,:)];
     input.x = output.x;
     input.u = output.u;
@@ -252,12 +253,20 @@ while time(end) < Tf
     
     iter = iter+1;
     nextTime = iter*Ts; 
-    disp(['current time: ' num2str(nextTime) '   ' char(9) ' (RTI step: ' num2str(output.info.cpuTime*1e6) ' µs)'])
+    disp(['current time: ' num2str(nextTime) '   ' char(9) ' (RTI step: ' num2str(INFO_CPU_TIME(end)*1e6) ' µs)'])
     time = [time nextTime];
     
     visualize;
     pause(abs(Ts-toc));
 end
+
+% print the cpu-time plot at the end ( plotting it in real time slows down
+% the simulation )
+subplot(4,1,4);
+plot(time(1:end-1),INFO_CPU_TIME,'linewidth',1.5,'color','k','linestyle','--','marker','.');hold on
+plot(time(1:end-1),repmat(Ts,length(time)-1),'LineWidth',2,'color','red');
+grid on;
+xlabel('t [s]','FontSize',13);    ylabel('CPU time [s]','FontSize',13)
 
 
 %% plot evolution of the joints: [x1 x2 x3]
