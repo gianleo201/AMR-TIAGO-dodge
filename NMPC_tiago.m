@@ -126,7 +126,7 @@ ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
 %--------------------------------------------------------------------------
 x0=[-2; -pi/4; -pi/4; 0; 0; 0];
 n_points_link=5;
-[H, DHDT1,DHDT2,K]=CBF_Const_TIAGO([0 1.3],0.1 ,n_points_link,x0);
+[H, DHDT1,DHDT2,K]=CBF_Const_TIAGO([0 1.5],0.25 ,n_points_link,x0);
 j=1;
 while j<= 4
     i=1;
