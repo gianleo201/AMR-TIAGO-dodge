@@ -1,7 +1,7 @@
 function [d, dot_d, ddot_d]=DistanceNDerivatives(P_obs, R1, r, dx, r_obs, x)
     assume(x, 'real')
-    R1=R1.';
-    P_obs=P_obs.';
+    R1=R1.'; %I am just using the column convention
+    P_obs=P_obs.'; %I am just using the column convention
     O=P_obs;
     vec_d1=(R1-O);
     d=simplify(((vec_d1.')*(vec_d1))^(1/2)-(r_obs+r));
