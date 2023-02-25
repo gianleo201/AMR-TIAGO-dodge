@@ -8,17 +8,17 @@ function [d, dot_d, ddot_d]=DistanceNDerivatives(P_obs, R1, r, dx, r_obs, x)
     d1=simplify(((vec_d1.')*(vec_d1))^(1/2));
     n=(1/d1)*vec_d1;
     Rb=R1-r*n; 
-    dot_Rb=simplify(jacobian(Rb, x(1:3)));
-    dot_d=n.'*dot_Rb*(x(4:6));
-    dot_jac_Rb = sym('dot_jac_Rb',size(dot_Rb));
-    s = size(dot_Rb);
+    jac_Rb=simplify(jacobian(Rb, x(1:3)));
+    dot_d=n.'*jac_Rb*(x(4:6));
+    dot_jac_Rb = sym('dot_jac_Rb',size(jac_Rb));
+    s = size(jac_Rb);
     rows = s(1);
     columns = s(2);
     for k=1:rows
         for j=1:columns
-            pd = jacobian(dot_Rb(k,j), x(1:3)) * (x(4:6));
+            pd = jacobian(jac_Rb(k,j), x(1:3)) * (x(4:6));
             dot_jac_Rb(k,j) = simplify(pd);
         end
     end
-    ddot_d=n.'*(dot_jac_Rb*(x(4:6))+dot_Rb*(dx(4:6).'));
+    ddot_d=n.'*(dot_jac_Rb*(x(4:6))+jac_Rb*(dx(4:6).'));
 end
