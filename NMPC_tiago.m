@@ -5,13 +5,13 @@ close all;
 Ts = 0.01;
 EXPORT = 1;
 
-VelocityDamper = 1; %put 1 if you want the velocity damper constraint, 0 if you want the CBF-based one
+VelocityDamper = 0; %put 1 if you want the velocity damper constraint, 0 if you want the CBF-based one
 
 BEGIN_ACADO; % Always start with "BEGIN_ACADO".
 
 DifferentialState x1 x2 x3 x4 x5 x6;
 Control tau1 tau2 tau3;
-OnlineData x_obs y_obs r_obs; 
+OnlineData x_obs y_obs r_obs x01 x02 x03 x04 x05 x06;
 
 n_XD = length(diffStates);
 n_U = length(controls);
@@ -87,7 +87,7 @@ end
 %% MPCexport
 acadoSet('problemname', 'mpc');
 
-N = 25;
+N = 15;
 ocp = acado.OCP( 0.0, N*Ts, N );
 
 % set eye matrices to default values: real values will be set before
@@ -122,9 +122,9 @@ ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
 % ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) >= 0);
 % ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) >= 0);
 
-n_point_links=5;
-P_obs=[0, 1.3]; %row vector, first one horizontal position, second one vertical
-r_obs=0.25;
+n_points_link=5;
+% P_obs=[0, 1.3]; %row vector, first one horizontal position, second one vertical
+% r_obs=0.25;
 
 if VelocityDamper==1
     %--------------------------------------------------------------------------
@@ -133,7 +133,7 @@ if VelocityDamper==1
     epsilon=0.5;
     ds=0.01;
     di=0.1;
-    [d, dot_d, ddot_d]=DistanceNDerivatives4Robot(P_obs,r_obs ,n_points_link);
+    [d, dot_d, ddot_d]=DistanceNDerivatives4Robot([0 1.5],0.25 ,n_points_link);
     for j=1:4
         for i=1:(n_points_link+1)
             if not(j==4 && i>1)
@@ -148,8 +148,9 @@ else
     %--------------------------------------------------------------------------
                              % CBF-BASED CONSTRAINT
     %--------------------------------------------------------------------------
-    x0=[-2; -pi/4; -pi/4; 0; 0; 0];
-    [H, DHDT1,DHDT2,K]=CBF_Const_TIAGO(P_obs,r_obs ,n_points_link,x0);
+    % x0=[-2; -pi/4; -pi/4; 0; 0; 0];
+    % [H, DHDT1,DHDT2,K]=CBF_Const_TIAGO(n_points_link,x0);
+    [H, DHDT1,DHDT2,K]=CBF_Const_TIAGO(n_points_link);
     j=1;
     while j<= 4
         i=1;
@@ -221,7 +222,8 @@ X0 = [-2 -pi/4 -pi/4 0 0 0];
 input.x = zeros(N+1,n_XD);
 
 % Online data
-input.od = repmat(obs,N+1,1);
+input.od = repmat([obs X0],N+1,1);
+% input.od = repmat(obs,N+1,1);
 
 % Input torques reference
 Uref = repmat(compute_gravity_term(X0(1:3)),N,1);
@@ -253,6 +255,9 @@ while time(end) < Tf
     tic
     % Solve NMPC OCP
     input.x0 = state_sim(end,:);
+
+    input.od = repmat([obs state_sim(end,:)],N+1,1); % pass X0 as an online data element
+
     Yref = [get_ref(h_ref,iter,N) get_ref(dh_ref,iter,N) zeros(N,3)];
     Uref = repmat(compute_gravity_term(state_sim(1:3)),N,1);
     input.u = Uref;

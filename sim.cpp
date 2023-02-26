@@ -65,6 +65,12 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     OnlineData x_obs; 
     OnlineData y_obs; 
     OnlineData r_obs; 
+    OnlineData x01; 
+    OnlineData x02; 
+    OnlineData x03; 
+    OnlineData x04; 
+    OnlineData x05; 
+    OnlineData x06; 
     SIMexport ExportModule1( 1, 0.01 );
     ExportModule1.set( GENERATE_MATLAB_INTERFACE, 1 );
     uint options_flag;

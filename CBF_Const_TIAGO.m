@@ -2,11 +2,18 @@
 % x0=[0; pi/4; pi/4; 0; 0; 0];
 %[H, DHDT1,DHDT2,K]=CBF_Const_TIAGO([0 1.3],0.1 ,1,x0); %CBF is initial conditions+model dependent constraint
 %h(r)>= -K [h; h(r-1)] r=2
-%ocp.subjectTo(DHDT2{j}(i) >= - K{j,i}*[H(j,i) ; DHDT1{j}(i)]);  
-function [H, DHDT1, DHDT2, K]=CBF_Const_TIAGO(P_obs,r_obs,n_point_link, x0)
+%ocp.subjectTo(DHDT2{j}(i) >= - K{j,i}*[H(j,i) ; DHDT1{j}(i)]);
+
+% old function signature (with obs data dependence removed)
+% function [H, DHDT1, DHDT2, K]=CBF_Const_TIAGO(n_point_link,x0)
+function [H, DHDT1, DHDT2, K]=CBF_Const_TIAGO(n_point_link)
 format shortE;
 syms x [6 1] real; syms tau [1 3] real; syms t real;
- dx = TIAGO(t,x,tau,0,0);
+
+syms x0 [6 1] real; syms x_obs y_obs r_obs real; P_obs = [x_obs y_obs];
+
+dx = TIAGO(t,x,tau,0,0);
+
 %coordinate is (z0,x0), z0-horizontal =, x0-vertical like (x,y)
 % P1| z | x 
 % P2| z | x 
@@ -48,19 +55,32 @@ DHDT1=cell([4 1]);
 K=cell([4 n_point_link+1]);
 F=[0 1; 0 0]; 
 G=[0;1]; 
-P=zeros([1 2]);
+P=sym(zeros([1 2]));
+% P=zeros([1 2]);
 j=1;
 while j<= 4
     DHDT1(j)={simplify(jacobian(H(j,:), x)*transpose(dx))};
     DHDT2(j)={simplify(jacobian(DHDT1{j}, x)*transpose(dx))};
     i=1;
     while i<= n_point_link+1
-    v0=subs(H(j,i),x,x0);
-    dv0=subs(DHDT1{j}(i), x, x0);
-    P(1)= max(-(dv0/v0), 35); % eignvalues of F-GK= - [P1 P2]; P>0
-    P(2)= 30;          % assumed and enforced by the control from NMPC.      
-    K(j,i)={place(F,G,-P)};
-    i = i+1;
+
+        v0=subs(H(j,i),x,x0);
+        dv0=subs(DHDT1{j}(i), x, x0);
+
+        
+        P(1) = -(dv0/v0) + 1;
+        P(2) = 30;
+
+        %P(1)= max(-(dv0/v0), 35); % eignvalues of F-GK= - [P1 P2]; P>0
+        %P(2)= 30;          % assumed and enforced by the control from NMPC.      
+        
+        
+        % Do eigenvalue assignment in closed form solution: easy for a 2-degree
+        % polynomial
+        K(j,i) = {simplify([P(1)*P(2) P(1)+P(2)])};
+
+
+        i = i+1;
     end
     j =j+1;
 end

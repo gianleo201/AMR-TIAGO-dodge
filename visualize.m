@@ -16,11 +16,11 @@ subplot(4,1,[1 2]);
 % plot the robot body
 line([p1(1)-rt4 p1(1)-rt4], [0 p1(2)], 'color', 'k', 'Linewidth',4,"color","Black"); hold on;
 line([p1(1)-rt4 p1(1)], [p1(2) p1(2)], 'color', 'k', 'Linewidth',4,"color","Black");
-plot(p1(1),p1(2),'ro','MarkerSize',10,'Linewidth',5);
+plot(p1(1),p1(2),'o','MarkerSize',5,'Linewidth',5);
 line([p1(1) p2(1)], [p1(2) p2(2)], 'color', 'k', 'Linewidth',4,"color","Blue");
-plot(p2(1),p2(2),'ro','MarkerSize',10,'Linewidth',5);
+plot(p2(1),p2(2),'o','MarkerSize',5,'Linewidth',5);
 line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
-plot(p3(1),p3(2),'ro','MarkerSize',10,'Linewidth',5);
+plot(p3(1),p3(2),'o','MarkerSize',5,'Linewidth',5);
 
 % plot the target position of the end-effector
 plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
