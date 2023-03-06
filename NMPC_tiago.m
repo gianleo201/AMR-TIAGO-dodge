@@ -133,14 +133,10 @@ if VelocityDamper==1
     epsilon=0.5;
     ds=0.01;
     di=0.1;
-    [d, dot_d, ddot_d]=DistanceNDerivatives4Robot([0 1.5],0.25 ,n_points_link);
-    for j=1:4
-        for i=1:(n_points_link+1)
-            if not(j==4 && i>1)
-                ocp.subjectTo(eval(dot_d{j, i}+Ts*ddot_d{j, i}-epsilon*(d{j, i}-ds)/(di-ds)) >=0);
-            else
-                break
-            end
+    [d, dot_d, ddot_d]=SimplifiedDistanceNDerivatives4Robot([0; 1.5], 0.25) %obstacle pos as column vector!
+    for j=1:3
+        for i = 1
+        ocp.subjectTo( eval(((((di-d(i))^2)^(1/2)+(di-d(i)))/(2*((di-d(i))^2)^(1/2)))*(dot_d(i)+Ts*ddot_d(i)-epsilon*(d(i)-ds)/(di-ds))) >=0)
         end
     end
     %---------------------------------------------------------------------------
