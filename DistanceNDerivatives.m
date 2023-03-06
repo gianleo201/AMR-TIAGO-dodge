@@ -1,13 +1,11 @@
-function [d, dot_d, ddot_d]=DistanceNDerivatives(P_obs, R1, r, dx, r_obs, x)
+function [d, dot_d, ddot_d]=DistanceNDerivatives(P, r, P_obs, r_obs, x, dx)
     assume(x, 'real')
-    R1=R1.'; %I am just using the column convention
-    P_obs=P_obs.'; %I am just using the column convention
     O=P_obs;
-    vec_d1=(R1-O);
+    vec_d1=(P-O);
     d=simplify(((vec_d1.')*(vec_d1))^(1/2)-(r_obs+r));
     d1=simplify(((vec_d1.')*(vec_d1))^(1/2));
     n=(1/d1)*vec_d1;
-    Rb=R1-r*n; 
+    Rb=P-r*n; 
     jac_Rb=simplify(jacobian(Rb, x(1:3)));
     dot_d=simplify(n.'*jac_Rb*(x(4:6)));
     dot_jac_Rb = sym('dot_jac_Rb',size(jac_Rb));
@@ -20,5 +18,6 @@ function [d, dot_d, ddot_d]=DistanceNDerivatives(P_obs, R1, r, dx, r_obs, x)
             dot_jac_Rb(k,j) = simplify(pd);
         end
     end
-    ddot_d=simplify(n.'*(dot_jac_Rb*(x(4:6))+jac_Rb*(dx(4:6).')));
+    ddot_d=(n.'*(dot_jac_Rb*(x(4:6))+jac_Rb*(dx(4:6).')));
+    fprintf('Distance and its derivatives calculated for a point.\n')
 end
