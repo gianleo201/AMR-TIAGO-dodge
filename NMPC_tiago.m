@@ -131,14 +131,28 @@ if VelocityDamper==1
                              % VELOCITY DAMPER CONSTRAINT
     %--------------------------------------------------------------------------
     epsilon=0.5;
-    ds=0.01;
+    ds=0;
     di=0.1;
-    [d, dot_d, ddot_d]=SimplifiedDistanceNDerivatives4Robot([0; 1.5], 0.25) %obstacle pos as column vector!
-    for j=1:3
-        for i = 1
-        ocp.subjectTo( eval(((((di-d(i))^2)^(1/2)+(di-d(i)))/(2*((di-d(i))^2)^(1/2)))*(dot_d(i)+Ts*ddot_d(i)-epsilon*(d(i)-ds)/(di-ds))) >=0)
+    
+    x0=[-2; -pi/4; -pi/4; 0; 0; 0];
+    
+    [d, dot_d, ddot_d, d0]=SimplifiedDistanceNDerivatives4Robot([0; 1.5], 0.25, x0) %obstacle pos as column vector!
+    
+    k=0;
+    for i=1:3
+        if d0(i) <= ds
+            k=k+1; %just counting how many bodies of the robot are inside the security distance
         end
     end
+
+    if k>0
+        warning('The body of the robot is inside the security distance! Velocity damper constraints are not enforced.')
+    else
+        for i = 1:3
+            ocp.subjectTo( eval(((((di-d(i))^2)^(1/2)+(di-d(i)))/(2*((di-d(i))^2)^(1/2)))*(dot_d(i)+Ts*ddot_d(i)-epsilon*(d(i)-ds)/(di-ds))) >=0)
+        end
+    end
+    
     %---------------------------------------------------------------------------
 else
     %--------------------------------------------------------------------------
