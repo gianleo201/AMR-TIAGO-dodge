@@ -37,5 +37,17 @@ function [ x ] = dk_tiago(q)
     % E-E position 
     x(3,1) = q1 - rt1 + rt4 - l3*sin(q2 + q3) - l2*sin(q2);
     x(3,2) = hb + ht + l3*cos(q2 + q3) + l2*cos(q2);
+    
+    % center of the first link position
+    x(4,1) = q1;
+    x(4,2) = (hb+ht)/2;
+    
+    % center of the second link position
+    x(5,1) = q1 - rt1 + rt4 - l2/2*sin(q2);
+    x(5,2) = hb + ht + l2/2*cos(q2);
+    
+    % center of the third link position
+    x(6,1) = q1 - rt1 + rt4 - l3/2*sin(q2 + q3) - l2*sin(q2);
+    x(6,2) = hb + ht + l3/2*cos(q2 + q3) + l2*cos(q2);
 
 end
