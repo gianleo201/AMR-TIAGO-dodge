@@ -23,7 +23,7 @@ syms qd [N 1];
 syms qdd [N 1];
 syms l [N 1];
 
-%total mass of the first link, not considering the wheels
+%total mass of the first link, considering the wheels
 m1=mb+mt+2*mw;
 
 I = cell(1,N); %initialized as empty
@@ -64,7 +64,7 @@ g_0 = [-g0;0;0];
 %% DH table
 
 DHTABLE = [-pi/2 rw+hb+ht q1-rt1+rt4 0;
-            0    l2 0  -(pi/2-q2);
+            0    l2 0  q2;
             0    l3 0  q3];
 
 %% General DH transformation matrix
