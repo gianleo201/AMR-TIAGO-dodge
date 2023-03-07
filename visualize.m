@@ -8,6 +8,11 @@ p1 = dk_points(1,:);
 p2 = dk_points(2,:);
 p3 = dk_points(3,:);
 
+%center of the links
+c1=dk_points(4,:);
+c2=dk_points(5,:);
+c3=dk_points(6,:);
+
 x_r = Yref(1,1);
 y_r = Yref(1,2);
 
@@ -22,6 +27,15 @@ plot(p2(1),p2(2),'o','MarkerSize',5,'Linewidth',5);
 line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
 plot(p3(1),p3(2),'o','MarkerSize',5,'Linewidth',5);
 
+if VelocityDamper == 1
+%plot the first link body
+  viscircles(c1,(hb+ht)/2, 'Color', 'k');
+  %plot the second link body
+  viscircles(c2,l2/2, 'Color', 'b');
+  %plot the third link body
+  viscircles(c3,l3/2, 'Color', 'g');
+end
+
 
 % plot the target position of the end-effector
 plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
@@ -32,7 +46,6 @@ viscircles(obs(1:2),obs(3));
 if VelocityDamper == 1
   %plot the security distance area
   viscircles(obs(1:2), obs(3)+ds, 'LineStyle', ':');
-
   %plot the influence distance area
   viscircles(obs(1:2), obs(3)+di, 'LineStyle', '--');
 end
