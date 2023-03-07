@@ -9,7 +9,7 @@ syms alpha a d theta;
 
 % other symbols
 syms g0;
-syms rt1 rt2 rt3 rt4 rw hb ht mb mt mw;
+syms rt1 rt2 rt3 rt4 rw hb ht mb mt mw dbà;
 
 
 % number of joints
@@ -142,7 +142,7 @@ Jdot = jacobian_diff(J,q,qd);
 
 %% joint's mass' center positions 
 
-CoM0p1=1/m1*(mb*[rw; 0; q1]+mt*[rw+hb+rt2; 0; q1-rt1+rt3]+2*mw*[rw; 0; q1]);
+CoM0p1=1/m1*(mb*[rw; 0; q1]+mt*[rw+hb+rt2; 0; q1-rt1+rt3]+mw*[rw/2; 0; q1-db/2]+mw*[rw/2; 0; q1+db/2]);
 
 CoM1p1h = inv(A{1}) * [CoM0p1; 1];
 CoM1p1 = CoM1p1h(1:3);
