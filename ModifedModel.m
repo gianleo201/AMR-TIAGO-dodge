@@ -63,6 +63,8 @@ g_0 = [-g0;0;0];
 
 %% DH table
 
+% alpha a d theta
+
 DHTABLE = [-pi/2 rw+hb+ht q1-rt1+rt4 0;
             0    l2 0  q2;
             0    l3 0  q3];
