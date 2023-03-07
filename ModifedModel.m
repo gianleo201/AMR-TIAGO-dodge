@@ -9,7 +9,7 @@ syms alpha a d theta;
 
 % other symbols
 syms g0;
-syms rt1 rt2 rt3 rt4 rw hb ht mb mt mw dbà;
+syms rt1 rt2 rt3 rt4 rw hb ht mb mt mw db dw;
 
 
 % number of joints
@@ -140,12 +140,35 @@ end
 % of course, time derivative of each element of the jacobian matrix
 Jdot = jacobian_diff(J,q,qd);
 
-%% joint's mass' center positions 
+%% link's mass' center positions 
 
-CoM0p1=1/m1*(mb*[rw; 0; q1]+mt*[rw+hb+rt2; 0; q1-rt1+rt3]+mw*[rw/2; 0; q1-db/2]+mw*[rw/2; 0; q1+db/2]);
+syms CoM [3 1 4] real
+CoM0(:, :, 1)=[rw/2; 0; q1-db/2]; %CoM position wrt of frame 0 for the wheel 1
+CoM0(:, :, 2)=[rw/2; 0; q1+db/2]; % //// wheel 2
+CoM0(:, :, 3)=[rw; 0; q1]; % //// base
+CoM0(:, :, 4)=[rw+hb+rt2; 0; q1-rt1+rt3]; % //// torso
 
-CoM1p1h = inv(A{1}) * [CoM0p1; 1];
-CoM1p1 = CoM1p1h(1:3);
+
+CoM0p1=1/m1*(mb*CoM0(:, :, 3)+mt*CoM0(:, :, 4)+mw*CoM0(:, :, 1)+mw*CoM0(:, :, 2)); %CoM of the first link wrt frame 0
+
+Iw=[1/12*mw*(3*(rw/2)^2+dw^2) 0 0; 0 1/2*mw*(rw/2)^2 0; 0 0 1/12*mw*(3*(rw/2)^2+dw^2)]; %inertia matrix for a wheel expressed in frame 0
+syms Ibxx Ibyy Ibzz Itxx Ityy Itzz real
+Ib=[Ibxx 0 0; 0 Ibyy 0; 0 0 Ibzz]; %inertia matrix for the body expressed in frame 0
+It=[Itxx 0 0; 0 Ityy 0; 0 0 Itzz]; %inertia matrix for the torso expressed in frame 0
+
+syms rc [3 1 4] real % distance vector between CoMs of the first link component and the total CoM of the first link
+for i=1:4
+    rc(:,:, i)=CoM0(:,:,i)-CoM0p1;
+end
+% we use Steiner's theorem recursively
+I1tot = Iw+mw*(((rc(:,:, 1)).')*(rc(:,:, 1))*eye(3)-(rc(:,:, 1))*((rc(:,:, 1)).')); 
+I1tot = I1tot+Iw+mw*(((rc(:,:, 2)).')*(rc(:,:, 2))*eye(3)-(rc(:,:, 2))*((rc(:,:, 2)).'));
+I1tot = I1tot+Ib+mb*(((rc(:,:, 3)).')*(rc(:,:, 3))*eye(3)-(rc(:,:, 3))*((rc(:,:, 3)).'));
+I1tot = I1tot+It+mt*(((rc(:,:, 4)).')*(rc(:,:, 4))*eye(3)-(rc(:,:, 4))*((rc(:,:, 4)).'));
+I1tot=simplify(I1tot); %this should be the total moment of inertia matrix of the first link wrt to the global CoM of the first link
+
+CoM1p1h = inv(A{1}) * [CoM0p1; 1]; %CoM of the first link wrt frame 1 in homogenous coordinates
+CoM1p1 = CoM1p1h(1:3); %CoM of the first link wrt frame 1
 
 CoMsp = [CoM1p1.';
          -l2/2    0     0;
