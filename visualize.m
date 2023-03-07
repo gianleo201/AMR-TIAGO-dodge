@@ -22,11 +22,20 @@ plot(p2(1),p2(2),'o','MarkerSize',5,'Linewidth',5);
 line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
 plot(p3(1),p3(2),'o','MarkerSize',5,'Linewidth',5);
 
+
 % plot the target position of the end-effector
 plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
 
 % plot the obstacle
 viscircles(obs(1:2),obs(3));
+
+if VelocityDamper == 1
+  %plot the security distance area
+  viscircles(obs(1:2), obs(3)+ds, 'LineStyle', ':');
+
+  %plot the influence distance area
+  viscircles(obs(1:2), obs(3)+di, 'LineStyle', '--');
+end
 
 % plot trajectory
 plot(h_ref(:,1),h_ref(:,2),"LineWidth",2.0,"LineStyle","--","Color","cyan");
