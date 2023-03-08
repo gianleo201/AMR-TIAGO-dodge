@@ -147,6 +147,7 @@ if VelocityDamper==1
 
     if k>0
         warning('The body of the robot is inside the security distance! Velocity damper constraints are not enforced.')
+        pause(5)
     else
         for i = 1:3
             ocp.subjectTo( eval(((((di-d(i))^2)^(1/2)+(di-d(i)))/(2*((di-d(i))^2)^(1/2)))*(dot_d(i)+Ts*ddot_d(i)+epsilon*(d(i)-ds)/(di-ds))) >=0)
