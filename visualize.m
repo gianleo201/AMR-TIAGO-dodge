@@ -19,7 +19,13 @@ y_r = Yref(1,2);
 subplot(4,1,[1 2]);
 
 % plot the robot body
-line([p1(1)-rt4 p1(1)-rt4], [0 p1(2)], 'color', 'k', 'Linewidth',4,"color","Black"); hold on;
+rectangle("Position",[p1(1)-rt4+rt1-(db/2) rw db hb], 'Linewidth',4); hold on; % base rectangle
+viscircles([p1(1)-rt4+rt1,rw],rw, 'Linewidth',3,"color","Black");  % driving wheel
+line([p1(1)-rt4+rt1-(db/2) p1(1)-rt4+rt1-(db/2)],[rw/2 rw], 'Linewidth',2,"color","Black"); % left caster
+viscircles([p1(1)-rt4+rt1-(db/2),rw/2],rw/2, 'Linewidth',1,"color","Black");
+line([p1(1)-rt4+rt1+(db/2) p1(1)-rt4+rt1+(db/2)],[rw/2 rw], 'Linewidth',2,"color","Black"); % rigth caster
+viscircles([p1(1)-rt4+rt1+(db/2),rw/2],rw/2, 'Linewidth',1,"color","Black");
+line([p1(1)-rt4 p1(1)-rt4], [rw+hb p1(2)], 'color', 'k', 'Linewidth',4,"color","Black");
 line([p1(1)-rt4 p1(1)], [p1(2) p1(2)], 'color', 'k', 'Linewidth',4,"color","Black");
 plot(p1(1),p1(2),'o','MarkerSize',5,'Linewidth',5);
 line([p1(1) p2(1)], [p1(2) p2(2)], 'color', 'k', 'Linewidth',4,"color","Blue");
@@ -55,7 +61,7 @@ plot(h_ref(:,1),h_ref(:,2),"LineWidth",2.0,"LineStyle","--","Color","cyan");
 
 grid on;
 xlim([-3 3]);
-ylim([0 2]);
+ylim([0 2.08]);
 pbaspect([3 1 1]);
 
 subplot(4,1,3);

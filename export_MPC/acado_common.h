@@ -66,7 +66,7 @@ extern "C"
 /** Number of online data values. */
 #define ACADO_NOD 9
 /** Number of path constraints. */
-#define ACADO_NPAC 19
+#define ACADO_NPAC 10
 /** Number of control variables. */
 #define ACADO_NU 3
 /** Number of differential variables. */
@@ -242,26 +242,26 @@ real_t QN1[ 36 ];
 /** Matrix of size: 6 x 7 (row major format) */
 real_t QN2[ 42 ];
 
-/** Column vector of size: 17788 */
-real_t conAuxVar[ 17788 ];
+/** Column vector of size: 15080 */
+real_t conAuxVar[ 15080 ];
 
 /** Row vector of size: 18 */
 real_t conValueIn[ 18 ];
 
-/** Row vector of size: 190 */
-real_t conValueOut[ 190 ];
+/** Row vector of size: 100 */
+real_t conValueOut[ 100 ];
 
-/** Column vector of size: 285 */
-real_t evH[ 285 ];
+/** Column vector of size: 150 */
+real_t evH[ 150 ];
 
-/** Matrix of size: 285 x 6 (row major format) */
-real_t evHx[ 1710 ];
+/** Matrix of size: 150 x 6 (row major format) */
+real_t evHx[ 900 ];
 
-/** Matrix of size: 285 x 3 (row major format) */
-real_t evHu[ 855 ];
+/** Matrix of size: 150 x 3 (row major format) */
+real_t evHu[ 450 ];
 
-/** Column vector of size: 19 */
-real_t evHxd[ 19 ];
+/** Column vector of size: 10 */
+real_t evHxd[ 10 ];
 
 /** Column vector of size: 96 */
 real_t sbar[ 96 ];
@@ -293,8 +293,8 @@ real_t w2[ 6 ];
 /** Matrix of size: 45 x 45 (row major format) */
 real_t H[ 2025 ];
 
-/** Matrix of size: 330 x 45 (row major format) */
-real_t A[ 14850 ];
+/** Matrix of size: 195 x 45 (row major format) */
+real_t A[ 8775 ];
 
 /** Column vector of size: 45 */
 real_t g[ 45 ];
@@ -305,17 +305,17 @@ real_t lb[ 45 ];
 /** Column vector of size: 45 */
 real_t ub[ 45 ];
 
-/** Column vector of size: 330 */
-real_t lbA[ 330 ];
+/** Column vector of size: 195 */
+real_t lbA[ 195 ];
 
-/** Column vector of size: 330 */
-real_t ubA[ 330 ];
+/** Column vector of size: 195 */
+real_t ubA[ 195 ];
 
 /** Column vector of size: 45 */
 real_t x[ 45 ];
 
-/** Column vector of size: 375 */
-real_t y[ 375 ];
+/** Column vector of size: 240 */
+real_t y[ 240 ];
 
 
 } ACADOworkspace;
