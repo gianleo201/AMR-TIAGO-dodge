@@ -5,7 +5,8 @@ close all;
 Ts = 0.01;
 EXPORT = 1;
 
-VelocityDamper = 0; %put 1 if you want the velocity damper constraint, 0 if you want the CBF-based one
+CONSTRAINT_TYPE = 1; % 1: normal constraint; 2: cbf constraint; 3: velocity damper constraint
+CONSIDER_BALANCE = true;
 
 BEGIN_ACADO; % Always start with "BEGIN_ACADO".
 
@@ -27,7 +28,10 @@ g0 = 9.81;
 
 % set up parameters of the robot
 
-db = 0.54 ;
+
+mb = 30;
+mt = 27;
+mw = 1.82;
 
 % torso and base
 hb = 0.193;
@@ -35,8 +39,9 @@ rt1 = 0.062;
 rt2 = 0.159;
 rt3 = 0.02435;
 rw = 0.0985;
+db = 0.54;
 
-m1 = 27;
+m1 = mb + mt + mw;
 ht = 0.597+0.2;
 rt4 = 0.155;
 
@@ -120,21 +125,22 @@ ocp.subjectTo( -60 <= tau1 <= 60);
 ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
 
 
-% classical collision avoidance constraint
-% ocp.subjectTo(norm([x1 - rt1 + rt4;(hb + ht + rw)/2] - [x_obs;y_obs]) - r_obs - ((hb+ht+rw)/2) >= 0);
-% ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + rw + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) >= 0);
-% ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + rw + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) >= 0);
-
 n_points_link=2;
-% P_obs=[0, 1.3]; %row vector, first one horizontal position, second one vertical
-% r_obs=0.25;
+ds=0.01;
 
-if VelocityDamper==1
+
+% classical collision avoidance constraint
+if CONSTRAINT_TYPE == 1
+
+    ocp.subjectTo(norm([x1 - rt1 + rt4;(hb + ht + rw)/2] - [x_obs;y_obs]) - r_obs - ((hb+ht+rw)/2) - ds >= 0);
+    ocp.subjectTo(norm([x1 - rt1 + rt4 - (l2/2)*sin(x2); hb + ht + rw + (l2/2)*cos(x2)] - [x_obs;y_obs]) - r_obs - (l2/2) - ds >= 0);
+    ocp.subjectTo(norm([x1 - rt1 + rt4 - (l3/2)*sin(x2 + x3) - l2*sin(x2); hb + ht + rw + (l3/2)*cos(x2 + x3) + l2*cos(x2)] - [x_obs;y_obs]) - r_obs - (l3/2) -ds >= 0);
+
+elseif CONSTRAINT_TYPE == 3
     %--------------------------------------------------------------------------
                              % VELOCITY DAMPER CONSTRAINT
     %--------------------------------------------------------------------------
-    epsilon=0.5;
-    ds=0;
+    epsilon=0.05;
     di=0.1;
     
     x0=[-2; -pi/4; -pi/4; 0; 0; 0];
@@ -160,7 +166,7 @@ if VelocityDamper==1
     end
     
     %---------------------------------------------------------------------------
-else
+elseif CONSTRAINT_TYPE == 2
     %--------------------------------------------------------------------------
                              % CBF-BASED CONSTRAINT
     %--------------------------------------------------------------------------
@@ -182,6 +188,14 @@ else
     end
     %--------------------------------------------------------------------------
 end
+
+% ---------------------------------- Balance constraint -------------------
+% -------------------------------------------------------------------------
+if CONSIDER_BALANCE
+    ocp.subjectTo((m1*(hb*mb + ht*mb + 2*hb*mw + ht*mt + 2*ht*mw - mt*rt2 + mw*rw)*(32*I3zz*l2^3*m1^2*x5^2*sin(x2) - 4*l2^2*l3^2*m1^2*tau1 - 8*I2zz*l3^2*m1*tau1 - 32*I3zz*l2^2*m1*tau1 - 8*I3zz*l2^2*m2*tau1 - 32*I2zz*I3zz*tau1 + 4*I3zz*l2^3*m2^2*x5^2*sin(x2) - 2*l2^2*l3^2*m1*m2*tau1 + 4*l2^2*l3^2*m1^2*tau1*cos(2*x3) + 4*I2zz*l3^3*m1^2*x5^2*sin(x2 + x3) + 4*I2zz*l3^3*m1^2*x6^2*sin(x2 + x3) + 24*I3zz*l2^3*m1*m2*x5^2*sin(x2) + l2^2*l3^3*m1^2*m2*x5^2*sin(x2 - x3) + l2^2*l3^3*m1^2*m2*x6^2*sin(x2 - x3) - l2^3*l3^2*m1^2*m2*x5^2*sin(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^2*x5^2*sin(x2 + x3) + 8*I3zz*l2^2*l3*m1^2*x6^2*sin(x2 + x3) + 16*I2zz*I3zz*l3*m1*x5^2*sin(x2 + x3) + 16*I2zz*I3zz*l3*m1*x6^2*sin(x2 + x3) + 4*I2zz*l2*l3^2*m1^2*x5^2*sin(x2) + 32*I2zz*I3zz*l2*m1*x5^2*sin(x2) + 16*I2zz*I3zz*l2*m2*x5^2*sin(x2) + 4*I2zz*l2*l3^2*m1^2*x5^2*sin(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^2*x5^2*sin(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*x6^2*sin(x2 - x3) + l2^3*l3^2*m1*m2^2*x5^2*sin(x2) + 3*l2^3*l3^2*m1^2*m2*x5^2*sin(x2) + 8*I2zz*l3^3*m1^2*x5*x6*sin(x2 + x3) + 2*l2^2*l3^3*m1^2*m2*x5*x6*sin(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*x5*x6*sin(x2 + x3) + 4*I2zz*l2*l3^2*m1*m2*x5^2*sin(x2) + 32*I2zz*I3zz*l3*m1*x5*x6*sin(x2 + x3) + 4*I3zz*l2^2*l3*m1*m2*x5^2*sin(x2 - x3) + 4*I3zz*l2^2*l3*m1*m2*x6^2*sin(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*x5*x6*sin(x2 - x3) + 8*I3zz*l2^2*l3*m1*m2*x5*x6*sin(x2 - x3)))/((mb + mt + 2*mw)*(12*I2zz*l3^2*m1^2 + 48*I3zz*l2^2*m1^2 + 4*I3zz*l2^2*m2^2 + 64*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 4*l2^2*l3^2*m1^3 + l2^2*l3^2*m1*m2^2 + 5*l2^2*l3^2*m1^2*m2 + 8*I2zz*l3^2*m1*m2 + 32*I3zz*l2^2*m1*m2 - 16*I3zz*l2^2*m1^2*cos(2*x2) - 4*I3zz*l2^2*m2^2*cos(2*x2) - 4*I2zz*l3^2*m1^2*cos(2*x2 + 2*x3) - 4*l2^2*l3^2*m1^3*cos(2*x3) - l2^2*l3^2*m1*m2^2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x3) - 16*I3zz*l2^2*m1*m2*cos(2*x2) + l2^2*l3^2*m1^2*m2*cos(2*x2 + 2*x3))) - (db*(4*I2zz*l3^2*m1^2*tau1*sin(2*x2 + 2*x3) + 4*I2zz*l3^3*m1^3*x5^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^3*x6^2*cos(x2 + x3) + 32*I3zz*l2^3*m1^3*x5^2*cos(x2) + 16*I3zz*l2^2*m1^2*tau1*sin(2*x2) + 4*I3zz*l2^2*m2^2*tau1*sin(2*x2) + 16*I3zz*l2^2*m1*m2*tau1*sin(2*x2) + l2^2*l3^3*m1^3*m2*x5^2*cos(x2 - x3) + l2^2*l3^3*m1^3*m2*x6^2*cos(x2 - x3) - l2^3*l3^2*m1^3*m2*x5^2*cos(x2 + 2*x3) - (l2^2*l3^3*m1^2*m2^2*x5^2*cos(x2 + x3))/2 - (l2^2*l3^3*m1^2*m2^2*x6^2*cos(x2 + x3))/2 - l2^2*l3^2*m1^2*m2*tau1*sin(2*x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^3*x5^2*cos(x2 + x3) + 8*I3zz*l2^2*l3*m1^3*x6^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^2*m2*x5^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^2*m2*x6^2*cos(x2 + x3) + (3*l2^3*l3^2*m1^2*m2^2*x5^2*cos(x2))/2 + 4*I2zz*l2*l3^2*m1^3*x5^2*cos(x2) + 8*I3zz*l2^3*m1*m2^2*x5^2*cos(x2) + 32*I3zz*l2^3*m1^2*m2*x5^2*cos(x2) + (l2^2*l3^3*m1^2*m2^2*x5^2*cos(x2 - x3))/2 + (l2^2*l3^3*m1^2*m2^2*x6^2*cos(x2 - x3))/2 - (l2^3*l3^2*m1^2*m2^2*x5^2*cos(x2 + 2*x3))/2 + 4*I2zz*l2*l3^2*m1^3*x5^2*cos(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^3*x5^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^3*x6^2*cos(x2 - x3) + 32*I2zz*I3zz*l3*m1^2*x5^2*cos(x2 + x3) + 32*I2zz*I3zz*l3*m1^2*x6^2*cos(x2 + x3) + 64*I2zz*I3zz*l2*m1^2*x5^2*cos(x2) + 16*I2zz*I3zz*l2*m2^2*x5^2*cos(x2) + 3*l2^3*l3^2*m1^3*m2*x5^2*cos(x2) + 8*I2zz*l3^3*m1^3*x5*x6*cos(x2 + x3) + l2^2*l3^2*m1*m2^2*tau1*sin(2*x2) + 2*l2^2*l3^2*m1^2*m2*tau1*sin(2*x2) + 2*I2zz*l2*l3^2*m1^2*m2*x5^2*cos(x2 + 2*x3) + 2*I3zz*l2^2*l3*m1*m2^2*x5^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*m2*x5^2*cos(x2 - x3) + 2*I3zz*l2^2*l3*m1*m2^2*x6^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*m2*x6^2*cos(x2 - x3) + 2*l2^2*l3^3*m1^3*m2*x5*x6*cos(x2 - x3) - l2^2*l3^3*m1^2*m2^2*x5*x6*cos(x2 + x3) + 16*I3zz*l2^2*l3*m1^3*x5*x6*cos(x2 + x3) + 8*I2zz*l3^3*m1^2*m2*x5*x6*cos(x2 + x3) + l2^2*l3^3*m1^2*m2^2*x5*x6*cos(x2 - x3) - 2*I3zz*l2^2*l3*m1*m2^2*x5^2*cos(x2 + x3) - 2*I3zz*l2^2*l3*m1*m2^2*x6^2*cos(x2 + x3) + 16*I3zz*l2^2*l3*m1^3*x5*x6*cos(x2 - x3) + 16*I2zz*I3zz*l3*m1*m2*x5^2*cos(x2 + x3) + 16*I2zz*I3zz*l3*m1*m2*x6^2*cos(x2 + x3) + 4*I2zz*l2*l3^2*m1*m2^2*x5^2*cos(x2) + 10*I2zz*l2*l3^2*m1^2*m2*x5^2*cos(x2) + 64*I2zz*I3zz*l3*m1^2*x5*x6*cos(x2 + x3) + 64*I2zz*I3zz*l2*m1*m2*x5^2*cos(x2) + 4*I3zz*l2^2*l3*m1*m2^2*x5*x6*cos(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*m2*x5*x6*cos(x2 - x3) - 4*I3zz*l2^2*l3*m1*m2^2*x5*x6*cos(x2 + x3) + 32*I2zz*I3zz*l3*m1*m2*x5*x6*cos(x2 + x3)))/(2*(12*I2zz*l3^2*m1^2 + 48*I3zz*l2^2*m1^2 + 4*I3zz*l2^2*m2^2 + 64*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 4*l2^2*l3^2*m1^3 + l2^2*l3^2*m1*m2^2 + 5*l2^2*l3^2*m1^2*m2 + 8*I2zz*l3^2*m1*m2 + 32*I3zz*l2^2*m1*m2 - 16*I3zz*l2^2*m1^2*cos(2*x2) - 4*I3zz*l2^2*m2^2*cos(2*x2) - 4*I2zz*l3^2*m1^2*cos(2*x2 + 2*x3) - 4*l2^2*l3^2*m1^3*cos(2*x3) - l2^2*l3^2*m1*m2^2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x3) - 16*I3zz*l2^2*m1*m2*cos(2*x2) + l2^2*l3^2*m1^2*m2*cos(2*x2 + 2*x3))) >= 0);
+    ocp.subjectTo(- (db*(4*I2zz*l3^2*m1^2*tau1*sin(2*x2 + 2*x3) + 4*I2zz*l3^3*m1^3*x5^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^3*x6^2*cos(x2 + x3) + 32*I3zz*l2^3*m1^3*x5^2*cos(x2) + 16*I3zz*l2^2*m1^2*tau1*sin(2*x2) + 4*I3zz*l2^2*m2^2*tau1*sin(2*x2) + 16*I3zz*l2^2*m1*m2*tau1*sin(2*x2) + l2^2*l3^3*m1^3*m2*x5^2*cos(x2 - x3) + l2^2*l3^3*m1^3*m2*x6^2*cos(x2 - x3) - l2^3*l3^2*m1^3*m2*x5^2*cos(x2 + 2*x3) - (l2^2*l3^3*m1^2*m2^2*x5^2*cos(x2 + x3))/2 - (l2^2*l3^3*m1^2*m2^2*x6^2*cos(x2 + x3))/2 - l2^2*l3^2*m1^2*m2*tau1*sin(2*x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^3*x5^2*cos(x2 + x3) + 8*I3zz*l2^2*l3*m1^3*x6^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^2*m2*x5^2*cos(x2 + x3) + 4*I2zz*l3^3*m1^2*m2*x6^2*cos(x2 + x3) + (3*l2^3*l3^2*m1^2*m2^2*x5^2*cos(x2))/2 + 4*I2zz*l2*l3^2*m1^3*x5^2*cos(x2) + 8*I3zz*l2^3*m1*m2^2*x5^2*cos(x2) + 32*I3zz*l2^3*m1^2*m2*x5^2*cos(x2) + (l2^2*l3^3*m1^2*m2^2*x5^2*cos(x2 - x3))/2 + (l2^2*l3^3*m1^2*m2^2*x6^2*cos(x2 - x3))/2 - (l2^3*l3^2*m1^2*m2^2*x5^2*cos(x2 + 2*x3))/2 + 4*I2zz*l2*l3^2*m1^3*x5^2*cos(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^3*x5^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^3*x6^2*cos(x2 - x3) + 32*I2zz*I3zz*l3*m1^2*x5^2*cos(x2 + x3) + 32*I2zz*I3zz*l3*m1^2*x6^2*cos(x2 + x3) + 64*I2zz*I3zz*l2*m1^2*x5^2*cos(x2) + 16*I2zz*I3zz*l2*m2^2*x5^2*cos(x2) + 3*l2^3*l3^2*m1^3*m2*x5^2*cos(x2) + 8*I2zz*l3^3*m1^3*x5*x6*cos(x2 + x3) + l2^2*l3^2*m1*m2^2*tau1*sin(2*x2) + 2*l2^2*l3^2*m1^2*m2*tau1*sin(2*x2) + 2*I2zz*l2*l3^2*m1^2*m2*x5^2*cos(x2 + 2*x3) + 2*I3zz*l2^2*l3*m1*m2^2*x5^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*m2*x5^2*cos(x2 - x3) + 2*I3zz*l2^2*l3*m1*m2^2*x6^2*cos(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*m2*x6^2*cos(x2 - x3) + 2*l2^2*l3^3*m1^3*m2*x5*x6*cos(x2 - x3) - l2^2*l3^3*m1^2*m2^2*x5*x6*cos(x2 + x3) + 16*I3zz*l2^2*l3*m1^3*x5*x6*cos(x2 + x3) + 8*I2zz*l3^3*m1^2*m2*x5*x6*cos(x2 + x3) + l2^2*l3^3*m1^2*m2^2*x5*x6*cos(x2 - x3) - 2*I3zz*l2^2*l3*m1*m2^2*x5^2*cos(x2 + x3) - 2*I3zz*l2^2*l3*m1*m2^2*x6^2*cos(x2 + x3) + 16*I3zz*l2^2*l3*m1^3*x5*x6*cos(x2 - x3) + 16*I2zz*I3zz*l3*m1*m2*x5^2*cos(x2 + x3) + 16*I2zz*I3zz*l3*m1*m2*x6^2*cos(x2 + x3) + 4*I2zz*l2*l3^2*m1*m2^2*x5^2*cos(x2) + 10*I2zz*l2*l3^2*m1^2*m2*x5^2*cos(x2) + 64*I2zz*I3zz*l3*m1^2*x5*x6*cos(x2 + x3) + 64*I2zz*I3zz*l2*m1*m2*x5^2*cos(x2) + 4*I3zz*l2^2*l3*m1*m2^2*x5*x6*cos(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*m2*x5*x6*cos(x2 - x3) - 4*I3zz*l2^2*l3*m1*m2^2*x5*x6*cos(x2 + x3) + 32*I2zz*I3zz*l3*m1*m2*x5*x6*cos(x2 + x3)))/(2*(12*I2zz*l3^2*m1^2 + 48*I3zz*l2^2*m1^2 + 4*I3zz*l2^2*m2^2 + 64*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 4*l2^2*l3^2*m1^3 + l2^2*l3^2*m1*m2^2 + 5*l2^2*l3^2*m1^2*m2 + 8*I2zz*l3^2*m1*m2 + 32*I3zz*l2^2*m1*m2 - 16*I3zz*l2^2*m1^2*cos(2*x2) - 4*I3zz*l2^2*m2^2*cos(2*x2) - 4*I2zz*l3^2*m1^2*cos(2*x2 + 2*x3) - 4*l2^2*l3^2*m1^3*cos(2*x3) - l2^2*l3^2*m1*m2^2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x3) - 16*I3zz*l2^2*m1*m2*cos(2*x2) + l2^2*l3^2*m1^2*m2*cos(2*x2 + 2*x3))) - (m1*(hb*mb + ht*mb + 2*hb*mw + ht*mt + 2*ht*mw - mt*rt2 + mw*rw)*(32*I3zz*l2^3*m1^2*x5^2*sin(x2) - 4*l2^2*l3^2*m1^2*tau1 - 8*I2zz*l3^2*m1*tau1 - 32*I3zz*l2^2*m1*tau1 - 8*I3zz*l2^2*m2*tau1 - 32*I2zz*I3zz*tau1 + 4*I3zz*l2^3*m2^2*x5^2*sin(x2) - 2*l2^2*l3^2*m1*m2*tau1 + 4*l2^2*l3^2*m1^2*tau1*cos(2*x3) + 4*I2zz*l3^3*m1^2*x5^2*sin(x2 + x3) + 4*I2zz*l3^3*m1^2*x6^2*sin(x2 + x3) + 24*I3zz*l2^3*m1*m2*x5^2*sin(x2) + l2^2*l3^3*m1^2*m2*x5^2*sin(x2 - x3) + l2^2*l3^3*m1^2*m2*x6^2*sin(x2 - x3) - l2^3*l3^2*m1^2*m2*x5^2*sin(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^2*x5^2*sin(x2 + x3) + 8*I3zz*l2^2*l3*m1^2*x6^2*sin(x2 + x3) + 16*I2zz*I3zz*l3*m1*x5^2*sin(x2 + x3) + 16*I2zz*I3zz*l3*m1*x6^2*sin(x2 + x3) + 4*I2zz*l2*l3^2*m1^2*x5^2*sin(x2) + 32*I2zz*I3zz*l2*m1*x5^2*sin(x2) + 16*I2zz*I3zz*l2*m2*x5^2*sin(x2) + 4*I2zz*l2*l3^2*m1^2*x5^2*sin(x2 + 2*x3) + 8*I3zz*l2^2*l3*m1^2*x5^2*sin(x2 - x3) + 8*I3zz*l2^2*l3*m1^2*x6^2*sin(x2 - x3) + l2^3*l3^2*m1*m2^2*x5^2*sin(x2) + 3*l2^3*l3^2*m1^2*m2*x5^2*sin(x2) + 8*I2zz*l3^3*m1^2*x5*x6*sin(x2 + x3) + 2*l2^2*l3^3*m1^2*m2*x5*x6*sin(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*x5*x6*sin(x2 + x3) + 4*I2zz*l2*l3^2*m1*m2*x5^2*sin(x2) + 32*I2zz*I3zz*l3*m1*x5*x6*sin(x2 + x3) + 4*I3zz*l2^2*l3*m1*m2*x5^2*sin(x2 - x3) + 4*I3zz*l2^2*l3*m1*m2*x6^2*sin(x2 - x3) + 16*I3zz*l2^2*l3*m1^2*x5*x6*sin(x2 - x3) + 8*I3zz*l2^2*l3*m1*m2*x5*x6*sin(x2 - x3)))/((mb + mt + 2*mw)*(12*I2zz*l3^2*m1^2 + 48*I3zz*l2^2*m1^2 + 4*I3zz*l2^2*m2^2 + 64*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 4*l2^2*l3^2*m1^3 + l2^2*l3^2*m1*m2^2 + 5*l2^2*l3^2*m1^2*m2 + 8*I2zz*l3^2*m1*m2 + 32*I3zz*l2^2*m1*m2 - 16*I3zz*l2^2*m1^2*cos(2*x2) - 4*I3zz*l2^2*m2^2*cos(2*x2) - 4*I2zz*l3^2*m1^2*cos(2*x2 + 2*x3) - 4*l2^2*l3^2*m1^3*cos(2*x3) - l2^2*l3^2*m1*m2^2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x2) - 2*l2^2*l3^2*m1^2*m2*cos(2*x3) - 16*I3zz*l2^2*m1*m2*cos(2*x2) + l2^2*l3^2*m1^2*m2*cos(2*x2 + 2*x3))) >= 0);
+end
+
 
 mpc = acado.OCPexport( ocp );
 
@@ -251,7 +265,7 @@ input.y = [Yref Uref];
 input.yN = Yref(N,:);
 
 % weight matrices
-input.W = diag([50 50 0.01 0.01 0.0001 0.0002 0.0002 0.00001 0.001 0.01]);  % weights on [x y dx dy x4 x5 x6 tau1 tau2 tau3];
+input.W = diag([50 50 0.01 0.01 0.0001 0.0002 0.0002 1e-06 0.001 0.01]);  % weights on [x y dx dy x4 x5 x6 tau1 tau2 tau3];
 input.WN = diag([20 20 10 10 0.01 0.01 0.001]);   % weights on [x y dx dy x4 x5 x6];
 
 %% SIMULATION LOOP

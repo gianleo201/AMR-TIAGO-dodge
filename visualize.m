@@ -33,7 +33,7 @@ plot(p2(1),p2(2),'o','MarkerSize',5,'Linewidth',5);
 line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
 plot(p3(1),p3(2),'o','MarkerSize',5,'Linewidth',5);
 
-if VelocityDamper == 1
+if CONSTRAINT_TYPE == 3 || CONSTRAINT_TYPE == 1
 %plot the first link body
   viscircles(c1,(hb+ht)/2, 'Color', 'k');
   %plot the second link body
@@ -49,11 +49,13 @@ plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
 % plot the obstacle
 viscircles(obs(1:2),obs(3));
 
-if VelocityDamper == 1
+if CONSTRAINT_TYPE == 3 || CONSTRAINT_TYPE == 1
   %plot the security distance area
   viscircles(obs(1:2), obs(3)+ds, 'LineStyle', ':');
   %plot the influence distance area
-  viscircles(obs(1:2), obs(3)+di, 'LineStyle', '--');
+  if CONSTRAINT_TYPE == 3
+    viscircles(obs(1:2), obs(3)+di, 'LineStyle', '--');
+  end
 end
 
 % plot trajectory

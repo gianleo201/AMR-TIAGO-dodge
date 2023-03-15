@@ -66,7 +66,7 @@ extern "C"
 /** Number of online data values. */
 #define ACADO_NOD 9
 /** Number of path constraints. */
-#define ACADO_NPAC 10
+#define ACADO_NPAC 5
 /** Number of control variables. */
 #define ACADO_NU 3
 /** Number of differential variables. */
@@ -242,26 +242,26 @@ real_t QN1[ 36 ];
 /** Matrix of size: 6 x 7 (row major format) */
 real_t QN2[ 42 ];
 
-/** Column vector of size: 15080 */
-real_t conAuxVar[ 15080 ];
+/** Column vector of size: 3124 */
+real_t conAuxVar[ 3124 ];
 
 /** Row vector of size: 18 */
 real_t conValueIn[ 18 ];
 
-/** Row vector of size: 100 */
-real_t conValueOut[ 100 ];
+/** Row vector of size: 50 */
+real_t conValueOut[ 50 ];
 
-/** Column vector of size: 150 */
-real_t evH[ 150 ];
+/** Column vector of size: 75 */
+real_t evH[ 75 ];
 
-/** Matrix of size: 150 x 6 (row major format) */
-real_t evHx[ 900 ];
+/** Matrix of size: 75 x 6 (row major format) */
+real_t evHx[ 450 ];
 
-/** Matrix of size: 150 x 3 (row major format) */
-real_t evHu[ 450 ];
+/** Matrix of size: 75 x 3 (row major format) */
+real_t evHu[ 225 ];
 
-/** Column vector of size: 10 */
-real_t evHxd[ 10 ];
+/** Column vector of size: 5 */
+real_t evHxd[ 5 ];
 
 /** Column vector of size: 96 */
 real_t sbar[ 96 ];
@@ -293,8 +293,8 @@ real_t w2[ 6 ];
 /** Matrix of size: 45 x 45 (row major format) */
 real_t H[ 2025 ];
 
-/** Matrix of size: 195 x 45 (row major format) */
-real_t A[ 8775 ];
+/** Matrix of size: 120 x 45 (row major format) */
+real_t A[ 5400 ];
 
 /** Column vector of size: 45 */
 real_t g[ 45 ];
@@ -305,17 +305,17 @@ real_t lb[ 45 ];
 /** Column vector of size: 45 */
 real_t ub[ 45 ];
 
-/** Column vector of size: 195 */
-real_t lbA[ 195 ];
+/** Column vector of size: 120 */
+real_t lbA[ 120 ];
 
-/** Column vector of size: 195 */
-real_t ubA[ 195 ];
+/** Column vector of size: 120 */
+real_t ubA[ 120 ];
 
 /** Column vector of size: 45 */
 real_t x[ 45 ];
 
-/** Column vector of size: 240 */
-real_t y[ 240 ];
+/** Column vector of size: 165 */
+real_t y[ 165 ];
 
 
 } ACADOworkspace;

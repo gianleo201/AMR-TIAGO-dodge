@@ -13,7 +13,7 @@ syms rt1 rt2 rt3 rt4 rw hb ht mb mt mw db dw real;
 
 
 % number of joints
-N = 3;
+N = 5;
 
 % vector of variables
 syms dc [N 1] real;
@@ -22,6 +22,7 @@ syms q [N 1] real;
 syms qd [N 1] real;
 syms qdd [N 1] real;
 syms l [N 1] real;
+syms tau [N 1] real;
 
 %total mass of the first link, considering the wheels
 m1=mb+mt+2*mw;
@@ -65,9 +66,15 @@ g_0 = [-g0;0;0];
 
 % alpha a d theta
 
-DHTABLE = [-pi/2 rw+hb+ht q1-rt1+rt4 0;
-            0    l2 0  q2;
-            0    l3 0  q3];
+% DHTABLE = [-pi/2 rw+hb+ht q1-rt1+rt4 0;
+%             0    l2 0  q2;
+%             0    l3 0  q3];
+
+DHTABLE = [pi/2 0 q1 pi/2;
+           pi/2 -rt1+rt4 q2+hb+ht+rw pi/2;
+           0 0 0 q3+(pi/2);
+           0 l2 0 q4;
+           0 l3 0 q5;];
 
 %% General DH transformation matrix
 
@@ -169,12 +176,37 @@ I1tot = I1tot+Ib+mb*(((rc(:,:, 3)).')*(rc(:,:, 3))*eye(3)-(rc(:,:, 3))*((rc(:,:,
 I1tot = I1tot+It+mt*(((rc(:,:, 4)).')*(rc(:,:, 4))*eye(3)-(rc(:,:, 4))*((rc(:,:, 4)).'));
 I1tot=simplify(I1tot); %this should be the total moment of inertia matrix of the first link wrt to the global CoM of the first link
 
-CoM1p1h = inv(A{1}) * [CoM0p1; 1]; %CoM of the first link wrt frame 1 in homogenous coordinates
-CoM1p1 = CoM1p1h(1:3); %CoM of the first link wrt frame 1
+% CoM1p1h = inv(A{1}) * [CoM0p1; 1]; %CoM of the first link wrt frame 1 in homogenous coordinates
+% CoM1p1 = CoM1p1h(1:3); %CoM of the first link wrt frame 1
+% 
+% CoMsp = [CoM1p1.';
+%          -l2/2    0     0;
+%          -l3/2    0     0];
+
+CoM1p1h = simplify(inv(Ts{1}) * [CoM0p1; 1]);
+CoM1p1 = CoM1p1h(1:3);
+
+CoM1p2h = simplify(inv(Ts{2}) * [CoM0p1; 1]);
+CoM1p2 = CoM1p2h(1:3);
+
+CoM1p3h = simplify(inv(Ts{3}) * [CoM0p1; 1]);
+CoM1p3 = CoM1p3h(1:3);
 
 CoMsp = [CoM1p1.';
+         CoM1p2.';
+         CoM1p3.';
          -l2/2    0     0;
          -l3/2    0     0];
+
+% 1st and 2nd have no mass and inertia
+I1xx = 0; I1yy = 0; I1zz = 0; m1 = 0;
+I1 = subs(I1);
+I2xx = 0; I2yy = 0; I2zz = 0; m2 = 0;
+I2 = subs(I2);
+m = subs(m);
+% the 3rd link is attached to robot (is a body frame) base so it has mass and inertia of the
+% base
+
 
 %% Direct Dynamics
 
@@ -261,20 +293,56 @@ G = jacobian(U,q).';
 
 model = simplify(M*qdd+c+G);
 
+%% compute the reaction forces when q2,q3 are constrained to be 0
+
+Ac = [0 0;1 0;0 1;0 0;0 0];
+Qf = [0 1 0 0 0;0 0 1 0 0];
+Qr = [1 0 0 0 0;0 0 0 1 0;0 0 0 0 1];
+Gc = eye(3);
+
+
+lambda_react = simplify( subs(-Qf * ( M*Qr.'*inv(Qr*M*Qr.')*Qr*(tau-c) + c ) , [q2 q3 qd2 qd3],[0 0 0 0]) );
+
+f2 = lambda_react(1);
+mu3 = lambda_react(2);
+
+%% use symbols of the model used in acado
+
+% run this section separately from the upper file
+
+syms x [6 1] real;
+syms tau [3 1] real;
+syms m1 m2 m3 I2xx I2yy I2zz;
+
+f2 = subs(f2, ...
+    [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
+    [x1 0  0  x2 x3 x4  0   0   x5  x6  tau1 0    0    tau2 tau3 m1 m2 m3 I2xx I2yy I2zz I3xx I3yy I3zz]);
+
+mu3 = subs(mu3, ...
+    [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
+    [x1 0  0  x2 x3 x4  0   0   x5  x6  tau1 0    0    tau2 tau3 m1 m2 m3 I2xx I2yy I2zz I3xx I3yy I3zz]);
+
+% Mm1 = simplify(mu3+f2*(x1-(db/2)-rt1+rt4));
+% Mm2 = simplify(-mu3-f2*(x1+(db/2)-rt1+rt4));
+
+Mm1 = simplify(mu3+f2*(-(db/2)));
+Mm2 = simplify(-mu3-f2*((db/2)));
+
+
 %% return 1st order ODEs of the dynamic model
 
-syms x [2*N 1];
-syms tau [N 1];
-
-invM = simplify(inv(M));
-
-eqs = simplify(subs(invM*(tau-c-G),[q;qd],[x(1:N);x(N+1:2*N)]));
-
-eqs = [x4;x5;x6;eqs];
+% syms x [2*N 1];
+% syms tau [N 1];
+% 
+% invM = simplify(inv(M));
+% 
+% eqs = simplify(subs(invM*(tau-c-G),[q;qd],[x(1:N);x(N+1:2*N)]));
+% 
+% eqs = [x4;x5;x6;eqs];
 
 %% save equations in a file
 
-save("Model_eqs.mat","eqs");
+% save("Model_eqs.mat","eqs");
 
 %% useful functions
 
