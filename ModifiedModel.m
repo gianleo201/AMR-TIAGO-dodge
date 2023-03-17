@@ -203,9 +203,15 @@ I1xx = 0; I1yy = 0; I1zz = 0; m1 = 0;
 I1 = subs(I1);
 I2xx = 0; I2yy = 0; I2zz = 0; m2 = 0;
 I2 = subs(I2);
+
+% maybe all fictitious joint must have zero mass
+I3xx = 0; I3yy = 0; I3zz = 0; m3 = 0;
+I3 = subs(I3);
+
 m = subs(m);
 % the 3rd link is attached to robot (is a body frame) base so it has mass and inertia of the
 % base
+
 
 
 %% Direct Dynamics
@@ -288,6 +294,8 @@ end
 
 G = jacobian(U,q).';
 
+% % fix gravity term (?);
+% G(2) = G(2)+(g0*m3);
 
 %% Dynamic model
 
@@ -301,7 +309,7 @@ Qr = [1 0 0 0 0;0 0 0 1 0;0 0 0 0 1];
 Gc = eye(3);
 
 
-lambda_react = simplify( subs(-Qf * ( M*Qr.'*inv(Qr*M*Qr.')*Qr*(tau-c) + c ) , [q2 q3 qd2 qd3],[0 0 0 0]) );
+lambda_react = simplify( -Qf * ( M*Qr.'*inv(Qr*M*Qr.')*Qr*(tau-c-G) + c + G ) );
 
 f2 = lambda_react(1);
 mu3 = lambda_react(2);
@@ -312,7 +320,8 @@ mu3 = lambda_react(2);
 
 syms x [6 1] real;
 syms tau [3 1] real;
-syms m1 m2 m3 I2xx I2yy I2zz;
+syms m1 m2 m3 I2xx I2yy I2zz real;
+syms I3xx I3yy I3zz real;
 
 f2 = subs(f2, ...
     [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
@@ -322,11 +331,10 @@ mu3 = subs(mu3, ...
     [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
     [x1 0  0  x2 x3 x4  0   0   x5  x6  tau1 0    0    tau2 tau3 m1 m2 m3 I2xx I2yy I2zz I3xx I3yy I3zz]);
 
-% Mm1 = simplify(mu3+f2*(x1-(db/2)-rt1+rt4));
-% Mm2 = simplify(-mu3-f2*(x1+(db/2)-rt1+rt4));
 
-Mm1 = simplify(mu3+f2*(-(db/2)));
-Mm2 = simplify(-mu3-f2*((db/2)));
+%%
+Mm1 = simplify(mu3-f2*(db/2));
+Mm2 = simplify(-mu3-f2*(db/2));
 
 
 %% return 1st order ODEs of the dynamic model
@@ -346,7 +354,6 @@ Mm2 = simplify(-mu3-f2*((db/2)));
 
 %% useful functions
 
-
 % compute time derivative of the jacobian
 function J_dot = jacobian_diff(J,var,dot_var)
     J_dot = sym('J_dot',size(J));
@@ -360,5 +367,3 @@ function J_dot = jacobian_diff(J,var,dot_var)
         end
     end
 end
-
- 
