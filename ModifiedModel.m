@@ -204,9 +204,9 @@ I1 = subs(I1);
 I2xx = 0; I2yy = 0; I2zz = 0; m2 = 0;
 I2 = subs(I2);
 
-% maybe all fictitious joint must have zero mass
-I3xx = 0; I3yy = 0; I3zz = 0; m3 = 0;
-I3 = subs(I3);
+% % maybe all fictitious joint must have zero mass
+% I3xx = 0; I3yy = 0; I3zz = 0; m3 = 0;
+% I3 = subs(I3);
 
 m = subs(m);
 % the 3rd link is attached to robot (is a body frame) base so it has mass and inertia of the
@@ -294,14 +294,14 @@ end
 
 G = jacobian(U,q).';
 
-% % fix gravity term (?);
-% G(2) = G(2)+(g0*m3);
+% fix gravity term (?);
+G(2) = G(2)+(g0*m3);
 
 %% Dynamic model
 
 model = simplify(M*qdd+c+G);
 
-%% compute the reaction forces when q2,q3 are constrained to be 0
+%% Compute the reaction forces when q2,q3 are constrained to be 0
 
 Ac = [0 0;1 0;0 1;0 0;0 0];
 Qf = [0 1 0 0 0;0 0 1 0 0];
@@ -314,14 +314,15 @@ lambda_react = simplify( -Qf * ( M*Qr.'*inv(Qr*M*Qr.')*Qr*(tau-c-G) + c + G ) );
 f2 = lambda_react(1);
 mu3 = lambda_react(2);
 
-%% use symbols of the model used in acado
+%% Use symbols of the model used in acado
 
 % run this section separately from the upper file
 
 syms x [6 1] real;
 syms tau [3 1] real;
 syms m1 m2 m3 I2xx I2yy I2zz real;
-syms I3xx I3yy I3zz real;
+
+% syms I3xx I3yy I3zz real;
 
 f2 = subs(f2, ...
     [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
@@ -332,10 +333,22 @@ mu3 = subs(mu3, ...
     [x1 0  0  x2 x3 x4  0   0   x5  x6  tau1 0    0    tau2 tau3 m1 m2 m3 I2xx I2yy I2zz I3xx I3yy I3zz]);
 
 
-%%
+%% Generate moments expressions at the borders
+
 Mm1 = simplify(mu3-f2*(db/2));
 Mm2 = simplify(-mu3-f2*(db/2));
 
+%% Generate zmp position expression
+
+syms X [6 1] real;
+syms Tau [3 1] real;
+f2_temp = subs(f2, ...
+    [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3], ...
+    [X1 X2 X3 X4 X5 X6 Tau1 Tau2 Tau3]);
+mu3_temp= subs(mu3, ...
+    [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3], ...
+    [X1 X2 X3 X4 X5 X6 Tau1 Tau2 Tau3]);
+zmp = simplify( mu3_temp/f2_temp );
 
 %% return 1st order ODEs of the dynamic model
 

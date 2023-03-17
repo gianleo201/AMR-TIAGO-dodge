@@ -14,6 +14,9 @@ DifferentialState x1 x2 x3 x4 x5 x6;
 Control tau1 tau2 tau3;
 OnlineData x_obs y_obs r_obs x01 x02 x03 x04 x05 x06;
 
+syms X [6 1] real;
+syms Tau [3 1] real;
+
 n_XD = length(diffStates);
 n_U = length(controls);
 
@@ -69,6 +72,9 @@ f = dot([x1;x2;x3;x4;x5;x6]) == [
 h = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + rw + l3*cos(x2 + x3) + l2*cos(x2), x4 - x5*(l3*cos(x2 + x3) + l2*cos(x2)) - l3*x6*cos(x2 + x3), - x5*(l3*sin(x2 + x3) + l2*sin(x2)) - l3*x6*sin(x2 + x3), x4, x5, x6, tau1, tau2, tau3};
 hN = { x1 - rt1 + rt4 - l3*sin(x2 + x3) - l2*sin(x2), hb + ht + rw + l3*cos(x2 + x3) + l2*cos(x2), x4 - x5*(l3*cos(x2 + x3) + l2*cos(x2)) - l3*x6*cos(x2 + x3), - x5*(l3*sin(x2 + x3) + l2*sin(x2)) - l3*x6*sin(x2 + x3), x4, x5, x6};
 
+% zmp symbolic function
+syms zmp real;
+zmp = (4*(((8*((m3*l3^2)/4 + (l2*m3*cos(X3)*l3)/2 + I3zz)*(4*I3zz*m1 + 4*I3zz*m2 + 4*I3zz*m3 + (l3^2*m3^2)/2 + l3^2*m1*m3 + l3^2*m2*m3 - (l3^2*m3^2*cos(2*X2 + 2*X3))/2 + l2*l3*m3^2*cos(X3) - l2*l3*m3^2*cos(2*X2 + X3) + 2*l2*l3*m1*m3*cos(X3) + (3*l2*l3*m2*m3*cos(X3))/2 - (l2*l3*m2*m3*cos(2*X2 + X3))/2))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2)) - (8*(I2zz + I3zz + (l2^2*m2)/4 + l2^2*m3 + (l3^2*m3)/4 + l2*l3*m3*cos(X3))*(4*I3zz*m1 + 4*I3zz*m2 + 4*I3zz*m3 + l3^2*m3^2 + l3^2*m1*m3 + l3^2*m2*m3 - l3^2*m3^2*cos(X2 + X3)^2))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2)) + (2*l2*(l3^2*m3^2*cos(X2) - l3^2*m3^2*cos(X2 + 2*X3) + 4*I3zz*m2*cos(X2) + 8*I3zz*m3*cos(X2) + l3^2*m2*m3*cos(X2))*(2*m1*mt*rt2 - 2*ht*m1*mb - 4*hb*m1*mw - 2*ht*m1*mt - 4*ht*m1*mw - 2*hb*m1*mb - 2*m1*mw*rw + l3*m3*mb*cos(X2 + X3) + l3*m3*mt*cos(X2 + X3) + 2*l3*m3*mw*cos(X2 + X3) + l2*m2*mb*cos(X2) + 2*l2*m3*mb*cos(X2) + l2*m2*mt*cos(X2) + 2*l2*m3*mt*cos(X2) + 2*l2*m2*mw*cos(X2) + 4*l2*m3*mw*cos(X2)))/((mb + mt + 2*mw)*(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2))))*(Tau2 + g0*m3*((l3*sin(X2 + X3))/2 + l2*sin(X2)) + (g0*l2*m2*sin(X2))/2 + (X6*l2*l3*m3*sin(X3)*(2*X5 + X6))/2) + g0*m3*((l3*sin(X2 + X3))/2 + l2*sin(X2)) + (g0*l2*m2*sin(X2))/2 + (X5*X6*l2*l3*m3*sin(X3))/2 + (2*m1*((X5^2*l3*m3*sin(X2 + X3))/2 - Tau1 + (X6^2*l3*m3*sin(X2 + X3))/2 + (X5^2*l2*m2*sin(X2))/2 + X5^2*l2*m3*sin(X2) + X5*X6*l3*m3*sin(X2 + X3))*(16*I2zz*I3zz + 2*l2^2*l3^2*m3^2 + 4*I3zz*l2^2*m2 + 4*I2zz*l3^2*m3 + 16*I3zz*l2^2*m3 + l2^2*l3^2*m2*m3 - 2*l2^2*l3^2*m3^2*cos(2*X3))*(hb*mb + ht*mb + 2*hb*mw + ht*mt + 2*ht*mw - mt*rt2 + mw*rw))/((mb + mt + 2*mw)*(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2))) + (4*m1*(Tau3 + (g0*l3*m3*sin(X2 + X3))/2 - (X5^2*l2*l3*m3*sin(X3))/2)*(hb*mb + ht*mb + 2*hb*mw + ht*mt + 2*ht*mw - mt*rt2 + mw*rw)*(l2*l3^2*m3^2*cos(X2) + 2*l2^2*l3*m3^2*cos(X2 - X3) - l2*l3^2*m3^2*cos(X2 + 2*X3) + 4*I3zz*l2*m2*cos(X2) + 8*I3zz*l2*m3*cos(X2) - 2*l2^2*l3*m3^2*cos(X2 + X3) - 4*I2zz*l3*m3*cos(X2 + X3) + l2*l3^2*m2*m3*cos(X2) + l2^2*l3*m2*m3*cos(X2 - X3)))/((mb + mt + 2*mw)*(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2))) + (X6*l2*l3*m3*sin(X3)*(X5 + X6))/2)*(2*I3zz*l2^2*m2^2 + 2*I2zz*l3^2*m3^2 + 8*I3zz*l2^2*m3^2 + 16*I2zz*I3zz*m1 + 16*I2zz*I3zz*m2 + 16*I2zz*I3zz*m3 + 2*l2^2*l3^2*m1*m3^2 + (3*l2^2*l3^2*m2*m3^2)/2 + (l2^2*l3^2*m2^2*m3)/2 + 4*I3zz*l2^2*m1*m2 + 4*I2zz*l3^2*m1*m3 + 16*I3zz*l2^2*m1*m3 + 4*I2zz*l3^2*m2*m3 + 12*I3zz*l2^2*m2*m3 - 2*I3zz*l2^2*m2^2*cos(2*X2) - 8*I3zz*l2^2*m3^2*cos(2*X2) - 2*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + l2^2*l3^2*m1*m2*m3 - 2*l2^2*l3^2*m1*m3^2*cos(2*X3) - l2^2*l3^2*m2*m3^2*cos(2*X2) - (l2^2*l3^2*m2^2*m3*cos(2*X2))/2 - l2^2*l3^2*m2*m3^2*cos(2*X3) + (l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3))/2 - 8*I3zz*l2^2*m2*m3*cos(2*X2)))/(32*I3zz*Tau2*l2*m2^2*sin(X2) - 64*I2zz*I3zz*g0*m2^2 - 64*I2zz*I3zz*g0*m3^2 - 64*I2zz*I3zz*g0*m1^2 + 64*I3zz*Tau2*l2*m3^2*sin(X2) - 32*I3zz*Tau3*l2*m2^2*sin(X2) - 64*I3zz*Tau3*l2*m3^2*sin(X2) - 16*I3zz*g0*l2^2*m1*m2^2 - 16*I3zz*g0*l2^2*m1^2*m2 - 16*I2zz*g0*l3^2*m1*m3^2 - 16*I2zz*g0*l3^2*m1^2*m3 - 64*I3zz*g0*l2^2*m1*m3^2 - 64*I3zz*g0*l2^2*m1^2*m3 - 16*I2zz*g0*l3^2*m2*m3^2 - 16*I2zz*g0*l3^2*m2^2*m3 - 16*I3zz*g0*l2^2*m2*m3^2 - 16*I3zz*g0*l2^2*m2^2*m3 - 128*I2zz*I3zz*g0*m1*m2 - 128*I2zz*I3zz*g0*m1*m3 - 128*I2zz*I3zz*g0*m2*m3 + 32*I2zz*Tau3*l3*m3^2*sin(X2 + X3) + 8*I3zz*Tau1*l2^2*m2^2*sin(2*X2) + 32*I3zz*Tau1*l2^2*m3^2*sin(2*X2) + 8*I2zz*Tau1*l3^2*m3^2*sin(2*X2 + 2*X3) - 8*g0*l2^2*l3^2*m1^2*m3^2 - 2*g0*l2^2*l3^2*m2^2*m3^2 + X5^2*l2^3*l3^2*m2^2*m3^2*cos(X2) - 12*g0*l2^2*l3^2*m1*m2*m3^2 - 4*g0*l2^2*l3^2*m1*m2^2*m3 - 4*g0*l2^2*l3^2*m1^2*m2*m3 - 8*Tau2*l2*l3^2*m1*m3^2*sin(X2 + 2*X3) - 16*Tau3*l2^2*l3*m1*m3^2*sin(X2 - X3) - 4*Tau2*l2*l3^2*m2*m3^2*sin(X2 + 2*X3) + 8*Tau3*l2*l3^2*m1*m3^2*sin(X2 + 2*X3) - 8*Tau3*l2^2*l3*m2*m3^2*sin(X2 - X3) - 4*Tau3*l2^2*l3*m2^2*m3*sin(X2 - X3) + 4*Tau3*l2*l3^2*m2*m3^2*sin(X2 + 2*X3) + 32*I3zz*Tau2*l2*m1*m2*sin(X2) + 64*I3zz*Tau2*l2*m1*m3*sin(X2) - 32*I3zz*Tau3*l2*m1*m2*sin(X2) + 96*I3zz*Tau2*l2*m2*m3*sin(X2) - 64*I3zz*Tau3*l2*m1*m3*sin(X2) - 96*I3zz*Tau3*l2*m2*m3*sin(X2) + 8*g0*l2^2*l3^2*m1^2*m3^2*cos(2*X3) + 2*g0*l2^2*l3^2*m2^2*m3^2*cos(2*X3) + X5^2*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3) - X5^2*l2^3*l3^2*m2^2*m3^2*cos(X2 + 2*X3) + X6^2*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3) + 8*I3zz*X5^2*l2^3*m1*m2^2*cos(X2) + 64*I3zz*X5^2*l2^3*m1*m3^2*cos(X2) + 16*I3zz*X5^2*l2^3*m2*m3^2*cos(X2) + 8*I3zz*X5^2*l2^3*m2^2*m3*cos(X2) - 32*I2zz*g0*l3^2*m1*m2*m3 - 96*I3zz*g0*l2^2*m1*m2*m3 + 32*I2zz*I3zz*X5^2*l3*m3^2*cos(X2 + X3) + 32*I2zz*I3zz*X6^2*l3*m3^2*cos(X2 + X3) + 32*I2zz*I3zz*X5^2*l2*m2^2*cos(X2) + 64*I2zz*I3zz*X5^2*l2*m3^2*cos(X2) + 16*Tau3*l2^2*l3*m1*m3^2*sin(X2 + X3) - 4*Tau3*l2^2*l3*m2^2*m3*sin(X2 + X3) + 4*Tau1*l2^2*l3^2*m2*m3^2*sin(2*X2) + 2*Tau1*l2^2*l3^2*m2^2*m3*sin(2*X2) - X5^2*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3) - X6^2*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3) + 32*I2zz*Tau3*l3*m1*m3*sin(X2 + X3) + 32*I2zz*Tau3*l3*m2*m3*sin(X2 + X3) - 2*Tau1*l2^2*l3^2*m2*m3^2*sin(2*X2 + 2*X3) + 32*I3zz*Tau1*l2^2*m2*m3*sin(2*X2) + 8*I2zz*X5^2*l3^3*m1*m3^2*cos(X2 + X3) + 8*I2zz*X5^2*l3^3*m2*m3^2*cos(X2 + X3) + 8*I2zz*X6^2*l3^3*m1*m3^2*cos(X2 + X3) + 8*I2zz*X6^2*l3^3*m2*m3^2*cos(X2 + X3) + 8*Tau2*l2*l3^2*m1*m3^2*sin(X2) + 12*Tau2*l2*l3^2*m2*m3^2*sin(X2) + 8*Tau2*l2*l3^2*m2^2*m3*sin(X2) - 8*Tau3*l2*l3^2*m1*m3^2*sin(X2) - 12*Tau3*l2*l3^2*m2*m3^2*sin(X2) - 8*Tau3*l2*l3^2*m2^2*m3*sin(X2) + 6*X5^2*l2^3*l3^2*m1*m2*m3^2*cos(X2) + 2*X5^2*l2^3*l3^2*m1*m2^2*m3*cos(X2) + 2*X5*X6*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3) - 8*Tau3*l2^2*l3*m1*m2*m3*sin(X2 - X3) + 8*g0*l2^2*l3^2*m1*m2*m3^2*cos(2*X3) + 2*X5^2*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) - 2*X5^2*l2^3*l3^2*m1*m2*m3^2*cos(X2 + 2*X3) + 2*X6^2*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) + 48*I3zz*X5^2*l2^3*m1*m2*m3*cos(X2) + 16*I3zz*X5^2*l2^2*l3*m1*m3^2*cos(X2 + X3) - 4*I3zz*X5^2*l2^2*l3*m2^2*m3*cos(X2 + X3) + 16*I3zz*X6^2*l2^2*l3*m1*m3^2*cos(X2 + X3) - 4*I3zz*X6^2*l2^2*l3*m2^2*m3*cos(X2 + X3) + 64*I2zz*I3zz*X5*X6*l3*m3^2*cos(X2 + X3) + 32*I2zz*I3zz*X5^2*l3*m1*m3*cos(X2 + X3) + 32*I2zz*I3zz*X5^2*l3*m2*m3*cos(X2 + X3) + 32*I2zz*I3zz*X6^2*l3*m1*m3*cos(X2 + X3) + 32*I2zz*I3zz*X6^2*l3*m2*m3*cos(X2 + X3) + 8*I2zz*X5^2*l2*l3^2*m1*m3^2*cos(X2) + 12*I2zz*X5^2*l2*l3^2*m2*m3^2*cos(X2) + 8*I2zz*X5^2*l2*l3^2*m2^2*m3*cos(X2) + 8*I2zz*X5^2*l2*l3^2*m1*m3^2*cos(X2 + 2*X3) + 16*I3zz*X5^2*l2^2*l3*m1*m3^2*cos(X2 - X3) + 4*I2zz*X5^2*l2*l3^2*m2*m3^2*cos(X2 + 2*X3) + 8*I3zz*X5^2*l2^2*l3*m2*m3^2*cos(X2 - X3) + 4*I3zz*X5^2*l2^2*l3*m2^2*m3*cos(X2 - X3) + 16*I3zz*X6^2*l2^2*l3*m1*m3^2*cos(X2 - X3) + 8*I3zz*X6^2*l2^2*l3*m2*m3^2*cos(X2 - X3) + 4*I3zz*X6^2*l2^2*l3*m2^2*m3*cos(X2 - X3) + 32*I2zz*I3zz*X5^2*l2*m1*m2*cos(X2) + 64*I2zz*I3zz*X5^2*l2*m1*m3*cos(X2) + 96*I2zz*I3zz*X5^2*l2*m2*m3*cos(X2) - 2*X5*X6*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3) + 16*I2zz*X5*X6*l3^3*m1*m3^2*cos(X2 + X3) + 16*I2zz*X5*X6*l3^3*m2*m3^2*cos(X2 + X3) + 8*Tau2*l2*l3^2*m1*m2*m3*sin(X2) - 8*Tau3*l2*l3^2*m1*m2*m3*sin(X2) + 4*X5*X6*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) + 32*I3zz*X5*X6*l2^2*l3*m1*m3^2*cos(X2 + X3) - 8*I3zz*X5*X6*l2^2*l3*m2^2*m3*cos(X2 + X3) + 64*I2zz*I3zz*X5*X6*l3*m1*m3*cos(X2 + X3) + 64*I2zz*I3zz*X5*X6*l3*m2*m3*cos(X2 + X3) + 8*I2zz*X5^2*l2*l3^2*m1*m2*m3*cos(X2) + 32*I3zz*X5*X6*l2^2*l3*m1*m3^2*cos(X2 - X3) + 16*I3zz*X5*X6*l2^2*l3*m2*m3^2*cos(X2 - X3) + 8*I3zz*X5*X6*l2^2*l3*m2^2*m3*cos(X2 - X3) + 8*I3zz*X5^2*l2^2*l3*m1*m2*m3*cos(X2 - X3) + 8*I3zz*X6^2*l2^2*l3*m1*m2*m3*cos(X2 - X3) + 16*I3zz*X5*X6*l2^2*l3*m1*m2*m3*cos(X2 - X3));
 
 %% SIMexport
 acadoSet('problemname', 'sim');
@@ -291,6 +297,8 @@ controls_MPC = [];
 state_sim = X0;
 input_sim = zeros(1,n_U);
 
+ZMP_VALUES = [ double(subs(zmp,[X;Tau],[X0.';input.u(1,:).'])) ];
+
 visualize;
 while time(end) < Tf
     tic
@@ -320,6 +328,9 @@ while time(end) < Tf
     states = integrate_tiago(sim_input);
     state_sim = [state_sim; states.value'];
     input_sim = [input_sim; output.u(1,:)];
+
+    % compute zmp
+    ZMP_VALUES = [ZMP_VALUES;double(subs(zmp,[X;Tau],[states.value;output.u(1,:).']))];
     
     iter = iter+1;
     nextTime = iter*Ts; 
@@ -330,13 +341,23 @@ while time(end) < Tf
     pause(abs(Ts-toc));
 end
 
+
 % print the cpu-time plot at the end ( plotting it in real time slows down
 % the simulation )
-subplot(4,1,4);
-plot(time(1:end-1),INFO_CPU_TIME,'linewidth',1.5,'color','k','linestyle','--','marker','.');hold on
+subplot(4,1,3);
+plot(time(1:end-1),INFO_CPU_TIME,'linewidth',1.5,'color','k');hold on
 plot(time(1:end-1),repmat(Ts,length(time)-1),'LineWidth',2,'color','red');
 grid on;
-xlabel('t [s]','FontSize',13);    ylabel('CPU time [s]','FontSize',13)
+xlabel('t [s]','FontSize',13);    ylabel('CPU time [s]','FontSize',13);
+
+% plot the zmp ( plotting it in real time slows down
+% the simulation )
+subplot(4,1,4);
+plot(time(1:end-1),ZMP_VALUES(1:end-1),'linewidth',1.5,'color','green'); hold on
+plot(time(1:end-1),repmat(db/2,length(time)-1),'LineWidth',2,'color','red'); % upper limit
+plot(time(1:end-1),repmat(-db/2,length(time)-1),'LineWidth',2,'color','red'); % lower limit
+grid on;
+xlabel('position from middle wheel contact point [m]','FontSize',13);    ylabel('ZMP position [m]','FontSize',13);
 
 
 %% plot evolution of the joints: [x1 x2 x3]
@@ -345,7 +366,13 @@ xlabel('t [s]','FontSize',13);    ylabel('CPU time [s]','FontSize',13)
 
 %% plot evolution of control inputs [tau1 tau2 tau3]
 
-stairs(time,input_sim); grid on; hold on; legend('tau1','tau2','tau3', "Location","best");
+%stairs(time,input_sim); grid on; hold on; legend('tau1','tau2','tau3', "Location","best");
+
+%% plot zmp evolution
+
+% plot(time,ZMP_VALUES.',"LineWidth",2.0,"Color","green"); grid on; hold on;
+% plot(time,repmat(db/2,length(time)),"LineWidth",2.0,"Color","red"); % upper limit;
+% plot(time,repmat(-db/2,length(time)),"LineWidth",2.0,"Color","red"); % lower limit;
 
 %% function: get the reference points
 

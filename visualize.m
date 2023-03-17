@@ -61,13 +61,11 @@ end
 % plot trajectory
 plot(h_ref(:,1),h_ref(:,2),"LineWidth",2.0,"LineStyle","--","Color","cyan");
 
+% plot the ZMP position
+plot(state_sim(end,1)+ZMP_VALUES(end), 0, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","green");
+
 grid on;
 xlim([-3 3]);
 ylim([0 2.08]);
 pbaspect([3 1 1]);
 
-subplot(4,1,3);
-semilogy(time(1:end-1),KKT_MPC,'linewidth',1.5,'color','k','linestyle','--','marker','.');hold on
-
-grid on;
-xlabel('t [s]','FontSize',13);    ylabel('MPC KKT','FontSize',13)
