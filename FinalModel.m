@@ -85,7 +85,7 @@ p_angle = atan2(hb+ht+rw, rt4-rt1); %we're using its definition for -pi to pi
 %alpha a d theta
 
 DHTABLE = [ pi/2 0        q1 pi/2; %the first joint is just to simulate horizontal motion
-            pi/2 rt4-rt1  q2 pi/2; %fictitious joint
+            pi/2 0  q2 pi/2; %fictitious joint
             0    p_module 0  q3+p_angle; %fictitious joint
             0    l2       0  q4; %if you want to be consistent with the previous model definition put q4+pi/2
             0    l3       0  q5];
