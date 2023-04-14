@@ -68,7 +68,6 @@ while j<= 4
         v0=subs(H(j,i),x,x0);
         dv0=subs(DHDT1{j}(i), x, x0);
 
-        
         P(1) = 15;
         P(2) = 20;
 

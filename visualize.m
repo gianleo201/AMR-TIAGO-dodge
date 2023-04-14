@@ -1,6 +1,7 @@
-figure(10); clf
-whitebg([1.0 1.0 1.0])
-set(gcf,'Color',[1 1 1])
+clf(myFig);
+% whitebg([1.0 1.0 1.0]);
+set(gcf,'Color',[1 1 1]);
+
 
 % compute dierct kinematics
 dk_points = dk_tiago(state_sim(end,1:3));
@@ -16,7 +17,7 @@ c3=dk_points(6,:);
 x_r = Yref(1,1);
 y_r = Yref(1,2);
 
-subplot(4,1,[1 2]);
+% subplot(4,1,[1 2]);
 
 % plot the robot body
 rectangle("Position",[p1(1)-rt4+rt1-(db/2) rw db hb], 'Linewidth',4); hold on; % base rectangle
@@ -33,29 +34,26 @@ plot(p2(1),p2(2),'o','MarkerSize',5,'Linewidth',5);
 line([p2(1) p3(1)], [p2(2) p3(2)], 'color', 'k', 'Linewidth',4,"color","Green");
 plot(p3(1),p3(2),'o','MarkerSize',5,'Linewidth',5);
 
-if CONSTRAINT_TYPE == 3 || CONSTRAINT_TYPE == 1
-%plot the first link body
-  viscircles(c1,(hb+ht)/2, 'Color', 'k');
-  %plot the second link body
-  viscircles(c2,l2/2, 'Color', 'b');
-  %plot the third link body
-  viscircles(c3,l3/2, 'Color', 'g');
-end
 
+%plot the first link body
+viscircles(c1,(hb+ht+rw)/2, 'Color', 'k');
+%plot the second link body
+viscircles(c2,l2/2, 'Color', 'b');
+%plot the third link body
+viscircles(c3,l3/2, 'Color', 'g');
 
 % plot the target position of the end-effector
 plot(x_r, y_r, 'gx', 'MarkerSize', 16, 'Linewidth', 2,"Color","cyan");
 
 % plot the obstacle
-viscircles(obs(1:2),obs(3));
+viscircles(obs(iter+1,1:2),obs(iter+1,3));
 
-if CONSTRAINT_TYPE == 3 || CONSTRAINT_TYPE == 1
-  %plot the security distance area
-  viscircles(obs(1:2), obs(3)+ds, 'LineStyle', ':');
+%plot the security distance area
+  viscircles(obs(iter+1,1:2), obs(iter+1,3)+ds, 'LineStyle', ':');
+
+if CONSTRAINT_TYPE == 3
   %plot the influence distance area
-  if CONSTRAINT_TYPE == 3
-    viscircles(obs(1:2), obs(3)+di, 'LineStyle', '--');
-  end
+    viscircles(obs(iter+1,1:2), obs(iter+1,3)+di, 'LineStyle', '--');
 end
 
 % plot trajectory
@@ -69,3 +67,12 @@ xlim([-3 3]);
 ylim([0 2.08]);
 pbaspect([3 1 1]);
 
+if RECORD_SIMULATION
+
+% settings for video recording
+set(gcf, 'Position',[0 0 1920 862]);
+% write the frame
+frame = getframe(gcf);    
+writeVideo(writerObj, frame);
+
+end

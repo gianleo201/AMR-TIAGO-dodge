@@ -24,8 +24,6 @@ syms qdd [N 1] real;
 syms l [N 1] real;
 syms tau [N 1] real;
 
-%total mass of the first link, considering the wheels
-m1=mb+mt+2*mw;
 
 I = cell(1,N); %initialized as empty
 
@@ -67,14 +65,21 @@ g_0 = [-g0;0;0];
 % alpha a d theta
 
 % DHTABLE = [-pi/2 rw+hb+ht q1-rt1+rt4 0;
-%             0    l2 0  q2;
-%             0    l3 0  q3];
+%             0    l2       0         q2;
+%             0    l3       0        q3];
 
-DHTABLE = [pi/2 0 q1 pi/2;
-           pi/2 -rt1+rt4 q2+hb+ht+rw pi/2;
-           0 0 0 q3+(pi/2);
-           0 l2 0 q4;
-           0 l3 0 q5;];
+DHTABLE = [pi/2 0        q1-rt1+rt4 pi/2;
+           pi/2 0        q2         pi/2;
+           0    rw+hb+ht 0     q3+(pi/2);
+           0    l2       0            q4;
+           0    l3       0           q5];
+
+% syms p_module p_angle real;
+% DHTABLE = [pi/2 0        q1              pi/2;
+%            pi/2 0        q2              pi/2;
+%            0    p_module 0         q3+p_angle;
+%            0    l2       0  q4+(pi/2)-p_angle;
+%            0    l3       0                q5];
 
 %% General DH transformation matrix
 
@@ -149,64 +154,96 @@ end
 % of course, time derivative of each element of the jacobian matrix
 Jdot = jacobian_diff(J,q,qd);
 
-%% link's mass' center positions 
+%% link's mass' center positions (reduced model)
 
-syms CoM [3 1 4] real
-CoM0(:, :, 1)=[rw/2; 0; q1-db/2]; %CoM position wrt of frame 0 for the wheel 1
-CoM0(:, :, 2)=[rw/2; 0; q1+db/2]; % //// wheel 2
-CoM0(:, :, 3)=[rw; 0; q1]; % //// base
-CoM0(:, :, 4)=[rw+hb+rt2; 0; q1-rt1+rt3]; % //// torso
-
-
-CoM0p1=1/m1*(mb*CoM0(:, :, 3)+mt*CoM0(:, :, 4)+mw*CoM0(:, :, 1)+mw*CoM0(:, :, 2)); %CoM of the first link wrt frame 0
-
-Iw=[1/12*mw*(3*(rw/2)^2+dw^2) 0 0; 0 1/2*mw*(rw/2)^2 0; 0 0 1/12*mw*(3*(rw/2)^2+dw^2)]; %inertia matrix for a wheel expressed in frame 0
-syms Ibxx Ibyy Ibzz Itxx Ityy Itzz real
-Ib=[Ibxx 0 0; 0 Ibyy 0; 0 0 Ibzz]; %inertia matrix for the body expressed in frame 0
-It=[Itxx 0 0; 0 Ityy 0; 0 0 Itzz]; %inertia matrix for the torso expressed in frame 0
-
-syms rc [3 1 4] real % distance vector between CoMs of the first link component and the total CoM of the first link
-for i=1:4
-    rc(:,:, i)=CoM0(:,:,i)-CoM0p1;
-end
-% we use Steiner's theorem recursively
-I1tot = Iw+mw*(((rc(:,:, 1)).')*(rc(:,:, 1))*eye(3)-(rc(:,:, 1))*((rc(:,:, 1)).')); 
-I1tot = I1tot+Iw+mw*(((rc(:,:, 2)).')*(rc(:,:, 2))*eye(3)-(rc(:,:, 2))*((rc(:,:, 2)).'));
-I1tot = I1tot+Ib+mb*(((rc(:,:, 3)).')*(rc(:,:, 3))*eye(3)-(rc(:,:, 3))*((rc(:,:, 3)).'));
-I1tot = I1tot+It+mt*(((rc(:,:, 4)).')*(rc(:,:, 4))*eye(3)-(rc(:,:, 4))*((rc(:,:, 4)).'));
-I1tot=simplify(I1tot); %this should be the total moment of inertia matrix of the first link wrt to the global CoM of the first link
-
-% CoM1p1h = inv(A{1}) * [CoM0p1; 1]; %CoM of the first link wrt frame 1 in homogenous coordinates
-% CoM1p1 = CoM1p1h(1:3); %CoM of the first link wrt frame 1
+% syms CoM [3 1 3] real
+% CoM0(:, :, 1)=[-hb-ht; rt4-rt1; 0]; %CoM position wrt of frame 3 for the wheel
+% CoM0(:, :, 2)=[-hb-ht; rt4-rt1; 0]; % //// base
+% CoM0(:, :, 3)=[-ht+rt2; rt1-rt3; 0]; % //// torso
 % 
-% CoMsp = [CoM1p1.';
+% 
+% CoM0p1=1/(mb+mt+mw)*(mb*CoM0(:, :, 2)+mt*CoM0(:, :, 3)+mw*CoM0(:, :, 1)); %CoM of the first link wrt frame 0
+% 
+% syms CoM3x CoM3y real;
+% 
+% CoMsp = [CoM3x CoM3y    0;
 %          -l2/2    0     0;
 %          -l3/2    0     0];
 
-CoM1p1h = simplify(inv(Ts{1}) * [CoM0p1; 1]);
-CoM1p1 = CoM1p1h(1:3);
 
-CoM1p2h = simplify(inv(Ts{2}) * [CoM0p1; 1]);
-CoM1p2 = CoM1p2h(1:3);
+%% link's mass' center positions (full model)
 
-CoM1p3h = simplify(inv(Ts{3}) * [CoM0p1; 1]);
-CoM1p3 = CoM1p3h(1:3);
+% syms CoM [3 1 4] real
+% CoM0(:, :, 1)=[rw/2; 0; q1-db/2]; %CoM position wrt of frame 0 for the wheel 1
+% CoM0(:, :, 2)=[rw/2; 0; q1+db/2]; % //// wheel 2
+% CoM0(:, :, 3)=[rw; 0; q1]; % //// base
+% CoM0(:, :, 4)=[rw+hb+rt2; 0; q1-rt1+rt3]; % //// torso
+% 
+% 
+% CoM0p1=1/m1*(mb*CoM0(:, :, 3)+mt*CoM0(:, :, 4)+mw*CoM0(:, :, 1)+mw*CoM0(:, :, 2)); %CoM of the first link wrt frame 0
+% 
+% Iw=[1/12*mw*(3*(rw/2)^2+dw^2) 0 0; 0 1/2*mw*(rw/2)^2 0; 0 0 1/12*mw*(3*(rw/2)^2+dw^2)]; %inertia matrix for a wheel expressed in frame 0
+% syms Ibxx Ibyy Ibzz Itxx Ityy Itzz real
+% Ib=[Ibxx 0 0; 0 Ibyy 0; 0 0 Ibzz]; %inertia matrix for the body expressed in frame 0
+% It=[Itxx 0 0; 0 Ityy 0; 0 0 Itzz]; %inertia matrix for the torso expressed in frame 0
+% 
+% syms rc [3 1 4] real % distance vector between CoMs of the first link component and the total CoM of the first link
+% for i=1:4
+%     rc(:,:, i)=CoM0(:,:,i)-CoM0p1;
+% end
+% % we use Steiner's theorem recursively
+% I1tot = Iw+mw*(((rc(:,:, 1)).')*(rc(:,:, 1))*eye(3)-(rc(:,:, 1))*((rc(:,:, 1)).')); 
+% I1tot = I1tot+Iw+mw*(((rc(:,:, 2)).')*(rc(:,:, 2))*eye(3)-(rc(:,:, 2))*((rc(:,:, 2)).'));
+% I1tot = I1tot+Ib+mb*(((rc(:,:, 3)).')*(rc(:,:, 3))*eye(3)-(rc(:,:, 3))*((rc(:,:, 3)).'));
+% I1tot = I1tot+It+mt*(((rc(:,:, 4)).')*(rc(:,:, 4))*eye(3)-(rc(:,:, 4))*((rc(:,:, 4)).'));
+% I1tot=simplify(I1tot); %this should be the total moment of inertia matrix of the first link wrt to the global CoM of the first link
+% 
+% % CoM1p1h = inv(A{1}) * [CoM0p1; 1]; %CoM of the first link wrt frame 1 in homogenous coordinates
+% % CoM1p1 = CoM1p1h(1:3); %CoM of the first link wrt frame 1
+% % 
+% % CoMsp = [CoM1p1.';
+% %          -l2/2    0     0;
+% %          -l3/2    0     0];
+% 
+% CoM1p1h = simplify(inv(Ts{1}) * [CoM0p1; 1]);
+% CoM1p1 = CoM1p1h(1:3);
+% 
+% CoM1p2h = simplify(inv(Ts{2}) * [CoM0p1; 1]);
+% CoM1p2 = CoM1p2h(1:3);
+% 
+% CoM1p3h = simplify(inv(Ts{3}) * [CoM0p1; 1]);
+% CoM1p3 = CoM1p3h(1:3);
 
-CoMsp = [CoM1p1.';
-         CoM1p2.';
-         CoM1p3.';
+
+syms CoM [3 1 3] real
+CoM0(:, :, 1)=[-hb-ht; rt4-rt1; 0]; %CoM position wrt of frame 3 for the wheel
+CoM0(:, :, 2)=[-hb-ht; rt4-rt1; 0]; % //// base
+CoM0(:, :, 3)=[-ht+rt2; rt1-rt3; 0]; % //// torso
+
+
+CoM0p1=1/(mb+mt+mw)*(mb*CoM0(:, :, 2)+mt*CoM0(:, :, 3)+mw*CoM0(:, :, 1)); %CoM of the first link wrt frame 0
+
+syms CoM3x CoM3y real;
+
+CoMsp = [0 0 0;
+         0 0 0;
+         CoM3x CoM3y 0;
          -l2/2    0     0;
          -l3/2    0     0];
+
+% pCom_tilted = simplify([cos((pi/2)-p_angle) -sin((pi/2)-p_angle) 0;sin((pi/2)-p_angle) cos((pi/2)-p_angle) 0;0 0 1] * [CoM3x;CoM3y;0]);
+% 
+% CoMsp = [0      0    0;
+%          0      0    0;
+%          pCom_tilted.';
+%          -l2/2   0   0;
+%          -l3/2   0   0];
 
 % 1st and 2nd have no mass and inertia
 I1xx = 0; I1yy = 0; I1zz = 0; m1 = 0;
 I1 = subs(I1);
 I2xx = 0; I2yy = 0; I2zz = 0; m2 = 0;
 I2 = subs(I2);
-
-% % maybe all fictitious joint must have zero mass
-% I3xx = 0; I3yy = 0; I3zz = 0; m3 = 0;
-% I3 = subs(I3);
 
 m = subs(m);
 % the 3rd link is attached to robot (is a body frame) base so it has mass and inertia of the
@@ -294,8 +331,6 @@ end
 
 G = jacobian(U,q).';
 
-% fix gravity term (?);
-G(2) = G(2)+(g0*m3);
 
 %% Dynamic model
 
@@ -322,7 +357,6 @@ syms x [6 1] real;
 syms tau [3 1] real;
 syms m1 m2 m3 I2xx I2yy I2zz real;
 
-% syms I3xx I3yy I3zz real;
 
 f2 = subs(f2, ...
     [q1 q2 q3 q4 q5 qd1 qd2 qd3 qd4 qd5 tau1 tau2 tau3 tau4 tau5 m3 m4 m5 I4xx I4yy I4zz I5xx I5yy I5zz], ...
@@ -335,10 +369,20 @@ mu3 = subs(mu3, ...
 
 %% Generate moments expressions at the borders
 
-Mm1 = simplify(mu3-f2*(db/2));
-Mm2 = simplify(-mu3-f2*(db/2));
+Mm1 = simplify(mu3+f2*((-db/2)-rt1+rt4));
+Mm2 = simplify(-mu3-f2*((db/2)-rt1+rt4));
 
-%% Generate zmp position expression
+% Mm1 = simplify(mu3-f2*(db/2));
+% Mm2 = simplify(-mu3-f2*(db/2));
+
+%% Generate balance term for objective function
+
+Mm = [Mm1;Mm2];
+
+Dx = -jacobian(Mm,[tau1;tau2;tau3]);
+bx = simplify(Mm+DX*[tau1;tau2;tau3]);
+
+%% Generate zmp position and moments expression
 
 syms X [6 1] real;
 syms Tau [3 1] real;
@@ -348,7 +392,16 @@ f2_temp = subs(f2, ...
 mu3_temp= subs(mu3, ...
     [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3], ...
     [X1 X2 X3 X4 X5 X6 Tau1 Tau2 Tau3]);
-zmp = simplify( mu3_temp/f2_temp );
+Mm1_temp = subs(Mm1, ...
+    [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3], ...
+    [X1 X2 X3 X4 X5 X6 Tau1 Tau2 Tau3]);
+Mm2_temp = subs(Mm2, ...
+    [x1 x2 x3 x4 x5 x6 tau1 tau2 tau3], ...
+    [X1 X2 X3 X4 X5 X6 Tau1 Tau2 Tau3]);
+
+zmp = simplify( (mu3_temp/f2_temp)-rt1+rt4 );
+
+% zmp = simplify( mu3_temp/f2_temp );
 
 %% return 1st order ODEs of the dynamic model
 
