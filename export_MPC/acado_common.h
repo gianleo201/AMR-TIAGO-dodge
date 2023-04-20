@@ -245,8 +245,8 @@ real_t QN1[ 36 ];
 /** Matrix of size: 6 x 7 (row major format) */
 real_t QN2[ 42 ];
 
-/** Column vector of size: 12339 */
-real_t conAuxVar[ 12339 ];
+/** Column vector of size: 12364 */
+real_t conAuxVar[ 12364 ];
 
 /** Row vector of size: 20 */
 real_t conValueIn[ 20 ];
@@ -266,32 +266,32 @@ real_t evHu[ 300 ];
 /** Column vector of size: 5 */
 real_t evHxd[ 5 ];
 
-/** Column vector of size: 126 */
-real_t sbar[ 126 ];
-
 /** Column vector of size: 6 */
 real_t Dx0[ 6 ];
 
-/** Matrix of size: 120 x 6 (row major format) */
-real_t C[ 720 ];
-
-/** Matrix of size: 6 x 3 (row major format) */
-real_t W1[ 18 ];
-
-/** Matrix of size: 6 x 3 (row major format) */
-real_t W2[ 18 ];
+/** Matrix of size: 6 x 6 (row major format) */
+real_t T[ 36 ];
 
 /** Matrix of size: 1260 x 3 (row major format) */
 real_t E[ 3780 ];
 
+/** Matrix of size: 1260 x 3 (row major format) */
+real_t QE[ 3780 ];
+
+/** Column vector of size: 120 */
+real_t Qd[ 120 ];
+
 /** Column vector of size: 126 */
 real_t QDy[ 126 ];
 
-/** Column vector of size: 6 */
-real_t w1[ 6 ];
+/** Matrix of size: 60 x 6 (row major format) */
+real_t H10[ 360 ];
 
-/** Column vector of size: 6 */
-real_t w2[ 6 ];
+/** Matrix of size: 100 x 6 (row major format) */
+real_t A01[ 600 ];
+
+/** Column vector of size: 100 */
+real_t pacA01Dx0[ 100 ];
 
 /** Matrix of size: 60 x 60 (row major format) */
 real_t H[ 3600 ];

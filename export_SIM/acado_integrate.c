@@ -80,7 +80,7 @@ output: info
 #define DEBUG_MODE 0
 #define SENS_PROP 1
 #define CALLS_TIMING 1
-#define NUM_STAGES 3
+#define NUM_STAGES 2
 
 /* GLOBAL VARIABLES FOR THE ACADO REAL-TIME ALGORITHM: */
 /* --------------------------------------------------- */

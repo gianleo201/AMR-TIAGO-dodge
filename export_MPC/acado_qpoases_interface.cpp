@@ -42,7 +42,7 @@ int acado_solve( void )
 
 	QProblem qp(60, 200);
 	
-	returnValue retVal = qp.init(acadoWorkspace.H, acadoWorkspace.g, acadoWorkspace.A, acadoWorkspace.lb, acadoWorkspace.ub, acadoWorkspace.lbA, acadoWorkspace.ubA, acado_nWSR);
+	returnValue retVal = qp.init(acadoWorkspace.H, acadoWorkspace.g, acadoWorkspace.A, acadoWorkspace.lb, acadoWorkspace.ub, acadoWorkspace.lbA, acadoWorkspace.ubA, acado_nWSR, acadoWorkspace.y);
 
     qp.getPrimalSolution( acadoWorkspace.x );
     qp.getDualSolution( acadoWorkspace.y );
@@ -52,7 +52,7 @@ int acado_solve( void )
 	if (retVal != SUCCESSFUL_RETURN)
 		return (int)retVal;
 		
-	retVal = acado_sa.getHessianInverse( &qp, );
+	retVal = acado_sa.getHessianInverse( &qp,var );
 
 #endif /* ACADO_COMPUTE_COVARIANCE_MATRIX */
 

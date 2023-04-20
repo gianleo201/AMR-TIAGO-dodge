@@ -90,10 +90,10 @@ int dummy;
  */
 typedef struct ACADOworkspace_
 {
-real_t rk_dim18_swap;
+real_t rk_dim12_swap;
 
-/** Column vector of size: 18 */
-real_t rk_dim18_bPerm[ 18 ];
+/** Column vector of size: 12 */
+real_t rk_dim12_bPerm[ 12 ];
 
 /** Column vector of size: 604 */
 real_t rhs_aux[ 604 ];
@@ -103,26 +103,26 @@ real_t rk_ttt;
 /** Row vector of size: 9 */
 real_t rk_xxx[ 9 ];
 
-/** Matrix of size: 6 x 3 (row major format) */
-real_t rk_kkk[ 18 ];
+/** Matrix of size: 6 x 2 (row major format) */
+real_t rk_kkk[ 12 ];
 
-/** Matrix of size: 18 x 18 (row major format) */
-real_t rk_A[ 324 ];
+/** Matrix of size: 12 x 12 (row major format) */
+real_t rk_A[ 144 ];
 
-/** Column vector of size: 18 */
-real_t rk_b[ 18 ];
+/** Column vector of size: 12 */
+real_t rk_b[ 12 ];
 
-/** Row vector of size: 18 */
-int rk_dim18_perm[ 18 ];
+/** Row vector of size: 12 */
+int rk_dim12_perm[ 12 ];
 
 /** Column vector of size: 6 */
 real_t rk_rhsTemp[ 6 ];
 
-/** Matrix of size: 3 x 54 (row major format) */
-real_t rk_diffsTemp2[ 162 ];
+/** Matrix of size: 2 x 54 (row major format) */
+real_t rk_diffsTemp2[ 108 ];
 
-/** Matrix of size: 6 x 3 (row major format) */
-real_t rk_diffK[ 18 ];
+/** Matrix of size: 6 x 2 (row major format) */
+real_t rk_diffK[ 12 ];
 
 /** Matrix of size: 6 x 9 (row major format) */
 real_t rk_diffsPrev2[ 54 ];

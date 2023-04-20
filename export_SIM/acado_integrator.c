@@ -948,168 +948,75 @@ out[53] = (((((((((((((real_t)(-1.1842744320000003e+01)*a[481])+((real_t)(1.1842
 
 
 
-void acado_solve_dim18_triangular( real_t* const A, real_t* const b )
+void acado_solve_dim12_triangular( real_t* const A, real_t* const b )
 {
 
-b[17] = b[17]/A[323];
-b[16] -= + A[305]*b[17];
-b[16] = b[16]/A[304];
-b[15] -= + A[287]*b[17];
-b[15] -= + A[286]*b[16];
-b[15] = b[15]/A[285];
-b[14] -= + A[269]*b[17];
-b[14] -= + A[268]*b[16];
-b[14] -= + A[267]*b[15];
-b[14] = b[14]/A[266];
-b[13] -= + A[251]*b[17];
-b[13] -= + A[250]*b[16];
-b[13] -= + A[249]*b[15];
-b[13] -= + A[248]*b[14];
-b[13] = b[13]/A[247];
-b[12] -= + A[233]*b[17];
-b[12] -= + A[232]*b[16];
-b[12] -= + A[231]*b[15];
-b[12] -= + A[230]*b[14];
-b[12] -= + A[229]*b[13];
-b[12] = b[12]/A[228];
-b[11] -= + A[215]*b[17];
-b[11] -= + A[214]*b[16];
-b[11] -= + A[213]*b[15];
-b[11] -= + A[212]*b[14];
-b[11] -= + A[211]*b[13];
-b[11] -= + A[210]*b[12];
-b[11] = b[11]/A[209];
-b[10] -= + A[197]*b[17];
-b[10] -= + A[196]*b[16];
-b[10] -= + A[195]*b[15];
-b[10] -= + A[194]*b[14];
-b[10] -= + A[193]*b[13];
-b[10] -= + A[192]*b[12];
-b[10] -= + A[191]*b[11];
-b[10] = b[10]/A[190];
-b[9] -= + A[179]*b[17];
-b[9] -= + A[178]*b[16];
-b[9] -= + A[177]*b[15];
-b[9] -= + A[176]*b[14];
-b[9] -= + A[175]*b[13];
-b[9] -= + A[174]*b[12];
-b[9] -= + A[173]*b[11];
-b[9] -= + A[172]*b[10];
-b[9] = b[9]/A[171];
-b[8] -= + A[161]*b[17];
-b[8] -= + A[160]*b[16];
-b[8] -= + A[159]*b[15];
-b[8] -= + A[158]*b[14];
-b[8] -= + A[157]*b[13];
-b[8] -= + A[156]*b[12];
-b[8] -= + A[155]*b[11];
-b[8] -= + A[154]*b[10];
-b[8] -= + A[153]*b[9];
-b[8] = b[8]/A[152];
-b[7] -= + A[143]*b[17];
-b[7] -= + A[142]*b[16];
-b[7] -= + A[141]*b[15];
-b[7] -= + A[140]*b[14];
-b[7] -= + A[139]*b[13];
-b[7] -= + A[138]*b[12];
-b[7] -= + A[137]*b[11];
-b[7] -= + A[136]*b[10];
-b[7] -= + A[135]*b[9];
-b[7] -= + A[134]*b[8];
-b[7] = b[7]/A[133];
-b[6] -= + A[125]*b[17];
-b[6] -= + A[124]*b[16];
-b[6] -= + A[123]*b[15];
-b[6] -= + A[122]*b[14];
-b[6] -= + A[121]*b[13];
-b[6] -= + A[120]*b[12];
-b[6] -= + A[119]*b[11];
-b[6] -= + A[118]*b[10];
-b[6] -= + A[117]*b[9];
-b[6] -= + A[116]*b[8];
-b[6] -= + A[115]*b[7];
-b[6] = b[6]/A[114];
-b[5] -= + A[107]*b[17];
-b[5] -= + A[106]*b[16];
-b[5] -= + A[105]*b[15];
-b[5] -= + A[104]*b[14];
-b[5] -= + A[103]*b[13];
-b[5] -= + A[102]*b[12];
-b[5] -= + A[101]*b[11];
-b[5] -= + A[100]*b[10];
-b[5] -= + A[99]*b[9];
-b[5] -= + A[98]*b[8];
-b[5] -= + A[97]*b[7];
-b[5] -= + A[96]*b[6];
-b[5] = b[5]/A[95];
-b[4] -= + A[89]*b[17];
-b[4] -= + A[88]*b[16];
-b[4] -= + A[87]*b[15];
-b[4] -= + A[86]*b[14];
-b[4] -= + A[85]*b[13];
-b[4] -= + A[84]*b[12];
-b[4] -= + A[83]*b[11];
-b[4] -= + A[82]*b[10];
-b[4] -= + A[81]*b[9];
-b[4] -= + A[80]*b[8];
-b[4] -= + A[79]*b[7];
-b[4] -= + A[78]*b[6];
-b[4] -= + A[77]*b[5];
-b[4] = b[4]/A[76];
-b[3] -= + A[71]*b[17];
-b[3] -= + A[70]*b[16];
-b[3] -= + A[69]*b[15];
-b[3] -= + A[68]*b[14];
-b[3] -= + A[67]*b[13];
-b[3] -= + A[66]*b[12];
-b[3] -= + A[65]*b[11];
-b[3] -= + A[64]*b[10];
-b[3] -= + A[63]*b[9];
-b[3] -= + A[62]*b[8];
-b[3] -= + A[61]*b[7];
-b[3] -= + A[60]*b[6];
-b[3] -= + A[59]*b[5];
-b[3] -= + A[58]*b[4];
-b[3] = b[3]/A[57];
-b[2] -= + A[53]*b[17];
-b[2] -= + A[52]*b[16];
-b[2] -= + A[51]*b[15];
-b[2] -= + A[50]*b[14];
-b[2] -= + A[49]*b[13];
-b[2] -= + A[48]*b[12];
-b[2] -= + A[47]*b[11];
-b[2] -= + A[46]*b[10];
-b[2] -= + A[45]*b[9];
-b[2] -= + A[44]*b[8];
-b[2] -= + A[43]*b[7];
-b[2] -= + A[42]*b[6];
-b[2] -= + A[41]*b[5];
-b[2] -= + A[40]*b[4];
-b[2] -= + A[39]*b[3];
-b[2] = b[2]/A[38];
-b[1] -= + A[35]*b[17];
-b[1] -= + A[34]*b[16];
-b[1] -= + A[33]*b[15];
-b[1] -= + A[32]*b[14];
-b[1] -= + A[31]*b[13];
-b[1] -= + A[30]*b[12];
-b[1] -= + A[29]*b[11];
-b[1] -= + A[28]*b[10];
-b[1] -= + A[27]*b[9];
-b[1] -= + A[26]*b[8];
-b[1] -= + A[25]*b[7];
-b[1] -= + A[24]*b[6];
-b[1] -= + A[23]*b[5];
-b[1] -= + A[22]*b[4];
-b[1] -= + A[21]*b[3];
-b[1] -= + A[20]*b[2];
-b[1] = b[1]/A[19];
-b[0] -= + A[17]*b[17];
-b[0] -= + A[16]*b[16];
-b[0] -= + A[15]*b[15];
-b[0] -= + A[14]*b[14];
-b[0] -= + A[13]*b[13];
-b[0] -= + A[12]*b[12];
+b[11] = b[11]/A[143];
+b[10] -= + A[131]*b[11];
+b[10] = b[10]/A[130];
+b[9] -= + A[119]*b[11];
+b[9] -= + A[118]*b[10];
+b[9] = b[9]/A[117];
+b[8] -= + A[107]*b[11];
+b[8] -= + A[106]*b[10];
+b[8] -= + A[105]*b[9];
+b[8] = b[8]/A[104];
+b[7] -= + A[95]*b[11];
+b[7] -= + A[94]*b[10];
+b[7] -= + A[93]*b[9];
+b[7] -= + A[92]*b[8];
+b[7] = b[7]/A[91];
+b[6] -= + A[83]*b[11];
+b[6] -= + A[82]*b[10];
+b[6] -= + A[81]*b[9];
+b[6] -= + A[80]*b[8];
+b[6] -= + A[79]*b[7];
+b[6] = b[6]/A[78];
+b[5] -= + A[71]*b[11];
+b[5] -= + A[70]*b[10];
+b[5] -= + A[69]*b[9];
+b[5] -= + A[68]*b[8];
+b[5] -= + A[67]*b[7];
+b[5] -= + A[66]*b[6];
+b[5] = b[5]/A[65];
+b[4] -= + A[59]*b[11];
+b[4] -= + A[58]*b[10];
+b[4] -= + A[57]*b[9];
+b[4] -= + A[56]*b[8];
+b[4] -= + A[55]*b[7];
+b[4] -= + A[54]*b[6];
+b[4] -= + A[53]*b[5];
+b[4] = b[4]/A[52];
+b[3] -= + A[47]*b[11];
+b[3] -= + A[46]*b[10];
+b[3] -= + A[45]*b[9];
+b[3] -= + A[44]*b[8];
+b[3] -= + A[43]*b[7];
+b[3] -= + A[42]*b[6];
+b[3] -= + A[41]*b[5];
+b[3] -= + A[40]*b[4];
+b[3] = b[3]/A[39];
+b[2] -= + A[35]*b[11];
+b[2] -= + A[34]*b[10];
+b[2] -= + A[33]*b[9];
+b[2] -= + A[32]*b[8];
+b[2] -= + A[31]*b[7];
+b[2] -= + A[30]*b[6];
+b[2] -= + A[29]*b[5];
+b[2] -= + A[28]*b[4];
+b[2] -= + A[27]*b[3];
+b[2] = b[2]/A[26];
+b[1] -= + A[23]*b[11];
+b[1] -= + A[22]*b[10];
+b[1] -= + A[21]*b[9];
+b[1] -= + A[20]*b[8];
+b[1] -= + A[19]*b[7];
+b[1] -= + A[18]*b[6];
+b[1] -= + A[17]*b[5];
+b[1] -= + A[16]*b[4];
+b[1] -= + A[15]*b[3];
+b[1] -= + A[14]*b[2];
+b[1] = b[1]/A[13];
 b[0] -= + A[11]*b[11];
 b[0] -= + A[10]*b[10];
 b[0] -= + A[9]*b[9];
@@ -1124,7 +1031,7 @@ b[0] -= + A[1]*b[1];
 b[0] = b[0]/A[0];
 }
 
-real_t acado_solve_dim18_system( real_t* const A, real_t* const b, int* const rk_perm )
+real_t acado_solve_dim12_system( real_t* const A, real_t* const b, int* const rk_perm )
 {
 real_t det;
 
@@ -1140,273 +1047,167 @@ real_t valueMax;
 
 real_t temp;
 
-for (i = 0; i < 18; ++i)
+for (i = 0; i < 12; ++i)
 {
 rk_perm[i] = i;
 }
 det = 1.0000000000000000e+00;
-for( i=0; i < (17); i++ ) {
+for( i=0; i < (11); i++ ) {
 	indexMax = i;
-	valueMax = fabs(A[i*18+i]);
-	for( j=(i+1); j < 18; j++ ) {
-		temp = fabs(A[j*18+i]);
+	valueMax = fabs(A[i*12+i]);
+	for( j=(i+1); j < 12; j++ ) {
+		temp = fabs(A[j*12+i]);
 		if( temp > valueMax ) {
 			indexMax = j;
 			valueMax = temp;
 		}
 	}
 	if( indexMax > i ) {
-for (k = 0; k < 18; ++k)
+for (k = 0; k < 12; ++k)
 {
-	acadoWorkspace.rk_dim18_swap = A[i*18+k];
-	A[i*18+k] = A[indexMax*18+k];
-	A[indexMax*18+k] = acadoWorkspace.rk_dim18_swap;
+	acadoWorkspace.rk_dim12_swap = A[i*12+k];
+	A[i*12+k] = A[indexMax*12+k];
+	A[indexMax*12+k] = acadoWorkspace.rk_dim12_swap;
 }
-	acadoWorkspace.rk_dim18_swap = b[i];
+	acadoWorkspace.rk_dim12_swap = b[i];
 	b[i] = b[indexMax];
-	b[indexMax] = acadoWorkspace.rk_dim18_swap;
+	b[indexMax] = acadoWorkspace.rk_dim12_swap;
 	intSwap = rk_perm[i];
 	rk_perm[i] = rk_perm[indexMax];
 	rk_perm[indexMax] = intSwap;
 	}
-	det *= A[i*18+i];
-	for( j=i+1; j < 18; j++ ) {
-		A[j*18+i] = -A[j*18+i]/A[i*18+i];
-		for( k=i+1; k < 18; k++ ) {
-			A[j*18+k] += A[j*18+i] * A[i*18+k];
+	det *= A[i*12+i];
+	for( j=i+1; j < 12; j++ ) {
+		A[j*12+i] = -A[j*12+i]/A[i*12+i];
+		for( k=i+1; k < 12; k++ ) {
+			A[j*12+k] += A[j*12+i] * A[i*12+k];
 		}
-		b[j] += A[j*18+i] * b[i];
+		b[j] += A[j*12+i] * b[i];
 	}
 }
-det *= A[323];
+det *= A[143];
 det = fabs(det);
-acado_solve_dim18_triangular( A, b );
+acado_solve_dim12_triangular( A, b );
 return det;
 }
 
-void acado_solve_dim18_system_reuse( real_t* const A, real_t* const b, int* const rk_perm )
+void acado_solve_dim12_system_reuse( real_t* const A, real_t* const b, int* const rk_perm )
 {
 
-acadoWorkspace.rk_dim18_bPerm[0] = b[rk_perm[0]];
-acadoWorkspace.rk_dim18_bPerm[1] = b[rk_perm[1]];
-acadoWorkspace.rk_dim18_bPerm[2] = b[rk_perm[2]];
-acadoWorkspace.rk_dim18_bPerm[3] = b[rk_perm[3]];
-acadoWorkspace.rk_dim18_bPerm[4] = b[rk_perm[4]];
-acadoWorkspace.rk_dim18_bPerm[5] = b[rk_perm[5]];
-acadoWorkspace.rk_dim18_bPerm[6] = b[rk_perm[6]];
-acadoWorkspace.rk_dim18_bPerm[7] = b[rk_perm[7]];
-acadoWorkspace.rk_dim18_bPerm[8] = b[rk_perm[8]];
-acadoWorkspace.rk_dim18_bPerm[9] = b[rk_perm[9]];
-acadoWorkspace.rk_dim18_bPerm[10] = b[rk_perm[10]];
-acadoWorkspace.rk_dim18_bPerm[11] = b[rk_perm[11]];
-acadoWorkspace.rk_dim18_bPerm[12] = b[rk_perm[12]];
-acadoWorkspace.rk_dim18_bPerm[13] = b[rk_perm[13]];
-acadoWorkspace.rk_dim18_bPerm[14] = b[rk_perm[14]];
-acadoWorkspace.rk_dim18_bPerm[15] = b[rk_perm[15]];
-acadoWorkspace.rk_dim18_bPerm[16] = b[rk_perm[16]];
-acadoWorkspace.rk_dim18_bPerm[17] = b[rk_perm[17]];
-acadoWorkspace.rk_dim18_bPerm[1] += A[18]*acadoWorkspace.rk_dim18_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[0] = b[rk_perm[0]];
+acadoWorkspace.rk_dim12_bPerm[1] = b[rk_perm[1]];
+acadoWorkspace.rk_dim12_bPerm[2] = b[rk_perm[2]];
+acadoWorkspace.rk_dim12_bPerm[3] = b[rk_perm[3]];
+acadoWorkspace.rk_dim12_bPerm[4] = b[rk_perm[4]];
+acadoWorkspace.rk_dim12_bPerm[5] = b[rk_perm[5]];
+acadoWorkspace.rk_dim12_bPerm[6] = b[rk_perm[6]];
+acadoWorkspace.rk_dim12_bPerm[7] = b[rk_perm[7]];
+acadoWorkspace.rk_dim12_bPerm[8] = b[rk_perm[8]];
+acadoWorkspace.rk_dim12_bPerm[9] = b[rk_perm[9]];
+acadoWorkspace.rk_dim12_bPerm[10] = b[rk_perm[10]];
+acadoWorkspace.rk_dim12_bPerm[11] = b[rk_perm[11]];
+acadoWorkspace.rk_dim12_bPerm[1] += A[12]*acadoWorkspace.rk_dim12_bPerm[0];
 
-acadoWorkspace.rk_dim18_bPerm[2] += A[36]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[2] += A[37]*acadoWorkspace.rk_dim18_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[2] += A[24]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[2] += A[25]*acadoWorkspace.rk_dim12_bPerm[1];
 
-acadoWorkspace.rk_dim18_bPerm[3] += A[54]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[3] += A[55]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[3] += A[56]*acadoWorkspace.rk_dim18_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[3] += A[36]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[3] += A[37]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[3] += A[38]*acadoWorkspace.rk_dim12_bPerm[2];
 
-acadoWorkspace.rk_dim18_bPerm[4] += A[72]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[4] += A[73]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[4] += A[74]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[4] += A[75]*acadoWorkspace.rk_dim18_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[4] += A[48]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[4] += A[49]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[4] += A[50]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[4] += A[51]*acadoWorkspace.rk_dim12_bPerm[3];
 
-acadoWorkspace.rk_dim18_bPerm[5] += A[90]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[5] += A[91]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[5] += A[92]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[5] += A[93]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[5] += A[94]*acadoWorkspace.rk_dim18_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[5] += A[60]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[5] += A[61]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[5] += A[62]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[5] += A[63]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[5] += A[64]*acadoWorkspace.rk_dim12_bPerm[4];
 
-acadoWorkspace.rk_dim18_bPerm[6] += A[108]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[6] += A[109]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[6] += A[110]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[6] += A[111]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[6] += A[112]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[6] += A[113]*acadoWorkspace.rk_dim18_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[6] += A[72]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[6] += A[73]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[6] += A[74]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[6] += A[75]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[6] += A[76]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[6] += A[77]*acadoWorkspace.rk_dim12_bPerm[5];
 
-acadoWorkspace.rk_dim18_bPerm[7] += A[126]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[7] += A[127]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[7] += A[128]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[7] += A[129]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[7] += A[130]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[7] += A[131]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[7] += A[132]*acadoWorkspace.rk_dim18_bPerm[6];
+acadoWorkspace.rk_dim12_bPerm[7] += A[84]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[7] += A[85]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[7] += A[86]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[7] += A[87]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[7] += A[88]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[7] += A[89]*acadoWorkspace.rk_dim12_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[7] += A[90]*acadoWorkspace.rk_dim12_bPerm[6];
 
-acadoWorkspace.rk_dim18_bPerm[8] += A[144]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[8] += A[145]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[8] += A[146]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[8] += A[147]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[8] += A[148]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[8] += A[149]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[8] += A[150]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[8] += A[151]*acadoWorkspace.rk_dim18_bPerm[7];
+acadoWorkspace.rk_dim12_bPerm[8] += A[96]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[8] += A[97]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[8] += A[98]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[8] += A[99]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[8] += A[100]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[8] += A[101]*acadoWorkspace.rk_dim12_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[8] += A[102]*acadoWorkspace.rk_dim12_bPerm[6];
+acadoWorkspace.rk_dim12_bPerm[8] += A[103]*acadoWorkspace.rk_dim12_bPerm[7];
 
-acadoWorkspace.rk_dim18_bPerm[9] += A[162]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[9] += A[163]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[9] += A[164]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[9] += A[165]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[9] += A[166]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[9] += A[167]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[9] += A[168]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[9] += A[169]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[9] += A[170]*acadoWorkspace.rk_dim18_bPerm[8];
+acadoWorkspace.rk_dim12_bPerm[9] += A[108]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[9] += A[109]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[9] += A[110]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[9] += A[111]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[9] += A[112]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[9] += A[113]*acadoWorkspace.rk_dim12_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[9] += A[114]*acadoWorkspace.rk_dim12_bPerm[6];
+acadoWorkspace.rk_dim12_bPerm[9] += A[115]*acadoWorkspace.rk_dim12_bPerm[7];
+acadoWorkspace.rk_dim12_bPerm[9] += A[116]*acadoWorkspace.rk_dim12_bPerm[8];
 
-acadoWorkspace.rk_dim18_bPerm[10] += A[180]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[10] += A[181]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[10] += A[182]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[10] += A[183]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[10] += A[184]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[10] += A[185]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[10] += A[186]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[10] += A[187]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[10] += A[188]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[10] += A[189]*acadoWorkspace.rk_dim18_bPerm[9];
+acadoWorkspace.rk_dim12_bPerm[10] += A[120]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[10] += A[121]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[10] += A[122]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[10] += A[123]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[10] += A[124]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[10] += A[125]*acadoWorkspace.rk_dim12_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[10] += A[126]*acadoWorkspace.rk_dim12_bPerm[6];
+acadoWorkspace.rk_dim12_bPerm[10] += A[127]*acadoWorkspace.rk_dim12_bPerm[7];
+acadoWorkspace.rk_dim12_bPerm[10] += A[128]*acadoWorkspace.rk_dim12_bPerm[8];
+acadoWorkspace.rk_dim12_bPerm[10] += A[129]*acadoWorkspace.rk_dim12_bPerm[9];
 
-acadoWorkspace.rk_dim18_bPerm[11] += A[198]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[11] += A[199]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[11] += A[200]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[11] += A[201]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[11] += A[202]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[11] += A[203]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[11] += A[204]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[11] += A[205]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[11] += A[206]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[11] += A[207]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[11] += A[208]*acadoWorkspace.rk_dim18_bPerm[10];
-
-acadoWorkspace.rk_dim18_bPerm[12] += A[216]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[12] += A[217]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[12] += A[218]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[12] += A[219]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[12] += A[220]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[12] += A[221]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[12] += A[222]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[12] += A[223]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[12] += A[224]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[12] += A[225]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[12] += A[226]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[12] += A[227]*acadoWorkspace.rk_dim18_bPerm[11];
-
-acadoWorkspace.rk_dim18_bPerm[13] += A[234]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[13] += A[235]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[13] += A[236]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[13] += A[237]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[13] += A[238]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[13] += A[239]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[13] += A[240]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[13] += A[241]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[13] += A[242]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[13] += A[243]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[13] += A[244]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[13] += A[245]*acadoWorkspace.rk_dim18_bPerm[11];
-acadoWorkspace.rk_dim18_bPerm[13] += A[246]*acadoWorkspace.rk_dim18_bPerm[12];
-
-acadoWorkspace.rk_dim18_bPerm[14] += A[252]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[14] += A[253]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[14] += A[254]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[14] += A[255]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[14] += A[256]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[14] += A[257]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[14] += A[258]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[14] += A[259]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[14] += A[260]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[14] += A[261]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[14] += A[262]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[14] += A[263]*acadoWorkspace.rk_dim18_bPerm[11];
-acadoWorkspace.rk_dim18_bPerm[14] += A[264]*acadoWorkspace.rk_dim18_bPerm[12];
-acadoWorkspace.rk_dim18_bPerm[14] += A[265]*acadoWorkspace.rk_dim18_bPerm[13];
-
-acadoWorkspace.rk_dim18_bPerm[15] += A[270]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[15] += A[271]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[15] += A[272]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[15] += A[273]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[15] += A[274]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[15] += A[275]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[15] += A[276]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[15] += A[277]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[15] += A[278]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[15] += A[279]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[15] += A[280]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[15] += A[281]*acadoWorkspace.rk_dim18_bPerm[11];
-acadoWorkspace.rk_dim18_bPerm[15] += A[282]*acadoWorkspace.rk_dim18_bPerm[12];
-acadoWorkspace.rk_dim18_bPerm[15] += A[283]*acadoWorkspace.rk_dim18_bPerm[13];
-acadoWorkspace.rk_dim18_bPerm[15] += A[284]*acadoWorkspace.rk_dim18_bPerm[14];
-
-acadoWorkspace.rk_dim18_bPerm[16] += A[288]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[16] += A[289]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[16] += A[290]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[16] += A[291]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[16] += A[292]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[16] += A[293]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[16] += A[294]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[16] += A[295]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[16] += A[296]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[16] += A[297]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[16] += A[298]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[16] += A[299]*acadoWorkspace.rk_dim18_bPerm[11];
-acadoWorkspace.rk_dim18_bPerm[16] += A[300]*acadoWorkspace.rk_dim18_bPerm[12];
-acadoWorkspace.rk_dim18_bPerm[16] += A[301]*acadoWorkspace.rk_dim18_bPerm[13];
-acadoWorkspace.rk_dim18_bPerm[16] += A[302]*acadoWorkspace.rk_dim18_bPerm[14];
-acadoWorkspace.rk_dim18_bPerm[16] += A[303]*acadoWorkspace.rk_dim18_bPerm[15];
-
-acadoWorkspace.rk_dim18_bPerm[17] += A[306]*acadoWorkspace.rk_dim18_bPerm[0];
-acadoWorkspace.rk_dim18_bPerm[17] += A[307]*acadoWorkspace.rk_dim18_bPerm[1];
-acadoWorkspace.rk_dim18_bPerm[17] += A[308]*acadoWorkspace.rk_dim18_bPerm[2];
-acadoWorkspace.rk_dim18_bPerm[17] += A[309]*acadoWorkspace.rk_dim18_bPerm[3];
-acadoWorkspace.rk_dim18_bPerm[17] += A[310]*acadoWorkspace.rk_dim18_bPerm[4];
-acadoWorkspace.rk_dim18_bPerm[17] += A[311]*acadoWorkspace.rk_dim18_bPerm[5];
-acadoWorkspace.rk_dim18_bPerm[17] += A[312]*acadoWorkspace.rk_dim18_bPerm[6];
-acadoWorkspace.rk_dim18_bPerm[17] += A[313]*acadoWorkspace.rk_dim18_bPerm[7];
-acadoWorkspace.rk_dim18_bPerm[17] += A[314]*acadoWorkspace.rk_dim18_bPerm[8];
-acadoWorkspace.rk_dim18_bPerm[17] += A[315]*acadoWorkspace.rk_dim18_bPerm[9];
-acadoWorkspace.rk_dim18_bPerm[17] += A[316]*acadoWorkspace.rk_dim18_bPerm[10];
-acadoWorkspace.rk_dim18_bPerm[17] += A[317]*acadoWorkspace.rk_dim18_bPerm[11];
-acadoWorkspace.rk_dim18_bPerm[17] += A[318]*acadoWorkspace.rk_dim18_bPerm[12];
-acadoWorkspace.rk_dim18_bPerm[17] += A[319]*acadoWorkspace.rk_dim18_bPerm[13];
-acadoWorkspace.rk_dim18_bPerm[17] += A[320]*acadoWorkspace.rk_dim18_bPerm[14];
-acadoWorkspace.rk_dim18_bPerm[17] += A[321]*acadoWorkspace.rk_dim18_bPerm[15];
-acadoWorkspace.rk_dim18_bPerm[17] += A[322]*acadoWorkspace.rk_dim18_bPerm[16];
+acadoWorkspace.rk_dim12_bPerm[11] += A[132]*acadoWorkspace.rk_dim12_bPerm[0];
+acadoWorkspace.rk_dim12_bPerm[11] += A[133]*acadoWorkspace.rk_dim12_bPerm[1];
+acadoWorkspace.rk_dim12_bPerm[11] += A[134]*acadoWorkspace.rk_dim12_bPerm[2];
+acadoWorkspace.rk_dim12_bPerm[11] += A[135]*acadoWorkspace.rk_dim12_bPerm[3];
+acadoWorkspace.rk_dim12_bPerm[11] += A[136]*acadoWorkspace.rk_dim12_bPerm[4];
+acadoWorkspace.rk_dim12_bPerm[11] += A[137]*acadoWorkspace.rk_dim12_bPerm[5];
+acadoWorkspace.rk_dim12_bPerm[11] += A[138]*acadoWorkspace.rk_dim12_bPerm[6];
+acadoWorkspace.rk_dim12_bPerm[11] += A[139]*acadoWorkspace.rk_dim12_bPerm[7];
+acadoWorkspace.rk_dim12_bPerm[11] += A[140]*acadoWorkspace.rk_dim12_bPerm[8];
+acadoWorkspace.rk_dim12_bPerm[11] += A[141]*acadoWorkspace.rk_dim12_bPerm[9];
+acadoWorkspace.rk_dim12_bPerm[11] += A[142]*acadoWorkspace.rk_dim12_bPerm[10];
 
 
-acado_solve_dim18_triangular( A, acadoWorkspace.rk_dim18_bPerm );
-b[0] = acadoWorkspace.rk_dim18_bPerm[0];
-b[1] = acadoWorkspace.rk_dim18_bPerm[1];
-b[2] = acadoWorkspace.rk_dim18_bPerm[2];
-b[3] = acadoWorkspace.rk_dim18_bPerm[3];
-b[4] = acadoWorkspace.rk_dim18_bPerm[4];
-b[5] = acadoWorkspace.rk_dim18_bPerm[5];
-b[6] = acadoWorkspace.rk_dim18_bPerm[6];
-b[7] = acadoWorkspace.rk_dim18_bPerm[7];
-b[8] = acadoWorkspace.rk_dim18_bPerm[8];
-b[9] = acadoWorkspace.rk_dim18_bPerm[9];
-b[10] = acadoWorkspace.rk_dim18_bPerm[10];
-b[11] = acadoWorkspace.rk_dim18_bPerm[11];
-b[12] = acadoWorkspace.rk_dim18_bPerm[12];
-b[13] = acadoWorkspace.rk_dim18_bPerm[13];
-b[14] = acadoWorkspace.rk_dim18_bPerm[14];
-b[15] = acadoWorkspace.rk_dim18_bPerm[15];
-b[16] = acadoWorkspace.rk_dim18_bPerm[16];
-b[17] = acadoWorkspace.rk_dim18_bPerm[17];
+acado_solve_dim12_triangular( A, acadoWorkspace.rk_dim12_bPerm );
+b[0] = acadoWorkspace.rk_dim12_bPerm[0];
+b[1] = acadoWorkspace.rk_dim12_bPerm[1];
+b[2] = acadoWorkspace.rk_dim12_bPerm[2];
+b[3] = acadoWorkspace.rk_dim12_bPerm[3];
+b[4] = acadoWorkspace.rk_dim12_bPerm[4];
+b[5] = acadoWorkspace.rk_dim12_bPerm[5];
+b[6] = acadoWorkspace.rk_dim12_bPerm[6];
+b[7] = acadoWorkspace.rk_dim12_bPerm[7];
+b[8] = acadoWorkspace.rk_dim12_bPerm[8];
+b[9] = acadoWorkspace.rk_dim12_bPerm[9];
+b[10] = acadoWorkspace.rk_dim12_bPerm[10];
+b[11] = acadoWorkspace.rk_dim12_bPerm[11];
 }
 
 
 
-/** Matrix of size: 3 x 3 (row major format) */
-static const real_t acado_Ah_mat[ 9 ] = 
-{ 3.9363095444732083e-04, -1.3107085170039682e-04, 4.7541948696440319e-05, 
-7.8884862947817443e-04, 5.8414682333045656e-04, -8.3097504251995811e-05, 
-7.5280612540093439e-04, 1.0249716523768430e-03, 2.2222222222222221e-04 };
+/** Matrix of size: 2 x 2 (row major format) */
+static const real_t acado_Ah_mat[ 4 ] = 
+{ 8.3333333333333331e-05, 1.7955837819827095e-04, 
+-1.2891711531604289e-05, 8.3333333333333331e-05 };
 
 
-/* Fixed step size:0.002 */
+/* Fixed step size:0.000333333 */
 int acado_integrate( real_t* const rk_eta, int resetIntegrator )
 {
 int error;
@@ -1426,7 +1227,7 @@ acadoWorkspace.rk_xxx[6] = rk_eta[60];
 acadoWorkspace.rk_xxx[7] = rk_eta[61];
 acadoWorkspace.rk_xxx[8] = rk_eta[62];
 
-for (run = 0; run < 5; ++run)
+for (run = 0; run < 30; ++run)
 {
 if( run > 0 ) {
 for (i = 0; i < 6; ++i)
@@ -1445,133 +1246,116 @@ acadoWorkspace.rk_diffsPrev2[i * 9 + 8] = rk_eta[i * 3 + 44];
 if( resetIntegrator ) {
 for (i = 0; i < 1; ++i)
 {
-for (run1 = 0; run1 < 3; ++run1)
+for (run1 = 0; run1 < 2; ++run1)
 {
 for (j = 0; j < 6; ++j)
 {
 acadoWorkspace.rk_xxx[j] = rk_eta[j];
 tmp_index1 = j;
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_kkk[tmp_index1 * 3];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 1];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_kkk[tmp_index1 * 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 2 + 1];
 }
 acado_diffs( acadoWorkspace.rk_xxx, &(acadoWorkspace.rk_diffsTemp2[ run1 * 54 ]) );
 for (j = 0; j < 6; ++j)
 {
 tmp_index1 = (run1 * 6) + (j);
-acadoWorkspace.rk_A[tmp_index1 * 18] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 1] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 2] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 3] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 4] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 5] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 0 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j)] -= 1.0000000000000000e+00;
-acadoWorkspace.rk_A[tmp_index1 * 18 + 6] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 7] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 8] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 9] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 10] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 11] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 1 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j + 6)] -= 1.0000000000000000e+00;
-acadoWorkspace.rk_A[tmp_index1 * 18 + 12] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 13] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 14] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 15] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 16] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 17] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 2 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j + 12)] -= 1.0000000000000000e+00;
+acadoWorkspace.rk_A[tmp_index1 * 12] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 1] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 2] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 3] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 4] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 5] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
+if( 0 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 12) + (j)] -= 1.0000000000000000e+00;
+acadoWorkspace.rk_A[tmp_index1 * 12 + 6] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 7] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 8] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 9] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 10] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 11] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
+if( 1 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 12) + (j + 6)] -= 1.0000000000000000e+00;
 }
 acado_rhs( acadoWorkspace.rk_xxx, acadoWorkspace.rk_rhsTemp );
 acadoWorkspace.rk_b[run1 * 6] = acadoWorkspace.rk_kkk[run1] - acadoWorkspace.rk_rhsTemp[0];
-acadoWorkspace.rk_b[run1 * 6 + 1] = acadoWorkspace.rk_kkk[run1 + 3] - acadoWorkspace.rk_rhsTemp[1];
-acadoWorkspace.rk_b[run1 * 6 + 2] = acadoWorkspace.rk_kkk[run1 + 6] - acadoWorkspace.rk_rhsTemp[2];
-acadoWorkspace.rk_b[run1 * 6 + 3] = acadoWorkspace.rk_kkk[run1 + 9] - acadoWorkspace.rk_rhsTemp[3];
-acadoWorkspace.rk_b[run1 * 6 + 4] = acadoWorkspace.rk_kkk[run1 + 12] - acadoWorkspace.rk_rhsTemp[4];
-acadoWorkspace.rk_b[run1 * 6 + 5] = acadoWorkspace.rk_kkk[run1 + 15] - acadoWorkspace.rk_rhsTemp[5];
+acadoWorkspace.rk_b[run1 * 6 + 1] = acadoWorkspace.rk_kkk[run1 + 2] - acadoWorkspace.rk_rhsTemp[1];
+acadoWorkspace.rk_b[run1 * 6 + 2] = acadoWorkspace.rk_kkk[run1 + 4] - acadoWorkspace.rk_rhsTemp[2];
+acadoWorkspace.rk_b[run1 * 6 + 3] = acadoWorkspace.rk_kkk[run1 + 6] - acadoWorkspace.rk_rhsTemp[3];
+acadoWorkspace.rk_b[run1 * 6 + 4] = acadoWorkspace.rk_kkk[run1 + 8] - acadoWorkspace.rk_rhsTemp[4];
+acadoWorkspace.rk_b[run1 * 6 + 5] = acadoWorkspace.rk_kkk[run1 + 10] - acadoWorkspace.rk_rhsTemp[5];
 }
-det = acado_solve_dim18_system( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim18_perm );
-for (j = 0; j < 3; ++j)
+det = acado_solve_dim12_system( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim12_perm );
+for (j = 0; j < 2; ++j)
 {
 acadoWorkspace.rk_kkk[j] += acadoWorkspace.rk_b[j * 6];
-acadoWorkspace.rk_kkk[j + 3] += acadoWorkspace.rk_b[j * 6 + 1];
-acadoWorkspace.rk_kkk[j + 6] += acadoWorkspace.rk_b[j * 6 + 2];
-acadoWorkspace.rk_kkk[j + 9] += acadoWorkspace.rk_b[j * 6 + 3];
-acadoWorkspace.rk_kkk[j + 12] += acadoWorkspace.rk_b[j * 6 + 4];
-acadoWorkspace.rk_kkk[j + 15] += acadoWorkspace.rk_b[j * 6 + 5];
+acadoWorkspace.rk_kkk[j + 2] += acadoWorkspace.rk_b[j * 6 + 1];
+acadoWorkspace.rk_kkk[j + 4] += acadoWorkspace.rk_b[j * 6 + 2];
+acadoWorkspace.rk_kkk[j + 6] += acadoWorkspace.rk_b[j * 6 + 3];
+acadoWorkspace.rk_kkk[j + 8] += acadoWorkspace.rk_b[j * 6 + 4];
+acadoWorkspace.rk_kkk[j + 10] += acadoWorkspace.rk_b[j * 6 + 5];
 }
 }
 }
 for (i = 0; i < 5; ++i)
 {
-for (run1 = 0; run1 < 3; ++run1)
+for (run1 = 0; run1 < 2; ++run1)
 {
 for (j = 0; j < 6; ++j)
 {
 acadoWorkspace.rk_xxx[j] = rk_eta[j];
 tmp_index1 = j;
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_kkk[tmp_index1 * 3];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 1];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_kkk[tmp_index1 * 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 2 + 1];
 }
 acado_rhs( acadoWorkspace.rk_xxx, acadoWorkspace.rk_rhsTemp );
 acadoWorkspace.rk_b[run1 * 6] = acadoWorkspace.rk_kkk[run1] - acadoWorkspace.rk_rhsTemp[0];
-acadoWorkspace.rk_b[run1 * 6 + 1] = acadoWorkspace.rk_kkk[run1 + 3] - acadoWorkspace.rk_rhsTemp[1];
-acadoWorkspace.rk_b[run1 * 6 + 2] = acadoWorkspace.rk_kkk[run1 + 6] - acadoWorkspace.rk_rhsTemp[2];
-acadoWorkspace.rk_b[run1 * 6 + 3] = acadoWorkspace.rk_kkk[run1 + 9] - acadoWorkspace.rk_rhsTemp[3];
-acadoWorkspace.rk_b[run1 * 6 + 4] = acadoWorkspace.rk_kkk[run1 + 12] - acadoWorkspace.rk_rhsTemp[4];
-acadoWorkspace.rk_b[run1 * 6 + 5] = acadoWorkspace.rk_kkk[run1 + 15] - acadoWorkspace.rk_rhsTemp[5];
+acadoWorkspace.rk_b[run1 * 6 + 1] = acadoWorkspace.rk_kkk[run1 + 2] - acadoWorkspace.rk_rhsTemp[1];
+acadoWorkspace.rk_b[run1 * 6 + 2] = acadoWorkspace.rk_kkk[run1 + 4] - acadoWorkspace.rk_rhsTemp[2];
+acadoWorkspace.rk_b[run1 * 6 + 3] = acadoWorkspace.rk_kkk[run1 + 6] - acadoWorkspace.rk_rhsTemp[3];
+acadoWorkspace.rk_b[run1 * 6 + 4] = acadoWorkspace.rk_kkk[run1 + 8] - acadoWorkspace.rk_rhsTemp[4];
+acadoWorkspace.rk_b[run1 * 6 + 5] = acadoWorkspace.rk_kkk[run1 + 10] - acadoWorkspace.rk_rhsTemp[5];
 }
-acado_solve_dim18_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim18_perm );
-for (j = 0; j < 3; ++j)
+acado_solve_dim12_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim12_perm );
+for (j = 0; j < 2; ++j)
 {
 acadoWorkspace.rk_kkk[j] += acadoWorkspace.rk_b[j * 6];
-acadoWorkspace.rk_kkk[j + 3] += acadoWorkspace.rk_b[j * 6 + 1];
-acadoWorkspace.rk_kkk[j + 6] += acadoWorkspace.rk_b[j * 6 + 2];
-acadoWorkspace.rk_kkk[j + 9] += acadoWorkspace.rk_b[j * 6 + 3];
-acadoWorkspace.rk_kkk[j + 12] += acadoWorkspace.rk_b[j * 6 + 4];
-acadoWorkspace.rk_kkk[j + 15] += acadoWorkspace.rk_b[j * 6 + 5];
+acadoWorkspace.rk_kkk[j + 2] += acadoWorkspace.rk_b[j * 6 + 1];
+acadoWorkspace.rk_kkk[j + 4] += acadoWorkspace.rk_b[j * 6 + 2];
+acadoWorkspace.rk_kkk[j + 6] += acadoWorkspace.rk_b[j * 6 + 3];
+acadoWorkspace.rk_kkk[j + 8] += acadoWorkspace.rk_b[j * 6 + 4];
+acadoWorkspace.rk_kkk[j + 10] += acadoWorkspace.rk_b[j * 6 + 5];
 }
 }
-for (run1 = 0; run1 < 3; ++run1)
+for (run1 = 0; run1 < 2; ++run1)
 {
 for (j = 0; j < 6; ++j)
 {
 acadoWorkspace.rk_xxx[j] = rk_eta[j];
 tmp_index1 = j;
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_kkk[tmp_index1 * 3];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 1];
-acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_kkk[tmp_index1 * 3 + 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_kkk[tmp_index1 * 2];
+acadoWorkspace.rk_xxx[j] += + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_kkk[tmp_index1 * 2 + 1];
 }
 acado_diffs( acadoWorkspace.rk_xxx, &(acadoWorkspace.rk_diffsTemp2[ run1 * 54 ]) );
 for (j = 0; j < 6; ++j)
 {
 tmp_index1 = (run1 * 6) + (j);
-acadoWorkspace.rk_A[tmp_index1 * 18] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 1] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 2] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 3] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 4] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 5] = + acado_Ah_mat[run1 * 3]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 0 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j)] -= 1.0000000000000000e+00;
-acadoWorkspace.rk_A[tmp_index1 * 18 + 6] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 7] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 8] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 9] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 10] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 11] = + acado_Ah_mat[run1 * 3 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 1 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j + 6)] -= 1.0000000000000000e+00;
-acadoWorkspace.rk_A[tmp_index1 * 18 + 12] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 13] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 14] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 15] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 16] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
-acadoWorkspace.rk_A[tmp_index1 * 18 + 17] = + acado_Ah_mat[run1 * 3 + 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
-if( 2 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 18) + (j + 12)] -= 1.0000000000000000e+00;
+acadoWorkspace.rk_A[tmp_index1 * 12] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 1] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 2] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 3] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 4] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 5] = + acado_Ah_mat[run1 * 2]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
+if( 0 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 12) + (j)] -= 1.0000000000000000e+00;
+acadoWorkspace.rk_A[tmp_index1 * 12 + 6] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 7] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 1)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 8] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 2)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 9] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 3)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 10] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 4)];
+acadoWorkspace.rk_A[tmp_index1 * 12 + 11] = + acado_Ah_mat[run1 * 2 + 1]*acadoWorkspace.rk_diffsTemp2[(run1 * 54) + (j * 9 + 5)];
+if( 1 == run1 ) acadoWorkspace.rk_A[(tmp_index1 * 12) + (j + 6)] -= 1.0000000000000000e+00;
 }
 }
 for (run1 = 0; run1 < 6; ++run1)
 {
-for (i = 0; i < 3; ++i)
+for (i = 0; i < 2; ++i)
 {
 acadoWorkspace.rk_b[i * 6] = - acadoWorkspace.rk_diffsTemp2[(i * 54) + (run1)];
 acadoWorkspace.rk_b[i * 6 + 1] = - acadoWorkspace.rk_diffsTemp2[(i * 54) + (run1 + 9)];
@@ -1581,29 +1365,29 @@ acadoWorkspace.rk_b[i * 6 + 4] = - acadoWorkspace.rk_diffsTemp2[(i * 54) + (run1
 acadoWorkspace.rk_b[i * 6 + 5] = - acadoWorkspace.rk_diffsTemp2[(i * 54) + (run1 + 45)];
 }
 if( 0 == run1 ) {
-det = acado_solve_dim18_system( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim18_perm );
+det = acado_solve_dim12_system( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim12_perm );
 }
  else {
-acado_solve_dim18_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim18_perm );
+acado_solve_dim12_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim12_perm );
 }
-for (i = 0; i < 3; ++i)
+for (i = 0; i < 2; ++i)
 {
 acadoWorkspace.rk_diffK[i] = acadoWorkspace.rk_b[i * 6];
-acadoWorkspace.rk_diffK[i + 3] = acadoWorkspace.rk_b[i * 6 + 1];
-acadoWorkspace.rk_diffK[i + 6] = acadoWorkspace.rk_b[i * 6 + 2];
-acadoWorkspace.rk_diffK[i + 9] = acadoWorkspace.rk_b[i * 6 + 3];
-acadoWorkspace.rk_diffK[i + 12] = acadoWorkspace.rk_b[i * 6 + 4];
-acadoWorkspace.rk_diffK[i + 15] = acadoWorkspace.rk_b[i * 6 + 5];
+acadoWorkspace.rk_diffK[i + 2] = acadoWorkspace.rk_b[i * 6 + 1];
+acadoWorkspace.rk_diffK[i + 4] = acadoWorkspace.rk_b[i * 6 + 2];
+acadoWorkspace.rk_diffK[i + 6] = acadoWorkspace.rk_b[i * 6 + 3];
+acadoWorkspace.rk_diffK[i + 8] = acadoWorkspace.rk_b[i * 6 + 4];
+acadoWorkspace.rk_diffK[i + 10] = acadoWorkspace.rk_b[i * 6 + 5];
 }
 for (i = 0; i < 6; ++i)
 {
 acadoWorkspace.rk_diffsNew2[(i * 9) + (run1)] = (i == run1-0);
-acadoWorkspace.rk_diffsNew2[(i * 9) + (run1)] += + acadoWorkspace.rk_diffK[i * 3]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_diffK[i * 3 + 1]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_diffK[i * 3 + 2]*(real_t)2.2222222222222221e-04;
+acadoWorkspace.rk_diffsNew2[(i * 9) + (run1)] += + acadoWorkspace.rk_diffK[i * 2]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_diffK[i * 2 + 1]*(real_t)1.6666666666666666e-04;
 }
 }
 for (run1 = 0; run1 < 3; ++run1)
 {
-for (i = 0; i < 3; ++i)
+for (i = 0; i < 2; ++i)
 {
 for (j = 0; j < 6; ++j)
 {
@@ -1612,27 +1396,27 @@ tmp_index2 = (run1) + (j * 9);
 acadoWorkspace.rk_b[tmp_index1] = - acadoWorkspace.rk_diffsTemp2[(i * 54) + (tmp_index2 + 6)];
 }
 }
-acado_solve_dim18_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim18_perm );
-for (i = 0; i < 3; ++i)
+acado_solve_dim12_system_reuse( acadoWorkspace.rk_A, acadoWorkspace.rk_b, acadoWorkspace.rk_dim12_perm );
+for (i = 0; i < 2; ++i)
 {
 acadoWorkspace.rk_diffK[i] = acadoWorkspace.rk_b[i * 6];
-acadoWorkspace.rk_diffK[i + 3] = acadoWorkspace.rk_b[i * 6 + 1];
-acadoWorkspace.rk_diffK[i + 6] = acadoWorkspace.rk_b[i * 6 + 2];
-acadoWorkspace.rk_diffK[i + 9] = acadoWorkspace.rk_b[i * 6 + 3];
-acadoWorkspace.rk_diffK[i + 12] = acadoWorkspace.rk_b[i * 6 + 4];
-acadoWorkspace.rk_diffK[i + 15] = acadoWorkspace.rk_b[i * 6 + 5];
+acadoWorkspace.rk_diffK[i + 2] = acadoWorkspace.rk_b[i * 6 + 1];
+acadoWorkspace.rk_diffK[i + 4] = acadoWorkspace.rk_b[i * 6 + 2];
+acadoWorkspace.rk_diffK[i + 6] = acadoWorkspace.rk_b[i * 6 + 3];
+acadoWorkspace.rk_diffK[i + 8] = acadoWorkspace.rk_b[i * 6 + 4];
+acadoWorkspace.rk_diffK[i + 10] = acadoWorkspace.rk_b[i * 6 + 5];
 }
 for (i = 0; i < 6; ++i)
 {
-acadoWorkspace.rk_diffsNew2[(i * 9) + (run1 + 6)] = + acadoWorkspace.rk_diffK[i * 3]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_diffK[i * 3 + 1]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_diffK[i * 3 + 2]*(real_t)2.2222222222222221e-04;
+acadoWorkspace.rk_diffsNew2[(i * 9) + (run1 + 6)] = + acadoWorkspace.rk_diffK[i * 2]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_diffK[i * 2 + 1]*(real_t)1.6666666666666666e-04;
 }
 }
-rk_eta[0] += + acadoWorkspace.rk_kkk[0]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[1]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[2]*(real_t)2.2222222222222221e-04;
-rk_eta[1] += + acadoWorkspace.rk_kkk[3]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[4]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[5]*(real_t)2.2222222222222221e-04;
-rk_eta[2] += + acadoWorkspace.rk_kkk[6]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[7]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[8]*(real_t)2.2222222222222221e-04;
-rk_eta[3] += + acadoWorkspace.rk_kkk[9]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[10]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[11]*(real_t)2.2222222222222221e-04;
-rk_eta[4] += + acadoWorkspace.rk_kkk[12]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[13]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[14]*(real_t)2.2222222222222221e-04;
-rk_eta[5] += + acadoWorkspace.rk_kkk[15]*(real_t)7.5280612540093439e-04 + acadoWorkspace.rk_kkk[16]*(real_t)1.0249716523768430e-03 + acadoWorkspace.rk_kkk[17]*(real_t)2.2222222222222221e-04;
+rk_eta[0] += + acadoWorkspace.rk_kkk[0]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[1]*(real_t)1.6666666666666666e-04;
+rk_eta[1] += + acadoWorkspace.rk_kkk[2]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[3]*(real_t)1.6666666666666666e-04;
+rk_eta[2] += + acadoWorkspace.rk_kkk[4]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[5]*(real_t)1.6666666666666666e-04;
+rk_eta[3] += + acadoWorkspace.rk_kkk[6]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[7]*(real_t)1.6666666666666666e-04;
+rk_eta[4] += + acadoWorkspace.rk_kkk[8]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[9]*(real_t)1.6666666666666666e-04;
+rk_eta[5] += + acadoWorkspace.rk_kkk[10]*(real_t)1.6666666666666666e-04 + acadoWorkspace.rk_kkk[11]*(real_t)1.6666666666666666e-04;
 if( run == 0 ) {
 for (i = 0; i < 6; ++i)
 {
@@ -1675,7 +1459,7 @@ rk_eta[tmp_index2 + 42] += + acadoWorkspace.rk_diffsNew2[i * 9 + 5]*acadoWorkspa
 }
 }
 resetIntegrator = 0;
-acadoWorkspace.rk_ttt += 2.0000000000000001e-01;
+acadoWorkspace.rk_ttt += 3.3333333333333333e-02;
 }
 for (i = 0; i < 6; ++i)
 {

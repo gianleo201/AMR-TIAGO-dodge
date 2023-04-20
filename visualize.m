@@ -70,7 +70,7 @@ pbaspect([3 1 1]);
 if RECORD_SIMULATION
 
 % settings for video recording
-set(gcf, 'Position',[0 0 1920 862]);
+set(gcf, 'Position',[0 0  1920 870]);
 % write the frame
 frame = getframe(gcf);    
 writeVideo(writerObj, frame);
