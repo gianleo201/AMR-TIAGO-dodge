@@ -21,5 +21,5 @@ function [d, dot_d, ddot_d]=DistanceNDerivatives(P, r, P_obs, r_obs, x, c_obs, d
 %         end
 %     end
 %     ddot_d=(n.'*(dot_jac_Rb*(x(4:6))+jac_Rb*(dx(4:6).')));
-    fprintf('Distance and its derivatives calculated for a point.\n')
+    fprintf('Distance and its derivatives calculated for a point.\n');
 end

@@ -78,6 +78,8 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     uint options_flag;
     options_flag = ExportModule1.set( INTEGRATOR_TYPE, INT_IRK_GL4 );
     if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: INTEGRATOR_TYPE");
+    options_flag = ExportModule1.set( NUM_INTEGRATOR_STEPS, 5 );
+    if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: NUM_INTEGRATOR_STEPS");
     DifferentialEquation acadodata_f1;
     acadodata_f1 << dot(x1) == x4;
     acadodata_f1 << dot(x2) == x5;

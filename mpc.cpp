@@ -97,12 +97,12 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     acadodata_f3 << x4;
     acadodata_f3 << x5;
     acadodata_f3 << x6;
-    OCP ocp1(0, 0.2, 20);
+    OCP ocp1(0, 0.25, 25);
     ocp1.minimizeLSQ(acadodata_M1, acadodata_f2);
     ocp1.minimizeLSQEndTerm(acadodata_M2, acadodata_f3);
     ocp1.subjectTo((-2.35619449019234483700e+00) <= x2 <= 1.57079632679489655800e+00);
     ocp1.subjectTo((-2.61799387799149441136e+00) <= x3 <= 2.61799387799149441136e+00);
-    ocp1.subjectTo((-1.00000000000000000000e+01) <= x4 <= 1.00000000000000000000e+01);
+    ocp1.subjectTo((-5.00000000000000000000e+00) <= x4 <= 5.00000000000000000000e+00);
     ocp1.subjectTo((-5.00000000000000000000e+00) <= x5 <= 5.00000000000000000000e+00);
     ocp1.subjectTo((-5.00000000000000000000e+00) <= x6 <= 5.00000000000000000000e+00);
     ocp1.subjectTo((-5.00000000000000000000e+02) <= tau1 <= 5.00000000000000000000e+02);
@@ -136,7 +136,7 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: DISCRETIZATION_TYPE");
     options_flag = ExportModule2.set( INTEGRATOR_TYPE, INT_IRK_GL4 );
     if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: INTEGRATOR_TYPE");
-    options_flag = ExportModule2.set( NUM_INTEGRATOR_STEPS, 40 );
+    options_flag = ExportModule2.set( NUM_INTEGRATOR_STEPS, 50 );
     if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: NUM_INTEGRATOR_STEPS");
     options_flag = ExportModule2.set( QP_SOLVER, QP_QPOASES );
     if(options_flag != 0) mexErrMsgTxt("ACADO export failed when setting the following option: QP_SOLVER");

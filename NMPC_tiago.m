@@ -7,7 +7,7 @@ EXPORT = 1;
 
 CONSTRAINT_TYPE = 1; % 1: normal constraint; 2: cbf constraint; 3: velocity damper constraint
 CONSIDER_BALANCE = true;
-RECORD_SIMULATION = false;
+RECORD_SIMULATION = true;
 
 video_names = ["Simple_constraint" "CBF_constraint" "VD_constraint"];
 
@@ -108,6 +108,8 @@ syms zmp Mm1 Mm2 real;
 % mu3 = g0*m3*((l3*sin(X2 + X3))/2 + l2*sin(X2) - p_module*cos(p_angle)) - (((X5^2*l3*m3*sin(X2 + X3))/2 - Tau1 + (X6^2*l3*m3*sin(X2 + X3))/2 + (X5^2*l2*m2*sin(X2))/2 + X5^2*l2*m3*sin(X2) + X5*X6*l3*m3*sin(X2 + X3))*(32*CoM3x*I2zz*I3zz*m1 + 4*I3zz*l2^2*m2^2*p_module*sin(2*X2 - p_angle) + 16*I3zz*l2^2*m3^2*p_module*sin(2*X2 - p_angle) + 4*CoM3x*l2^2*l3^2*m1*m3^2 + 8*CoM3x*I3zz*l2^2*m1*m2 + 8*CoM3x*I2zz*l3^2*m1*m3 + 32*CoM3x*I3zz*l2^2*m1*m3 + 4*I3zz*l2^2*m2^2*p_module*sin(p_angle) + 4*I2zz*l3^2*m3^2*p_module*sin(p_angle) + 16*I3zz*l2^2*m3^2*p_module*sin(p_angle) + 32*I2zz*I3zz*m1*p_module*sin(p_angle) + 32*I2zz*I3zz*m2*p_module*sin(p_angle) + 32*I2zz*I3zz*m3*p_module*sin(p_angle) + 4*I2zz*l3^2*m3^2*p_module*sin(2*X2 + 2*X3 - p_angle) + 16*I3zz*l2^2*m2*m3*p_module*sin(2*X2 - p_angle) + 2*CoM3x*l2^2*l3^2*m1*m2*m3 + 4*l2^2*l3^2*m1*m3^2*p_module*sin(p_angle) + 3*l2^2*l3^2*m2*m3^2*p_module*sin(p_angle) + l2^2*l3^2*m2^2*m3*p_module*sin(p_angle) - 4*CoM3x*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m1*m3^2*p_module*sin(2*X3 + p_angle) - l2^2*l3^2*m2*m3^2*p_module*sin(2*X3 + p_angle) + 8*I3zz*l2^2*m1*m2*p_module*sin(p_angle) + 8*I2zz*l3^2*m1*m3*p_module*sin(p_angle) + 32*I3zz*l2^2*m1*m3*p_module*sin(p_angle) + 8*I2zz*l3^2*m2*m3*p_module*sin(p_angle) + 24*I3zz*l2^2*m2*m3*p_module*sin(p_angle) - l2^2*l3^2*m2*m3^2*p_module*sin(2*X2 + 2*X3 - p_angle) + 2*l2^2*l3^2*m1*m3^2*p_module*sin(2*X3 - p_angle) + 2*l2^2*l3^2*m2*m3^2*p_module*sin(2*X2 - p_angle) + l2^2*l3^2*m2^2*m3*p_module*sin(2*X2 - p_angle) + l2^2*l3^2*m2*m3^2*p_module*sin(2*X3 - p_angle) + 2*l2^2*l3^2*m1*m2*m3*p_module*sin(p_angle)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2)) - ((Tau3 + (g0*l3*m3*sin(X2 + X3))/2 - (X5^2*l2*l3*m3*sin(X3))/2)*(8*I3zz*l2*m2^2*p_module*sin(X2 - p_angle) - 8*I2zz*l3*m3^2*p_module*sin(X2 + X3 + p_angle) + 16*I3zz*l2*m3^2*p_module*sin(X2 - p_angle) - 8*I2zz*l3*m3^2*p_module*sin(X2 + X3 - p_angle) + 8*I3zz*l2*m2^2*p_module*sin(X2 + p_angle) + 16*I3zz*l2*m3^2*p_module*sin(X2 + p_angle) - 4*l2^2*l3*m1*m3^2*p_module*sin(X2 + X3 + p_angle) + l2^2*l3*m2^2*m3*p_module*sin(X2 + X3 + p_angle) + 2*l2*l3^2*m1*m3^2*p_module*sin(X2 - p_angle) + 3*l2*l3^2*m2*m3^2*p_module*sin(X2 - p_angle) + 2*l2*l3^2*m2^2*m3*p_module*sin(X2 - p_angle) - 8*I2zz*l3*m1*m3*p_module*sin(X2 + X3 + p_angle) - 8*I2zz*l3*m2*m3*p_module*sin(X2 + X3 + p_angle) + 8*I3zz*l2*m1*m2*p_module*sin(X2 - p_angle) + 16*I3zz*l2*m1*m3*p_module*sin(X2 - p_angle) + 24*I3zz*l2*m2*m3*p_module*sin(X2 - p_angle) - 8*CoM3x*l2^2*l3*m1*m3^2*cos(X2 + X3) - 4*l2^2*l3*m1*m3^2*p_module*sin(X2 + X3 - p_angle) + 4*l2^2*l3*m1*m3^2*p_module*sin(X2 - X3 + p_angle) - 4*l2^2*l3*m1*m3^2*p_module*sin(X3 - X2 + p_angle) - 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + 2*X3 + p_angle) + 2*l2^2*l3*m2*m3^2*p_module*sin(X2 - X3 + p_angle) - 2*l2^2*l3*m2*m3^2*p_module*sin(X3 - X2 + p_angle) + l2^2*l3*m2^2*m3*p_module*sin(X2 + X3 - p_angle) + l2^2*l3*m2^2*m3*p_module*sin(X2 - X3 + p_angle) - l2^2*l3*m2^2*m3*p_module*sin(X3 - X2 + p_angle) - l2*l3^2*m2*m3^2*p_module*sin(X2 + 2*X3 + p_angle) - 16*CoM3x*I2zz*l3*m1*m3*cos(X2 + X3) - 8*I2zz*l3*m1*m3*p_module*sin(X2 + X3 - p_angle) - 8*I2zz*l3*m2*m3*p_module*sin(X2 + X3 - p_angle) + 4*CoM3x*l2*l3^2*m1*m3^2*cos(X2) + 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + p_angle) + 3*l2*l3^2*m2*m3^2*p_module*sin(X2 + p_angle) + 2*l2*l3^2*m2^2*m3*p_module*sin(X2 + p_angle) + 8*CoM3x*l2^2*l3*m1*m3^2*cos(X2 - X3) - 4*CoM3x*l2*l3^2*m1*m3^2*cos(X2 + 2*X3) + 16*CoM3x*I3zz*l2*m1*m2*cos(X2) + 32*CoM3x*I3zz*l2*m1*m3*cos(X2) - 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + 2*X3 - p_angle) - l2*l3^2*m2*m3^2*p_module*sin(X2 + 2*X3 - p_angle) + 8*I3zz*l2*m1*m2*p_module*sin(X2 + p_angle) + 16*I3zz*l2*m1*m3*p_module*sin(X2 + p_angle) + 24*I3zz*l2*m2*m3*p_module*sin(X2 + p_angle) + 2*l2*l3^2*m1*m2*m3*p_module*sin(X2 - p_angle) + 2*l2^2*l3*m1*m2*m3*p_module*sin(X2 - X3 + p_angle) - 2*l2^2*l3*m1*m2*m3*p_module*sin(X3 - X2 + p_angle) + 4*CoM3x*l2*l3^2*m1*m2*m3*cos(X2) + 2*l2*l3^2*m1*m2*m3*p_module*sin(X2 + p_angle) + 4*CoM3x*l2^2*l3*m1*m2*m3*cos(X2 - X3)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2)) + (((l2*l3*m3*sin(X3)*X6^2)/2 + X5*l2*l3*m3*sin(X3)*X6 + Tau2 + (g0*l3*m3*sin(X2 + X3))/2 + (g0*l2*m2*sin(X2))/2 + g0*l2*m3*sin(X2))*(4*I3zz*l2^2*m2^2*cos(2*X2) - 4*I2zz*l3^2*m3^2 - 16*I3zz*l2^2*m3^2 - 32*I2zz*I3zz*m1 - 32*I2zz*I3zz*m2 - 32*I2zz*I3zz*m3 - 4*l2^2*l3^2*m1*m3^2 - 3*l2^2*l3^2*m2*m3^2 - l2^2*l3^2*m2^2*m3 - 8*I3zz*l2^2*m1*m2 - 8*I2zz*l3^2*m1*m3 - 32*I3zz*l2^2*m1*m3 - 8*I2zz*l3^2*m2*m3 - 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2 + 16*I3zz*l2^2*m3^2*cos(2*X2) + 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) - 2*l2^2*l3^2*m1*m2*m3 + 4*l2^2*l3^2*m1*m3^2*cos(2*X3) + 2*l2^2*l3^2*m2*m3^2*cos(2*X2) + l2^2*l3^2*m2^2*m3*cos(2*X2) + 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + 8*I3zz*l2*m2^2*p_module*sin(X2 - p_angle) + 16*I3zz*l2*m3^2*p_module*sin(X2 - p_angle) - l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) + 16*I3zz*l2^2*m2*m3*cos(2*X2) + 8*I3zz*l2*m2^2*p_module*sin(X2 + p_angle) + 16*I3zz*l2*m3^2*p_module*sin(X2 + p_angle) + 2*l2*l3^2*m1*m3^2*p_module*sin(X2 - p_angle) + 3*l2*l3^2*m2*m3^2*p_module*sin(X2 - p_angle) + 2*l2*l3^2*m2^2*m3*p_module*sin(X2 - p_angle) + 8*I3zz*l2*m1*m2*p_module*sin(X2 - p_angle) + 16*I3zz*l2*m1*m3*p_module*sin(X2 - p_angle) + 24*I3zz*l2*m2*m3*p_module*sin(X2 - p_angle) - 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + 2*X3 + p_angle) - l2*l3^2*m2*m3^2*p_module*sin(X2 + 2*X3 + p_angle) + 4*CoM3x*l2*l3^2*m1*m3^2*cos(X2) + 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + p_angle) + 3*l2*l3^2*m2*m3^2*p_module*sin(X2 + p_angle) + 2*l2*l3^2*m2^2*m3*p_module*sin(X2 + p_angle) - 4*CoM3x*l2*l3^2*m1*m3^2*cos(X2 + 2*X3) + 16*CoM3x*I3zz*l2*m1*m2*cos(X2) + 32*CoM3x*I3zz*l2*m1*m3*cos(X2) - 2*l2*l3^2*m1*m3^2*p_module*sin(X2 + 2*X3 - p_angle) - l2*l3^2*m2*m3^2*p_module*sin(X2 + 2*X3 - p_angle) + 8*I3zz*l2*m1*m2*p_module*sin(X2 + p_angle) + 16*I3zz*l2*m1*m3*p_module*sin(X2 + p_angle) + 24*I3zz*l2*m2*m3*p_module*sin(X2 + p_angle) + 2*l2*l3^2*m1*m2*m3*p_module*sin(X2 - p_angle) + 4*CoM3x*l2*l3^2*m1*m2*m3*cos(X2) + 2*l2*l3^2*m1*m2*m3*p_module*sin(X2 + p_angle)))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2)) + g0*m1*(CoM3y - p_module*cos(p_angle)) + g0*m2*((l2*sin(X2))/2 - p_module*cos(p_angle)) + (X6^2*l2*l3*m3*sin(X3))/2 + (X5^2*l2*m2*p_module*cos(X2 - p_angle))/2 + X5^2*l2*m3*p_module*cos(X2 - p_angle) + (X5^2*l3*m3*p_module*cos(X2 + X3 - p_angle))/2 + (X6^2*l3*m3*p_module*cos(X2 + X3 - p_angle))/2 + X5*X6*l2*l3*m3*sin(X3) + X5*X6*l3*m3*p_module*cos(X2 + X3 - p_angle);
 % f2 = (16*I3zz*Tau2*l2*m2^2*sin(X2) - 32*I2zz*I3zz*g0*m2^2 - 32*I2zz*I3zz*g0*m3^2 - 32*I2zz*I3zz*g0*m1^2 + 32*I3zz*Tau2*l2*m3^2*sin(X2) - 16*I3zz*Tau3*l2*m2^2*sin(X2) - 32*I3zz*Tau3*l2*m3^2*sin(X2) - 8*I3zz*g0*l2^2*m1*m2^2 - 8*I3zz*g0*l2^2*m1^2*m2 - 8*I2zz*g0*l3^2*m1*m3^2 - 8*I2zz*g0*l3^2*m1^2*m3 - 32*I3zz*g0*l2^2*m1*m3^2 - 32*I3zz*g0*l2^2*m1^2*m3 - 8*I2zz*g0*l3^2*m2*m3^2 - 8*I2zz*g0*l3^2*m2^2*m3 - 8*I3zz*g0*l2^2*m2*m3^2 - 8*I3zz*g0*l2^2*m2^2*m3 - 64*I2zz*I3zz*g0*m1*m2 - 64*I2zz*I3zz*g0*m1*m3 - 64*I2zz*I3zz*g0*m2*m3 + 16*I2zz*Tau3*l3*m3^2*sin(X2 + X3) + 4*I3zz*Tau1*l2^2*m2^2*sin(2*X2) + 16*I3zz*Tau1*l2^2*m3^2*sin(2*X2) + 4*I2zz*Tau1*l3^2*m3^2*sin(2*X2 + 2*X3) - 4*g0*l2^2*l3^2*m1^2*m3^2 - g0*l2^2*l3^2*m2^2*m3^2 + (X5^2*l2^3*l3^2*m2^2*m3^2*cos(X2))/2 - 6*g0*l2^2*l3^2*m1*m2*m3^2 - 2*g0*l2^2*l3^2*m1*m2^2*m3 - 2*g0*l2^2*l3^2*m1^2*m2*m3 - 4*Tau2*l2*l3^2*m1*m3^2*sin(X2 + 2*X3) - 8*Tau3*l2^2*l3*m1*m3^2*sin(X2 - X3) - 2*Tau2*l2*l3^2*m2*m3^2*sin(X2 + 2*X3) + 4*Tau3*l2*l3^2*m1*m3^2*sin(X2 + 2*X3) - 4*Tau3*l2^2*l3*m2*m3^2*sin(X2 - X3) - 2*Tau3*l2^2*l3*m2^2*m3*sin(X2 - X3) + 2*Tau3*l2*l3^2*m2*m3^2*sin(X2 + 2*X3) + 16*I3zz*Tau2*l2*m1*m2*sin(X2) + 32*I3zz*Tau2*l2*m1*m3*sin(X2) - 16*I3zz*Tau3*l2*m1*m2*sin(X2) + 48*I3zz*Tau2*l2*m2*m3*sin(X2) - 32*I3zz*Tau3*l2*m1*m3*sin(X2) - 48*I3zz*Tau3*l2*m2*m3*sin(X2) + 4*g0*l2^2*l3^2*m1^2*m3^2*cos(2*X3) + g0*l2^2*l3^2*m2^2*m3^2*cos(2*X3) + (X5^2*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3))/2 - (X5^2*l2^3*l3^2*m2^2*m3^2*cos(X2 + 2*X3))/2 + (X6^2*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3))/2 + 4*I3zz*X5^2*l2^3*m1*m2^2*cos(X2) + 32*I3zz*X5^2*l2^3*m1*m3^2*cos(X2) + 8*I3zz*X5^2*l2^3*m2*m3^2*cos(X2) + 4*I3zz*X5^2*l2^3*m2^2*m3*cos(X2) - 16*I2zz*g0*l3^2*m1*m2*m3 - 48*I3zz*g0*l2^2*m1*m2*m3 + 16*I2zz*I3zz*X5^2*l3*m3^2*cos(X2 + X3) + 16*I2zz*I3zz*X6^2*l3*m3^2*cos(X2 + X3) + 16*I2zz*I3zz*X5^2*l2*m2^2*cos(X2) + 32*I2zz*I3zz*X5^2*l2*m3^2*cos(X2) + 8*Tau3*l2^2*l3*m1*m3^2*sin(X2 + X3) - 2*Tau3*l2^2*l3*m2^2*m3*sin(X2 + X3) + 2*Tau1*l2^2*l3^2*m2*m3^2*sin(2*X2) + Tau1*l2^2*l3^2*m2^2*m3*sin(2*X2) - (X5^2*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3))/2 - (X6^2*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3))/2 + 16*I2zz*Tau3*l3*m1*m3*sin(X2 + X3) + 16*I2zz*Tau3*l3*m2*m3*sin(X2 + X3) - Tau1*l2^2*l3^2*m2*m3^2*sin(2*X2 + 2*X3) + 16*I3zz*Tau1*l2^2*m2*m3*sin(2*X2) + 4*I2zz*X5^2*l3^3*m1*m3^2*cos(X2 + X3) + 4*I2zz*X5^2*l3^3*m2*m3^2*cos(X2 + X3) + 4*I2zz*X6^2*l3^3*m1*m3^2*cos(X2 + X3) + 4*I2zz*X6^2*l3^3*m2*m3^2*cos(X2 + X3) + 4*Tau2*l2*l3^2*m1*m3^2*sin(X2) + 6*Tau2*l2*l3^2*m2*m3^2*sin(X2) + 4*Tau2*l2*l3^2*m2^2*m3*sin(X2) - 4*Tau3*l2*l3^2*m1*m3^2*sin(X2) - 6*Tau3*l2*l3^2*m2*m3^2*sin(X2) - 4*Tau3*l2*l3^2*m2^2*m3*sin(X2) + 3*X5^2*l2^3*l3^2*m1*m2*m3^2*cos(X2) + X5^2*l2^3*l3^2*m1*m2^2*m3*cos(X2) + X5*X6*l2^2*l3^3*m2^2*m3^2*cos(X2 - X3) - 4*Tau3*l2^2*l3*m1*m2*m3*sin(X2 - X3) + 4*g0*l2^2*l3^2*m1*m2*m3^2*cos(2*X3) + X5^2*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) - X5^2*l2^3*l3^2*m1*m2*m3^2*cos(X2 + 2*X3) + X6^2*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) + 24*I3zz*X5^2*l2^3*m1*m2*m3*cos(X2) + 8*I3zz*X5^2*l2^2*l3*m1*m3^2*cos(X2 + X3) - 2*I3zz*X5^2*l2^2*l3*m2^2*m3*cos(X2 + X3) + 8*I3zz*X6^2*l2^2*l3*m1*m3^2*cos(X2 + X3) - 2*I3zz*X6^2*l2^2*l3*m2^2*m3*cos(X2 + X3) + 32*I2zz*I3zz*X5*X6*l3*m3^2*cos(X2 + X3) + 16*I2zz*I3zz*X5^2*l3*m1*m3*cos(X2 + X3) + 16*I2zz*I3zz*X5^2*l3*m2*m3*cos(X2 + X3) + 16*I2zz*I3zz*X6^2*l3*m1*m3*cos(X2 + X3) + 16*I2zz*I3zz*X6^2*l3*m2*m3*cos(X2 + X3) + 4*I2zz*X5^2*l2*l3^2*m1*m3^2*cos(X2) + 6*I2zz*X5^2*l2*l3^2*m2*m3^2*cos(X2) + 4*I2zz*X5^2*l2*l3^2*m2^2*m3*cos(X2) + 4*I2zz*X5^2*l2*l3^2*m1*m3^2*cos(X2 + 2*X3) + 8*I3zz*X5^2*l2^2*l3*m1*m3^2*cos(X2 - X3) + 2*I2zz*X5^2*l2*l3^2*m2*m3^2*cos(X2 + 2*X3) + 4*I3zz*X5^2*l2^2*l3*m2*m3^2*cos(X2 - X3) + 2*I3zz*X5^2*l2^2*l3*m2^2*m3*cos(X2 - X3) + 8*I3zz*X6^2*l2^2*l3*m1*m3^2*cos(X2 - X3) + 4*I3zz*X6^2*l2^2*l3*m2*m3^2*cos(X2 - X3) + 2*I3zz*X6^2*l2^2*l3*m2^2*m3*cos(X2 - X3) + 16*I2zz*I3zz*X5^2*l2*m1*m2*cos(X2) + 32*I2zz*I3zz*X5^2*l2*m1*m3*cos(X2) + 48*I2zz*I3zz*X5^2*l2*m2*m3*cos(X2) - X5*X6*l2^2*l3^3*m2^2*m3^2*cos(X2 + X3) + 8*I2zz*X5*X6*l3^3*m1*m3^2*cos(X2 + X3) + 8*I2zz*X5*X6*l3^3*m2*m3^2*cos(X2 + X3) + 4*Tau2*l2*l3^2*m1*m2*m3*sin(X2) - 4*Tau3*l2*l3^2*m1*m2*m3*sin(X2) + 2*X5*X6*l2^2*l3^3*m1*m2*m3^2*cos(X2 - X3) + 16*I3zz*X5*X6*l2^2*l3*m1*m3^2*cos(X2 + X3) - 4*I3zz*X5*X6*l2^2*l3*m2^2*m3*cos(X2 + X3) + 32*I2zz*I3zz*X5*X6*l3*m1*m3*cos(X2 + X3) + 32*I2zz*I3zz*X5*X6*l3*m2*m3*cos(X2 + X3) + 4*I2zz*X5^2*l2*l3^2*m1*m2*m3*cos(X2) + 16*I3zz*X5*X6*l2^2*l3*m1*m3^2*cos(X2 - X3) + 8*I3zz*X5*X6*l2^2*l3*m2*m3^2*cos(X2 - X3) + 4*I3zz*X5*X6*l2^2*l3*m2^2*m3*cos(X2 - X3) + 4*I3zz*X5^2*l2^2*l3*m1*m2*m3*cos(X2 - X3) + 4*I3zz*X6^2*l2^2*l3*m1*m2*m3*cos(X2 - X3) + 8*I3zz*X5*X6*l2^2*l3*m1*m2*m3*cos(X2 - X3))/(4*I3zz*l2^2*m2^2 + 4*I2zz*l3^2*m3^2 + 16*I3zz*l2^2*m3^2 + 32*I2zz*I3zz*m1 + 32*I2zz*I3zz*m2 + 32*I2zz*I3zz*m3 + 4*l2^2*l3^2*m1*m3^2 + 3*l2^2*l3^2*m2*m3^2 + l2^2*l3^2*m2^2*m3 + 8*I3zz*l2^2*m1*m2 + 8*I2zz*l3^2*m1*m3 + 32*I3zz*l2^2*m1*m3 + 8*I2zz*l3^2*m2*m3 + 24*I3zz*l2^2*m2*m3 - 4*I3zz*l2^2*m2^2*cos(2*X2) - 16*I3zz*l2^2*m3^2*cos(2*X2) - 4*I2zz*l3^2*m3^2*cos(2*X2 + 2*X3) + 2*l2^2*l3^2*m1*m2*m3 - 4*l2^2*l3^2*m1*m3^2*cos(2*X3) - 2*l2^2*l3^2*m2*m3^2*cos(2*X2) - l2^2*l3^2*m2^2*m3*cos(2*X2) - 2*l2^2*l3^2*m2*m3^2*cos(2*X3) + l2^2*l3^2*m2*m3^2*cos(2*X2 + 2*X3) - 16*I3zz*l2^2*m2*m3*cos(2*X2));
 
+[d, dot_d, ddot_d, d0]=SimplifiedDistanceNDerivatives4Robot(zeros(6,1));
+
 %% SIMexport
 acadoSet('problemname', 'sim');
 
@@ -121,7 +123,7 @@ sim.setModel(f);  % set the ODE to be integrated
 % set some option for the integration
 % sim.set( 'INTEGRATOR_TYPE',             'INT_IRK_RIIA5' );
 sim.set( 'INTEGRATOR_TYPE',             'INT_IRK_GL4' );
-% sim.set( 'NUM_INTEGRATOR_STEPS',        numSteps        );
+sim.set( 'NUM_INTEGRATOR_STEPS',        numSteps        );
 
 if EXPORT
     sim.exportCode( 'export_SIM' );
@@ -134,7 +136,7 @@ end
 %% MPCexport
 acadoSet('problemname', 'mpc');
 
-N = 20;
+N = 25;
 ocp = acado.OCP( 0.0, N*Ts, N );
 
 % set eye matrices to default values: real values will be set before
@@ -157,16 +159,22 @@ ocp.subjectTo( -5*pi/6 <= x3 <= 5*pi/6 );
 
 % joint velocity limits
 % ocp.subjectTo( -1 <= x4 <= 1 );
-ocp.subjectTo( -10 <= x4 <= 10 );
+ocp.subjectTo( -5 <= x4 <= 5 );
 ocp.subjectTo( -5 <= x5 <= 5 );
 ocp.subjectTo( -5 <= x6 <= 5 );
 
 % joint force/torque limits
-% ocp.subjectTo( -60 <= tau1 <= 60);
-% ocp.subjectTo(-39 <= [tau2;tau3] <= 39);
-ocp.subjectTo(-500 <= tau1 <= 500);
-ocp.subjectTo(-100 <= tau2 <= 100);
-ocp.subjectTo(-100 <= tau3 <= 100);
+% TAU1_MAX = 60;
+% TAU2_3_MAX = 39;
+% ocp.subjectTo( -TAU1_MAX <= tau1 <= TAU1_MAX);
+% ocp.subjectTo(-TAU2_3_MAX <= tau2 <= TAU2_3_MAX);
+% ocp.subjectTo(-TAU2_3_MAX <= tau3 <= TAU2_3_MAX);
+
+TAU1_MAX = 500;
+TAU2_3_MAX = 100;
+ocp.subjectTo( -TAU1_MAX <= tau1 <= TAU1_MAX);
+ocp.subjectTo(-TAU2_3_MAX <= tau2 <= TAU2_3_MAX);
+ocp.subjectTo(-TAU2_3_MAX <= tau3 <= TAU2_3_MAX);
 
 
 n_points_link=1;
@@ -184,12 +192,10 @@ elseif CONSTRAINT_TYPE == 3
     %--------------------------------------------------------------------------
                              % VELOCITY DAMPER CONSTRAINT
     %--------------------------------------------------------------------------
-    epsilon=0.2;
+    epsilon=2.25;
     di=0.1;
-    
-    x0=[-1.4 pi/4 -2*pi/3 0 0 0].';
-    
-    [d, dot_d, ddot_d, d0]=SimplifiedDistanceNDerivatives4Robot(x0) %obstacle pos as column vector!
+%     epsilon=0.2;
+%     di = 0.25;
     
     for i = 1:3
         ocp.subjectTo( eval((dot_d(i)+Ts*ddot_d(i)+epsilon*(d(i)-ds)/(di-ds))) >=0);
@@ -234,17 +240,14 @@ elseif CONSTRAINT_TYPE == 2
 %         end
 %             j =j+1;
 %     end
-
-    x0=[-1.4 pi/4 -2*pi/3 0 0 0].';
     
-    [d, dot_d, ddot_d, d0]=SimplifiedDistanceNDerivatives4Robot(x0);
-    
-    
-
     % poles to be assigned in the exponential control barrier function
-    P = [5 10];
+%     P = [5 10];
+%     P = [20 20];
+%     P = [500 250];
     % gain to have those poles
-    K = [P(1)*P(2) P(1)+P(2)];
+%     K = [P(1)*P(2) P(1)+P(2)];
+    K = [2500 100];  % -> P = [50 50];
 
     for i = 1:3
         d(i) = d(i) - ds;
@@ -282,7 +285,8 @@ mpc.set( 'QP_SOLVER',                   'QP_QPOASES'    	);
 % mpc.set( 'GENERATE_SIMULINK_INTERFACE', 'YES'               );
 
 if EXPORT
-    mpc.exportCode( 'export_MPC' ); 
+    mpc.exportCode( 'export_MPC');
+%     system("make -j4");
 %     copyfile('../../../../../../external_packages/qpoases', 'export_MPC/qpoases', 'f')
     % !!!!!!!!!  ASSUMING ACADOtoolkit BASE FOLDER LOCATED IN THE HOME
     % DIRECTORY  !!!!!!!!
@@ -299,30 +303,19 @@ END_ACADO; % End with "END ACADO" to compile.
 
 %% PREPARE SIMULATION
 
-% generate reference
-% syms t;
-% h_x = -1+2*(-2*(t/3.5)^3+3*(t/3.5)^2);
-% h_y = 1.6-0.3*cos(pi*t);
-% % h_x = -0.4-0.8*cos(0.75*t);
-% % h_y = 1.2+0.8*sin(0.75*t);
-% % generate derivative of reference
-% dh_x = diff(h_x,t);
-% dh_y = diff(h_y,t);
-% % evaluate trajectories numerically
-% t = linspace(0,5,5/Ts);
-% h_ref = double([subs(h_x,t).' subs(h_y,t).']);
-% dh_ref = double([subs(dh_x,t).' subs(dh_y,t).']);
-
+Tf = 10; %s
 % generate reference in the task space
-t = linspace(0,5,5/Ts);
+t = linspace(0,Tf,Tf/Ts);
 
 % specify parameters
 x_start = -1;
 x_end = 1;
-Tf = 5; %s
-tf = 0.5; %s
+
+tf = 1; %s
+% tf = 6; %s
 L = 2; %m
-v_max = 10;  %m/s
+v_max = 3;  %m/s
+% v_max = 0.4; %m/s
 a_max = (v_max^2)/(tf*v_max-L);
 T_switch = (tf*v_max-L)/v_max;
 
@@ -331,23 +324,23 @@ T_switch = (tf*v_max-L)/v_max;
 h_x = [h_x repmat(h_x(end),1,length(t)-length(h_x))];
 dh_x = [dh_x repmat(dh_x(end),1,length(t)-length(dh_x))];
 
-h_y = repmat(1.6,1,length(t));
+h_y = repmat(1.6606,1,length(t));
 dh_y = repmat(0,1,length(t));
 
 h_ref = [h_x.' h_y.'];
 dh_ref = [dh_x.' dh_y.'];
 
-obs_radius = 0.2;
+obs_radius = 0.15;
 
 % % % generate obstacles
-% obs = repmat([0.33 1.7 obs_radius 0 0],length(t)+1,1);
+% obs = repmat([0 1.6606 obs_radius 0 0],length(t)+1,1);
 
 % generate obstacle trajectory (comment if you want the obs not to move)
 syms ti;
-v_obs = 1;
+v_obs = 0.5;
 tf_obs = 2/v_obs;
 obs_x = 1 - v_obs*ti;
-obs_y = 1.6;
+obs_y = 1.6606;
 dobs_x = -0.4;
 dobs_y = 0;
 t_obs = linspace(0,tf_obs,tf_obs/Ts);
@@ -356,16 +349,16 @@ obs_final = obs(end,:);
 obs_final(end,4) = 0.0;
 obs = [obs;repmat(obs_final,length(t)-length(t_obs)+1,1)];
 
-
-
-
 % clearance function to be plotted
-clearance = norm([X1 - rt1 + rt4 - (l3/2)*sin(X2 + X3) - l2*sin(X2); hb + ht + rw + (l3/2)*cos(X2 + X3) + l2*cos(X2)] - [XOBS;YOBS]) - obs_radius - (l3/2) -ds;
+clearance = norm([X1 - rt1 + rt4 - (l3/2)*sin(X2 + X3) - l2*sin(X2); hb + ht + rw + (l3/2)*cos(X2 + X3) + l2*cos(X2)] - [XOBS;YOBS]) - obs_radius - (l3/2) - ds;
 
 %% PARAMETERS SIMULATION
 
+% inital state
+X0 = [-1.764 -pi/6 -pi/6 0 0 0];
+
 % initial state
-X0 = [-0.4 pi/6 pi/3 0 0 0];
+% X0 = [-0.422 pi/6 pi/6 0 0 0];
 
 
 % Xref = [1.5 pi/3 -pi/2 0 0 0];
@@ -388,8 +381,8 @@ input.yN = Yref(N,1:end-5);
 
 % weight matrices
 % input.W = diag([50 50 1 0 0.01 0.01 0.01 0.0001 0.001 0.01]);
-input.W = diag([50 50 1 1 5 0.01 0.001 1e-05 0.001 0.01 1e-05 1e-05]);  % weights on [x y dx dy x4 x5 x6 tau1 tau2 tau3 b1 b2];
-input.WN = diag([50 50 1 1 40 0.1 0.1]);   % weights on [x y dx dy x4 x5 x6];
+input.W = diag([50 50 10 10 0.05 1 1 1e-05 0.001 0.01 1e-05 1e-05]);  % weights on [x y dx dy x4 x5 x6 tau1 tau2 tau3 b1 b2];
+input.WN = diag([50 50 10 10 10 1 1]);   % weights on [x y dx dy x4 x5 x6];
 
 %% SIMULATION LOOP
 display('------------------------------------------------------------------')
@@ -397,7 +390,6 @@ display('               Simulation Loop'                                    )
 display('------------------------------------------------------------------')
 
 iter = 0; time = 0;
-Tf = 5;
 KKT_MPC = []; INFO_MPC = []; INFO_CPU_TIME = [];
 controls_MPC = [];
 state_sim = X0;
@@ -406,7 +398,8 @@ is_feasable = [];
 ZMP_VALUES = [zmp_f(X0(1),X0(2),X0(3),X0(4),X0(5),X0(6),0,0,0)];
 MM1 = [];
 MM2 = [];
-CLEARANCE = [double(subs(clearance,[X;XOBS;YOBS],[X0.';obs(iter+1,1:2).']))];
+CLEARANCE = [double(subs(clearance,[X;XOBS;YOBS],[X0.';obs(1,1:2).']))];
+TASK_ERROR = [];
 
 if RECORD_SIMULATION
     % create the video writer
@@ -430,7 +423,7 @@ while time(end) < Tf
 
     Yref = [get_ref(h_ref,iter,N) get_ref(dh_ref,iter,N) zeros(N,3+3+2)];
 %     Yref = [get_ref(h_ref,iter,N) get_ref(dh_ref,iter,N) zeros(N,3+3)];
-    Uref = repmat(compute_gravity_term(state_sim(1:3)),N,1);
+%     Uref = repmat(compute_gravity_term(state_sim(1:3)),N,1);
 %     input.u = Uref;
     input.y = Yref;  % reference for the output
     input.yN = Yref(N,1:end-5);  % reference for the final output state
@@ -451,7 +444,8 @@ while time(end) < Tf
     ZMP_VALUES = [ZMP_VALUES;zmp_f(state_sim(end,1),state_sim(end,2),state_sim(end,3),state_sim(end,4),state_sim(end,5),state_sim(end,6),output.u(1,1),output.u(1,2),output.u(1,3))];
     MM1 = [MM1;Mm1_f(state_sim(end,1),state_sim(end,2),state_sim(end,3),state_sim(end,4),state_sim(end,5),state_sim(end,6),output.u(1,1),output.u(1,2),output.u(1,3))];
     MM2 = [MM2;Mm2_f(state_sim(end,1),state_sim(end,2),state_sim(end,3),state_sim(end,4),state_sim(end,5),state_sim(end,6),output.u(1,1),output.u(1,2),output.u(1,3))];
-    
+    TASK_ERROR = [TASK_ERROR;task_error_f(state_sim(end,1),state_sim(end,2),state_sim(end,3),h_ref(iter+1,1),h_ref(iter+1,2))];
+
     % Simulate system
     sim_input.x = state_sim(end,:).';
     sim_input.u = output.u(1,:).';
@@ -472,6 +466,7 @@ while time(end) < Tf
     pause(abs(Ts-toc));
 end
 
+
 if RECORD_SIMULATION
     close(writerObj);
     
@@ -480,8 +475,6 @@ if RECORD_SIMULATION
 else
     return;
 end
-
-hold off;
 
 %% plot the clearance
 
@@ -497,9 +490,24 @@ saveas(fig1,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/clearance.png');
 saveas(fig1,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/clearance.fig');
 saveas(fig1,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/clearance','epsc');
 
-%% plot the cpu-time plot at the end
+%% plot the task error
 
 fig2 = figure(2);
+
+plot(time(1:end-1),TASK_ERROR,'linewidth',1.5,'color','k');
+grid on; hold on;
+xlabel('t [s]','FontSize',13);    ylabel('task-error [m]','FontSize',13);
+hold off;
+
+set(gcf, 'Position',[0 0 1920 961]);
+saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/task_error.png');
+saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/task_error.fig');
+saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/task_error','epsc');
+
+
+%% plot the cpu-time plot at the end
+
+fig3 = figure(3);
 
 plot(time(1:end-1),INFO_CPU_TIME,'linewidth',1.5,'color','k');hold on
 plot(time(1:end-1),repmat(Ts,length(time)-1),'LineWidth',2,'color','red');
@@ -508,14 +516,14 @@ xlabel('t [s]','FontSize',13);    ylabel('CPU time [s]','FontSize',13);
 
 set(gcf, 'Position',[0 0 1920 961]);
 xlabel('t [s]','FontSize',13);    ylabel('clearance [m]','FontSize',13);
-saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time.png');
-saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time.fig');
-saveas(fig2,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time','epsc');
+saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time.png');
+saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time.fig');
+saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/CPU_time','epsc');
 
 
 %% plot the zmp 
 
-fig3 = figure(3);
+fig4 = figure(4);
 
 plot(time(1:end-1),ZMP_VALUES(1:end-1),'linewidth',1.5,'color','green'); hold on
 plot(time(1:end-1),repmat(db/2,length(time)-1),'LineWidth',2,'color','red'); % upper limit
@@ -524,48 +532,55 @@ grid on;
 xlabel('t [s]','FontSize',13);    ylabel('ZMP position [m]','FontSize',13);
 
 set(gcf, 'Position',[0 0 1920 961]);
-saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp.png');
-saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp.fig');
-saveas(fig3,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp','epsc');
+saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp.png');
+saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp.fig');
+saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/zmp','epsc');
 
 
 %% Joint positions: [x1 x2 x3]
 
-plot(time,state_sim(:,1:3),"Linewidth",1.5); grid on; hold on; legend('q1','q2','q3', "Location","best"); hold on;
-plot(time(1:end),repmat(-3*pi/4,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(3*pi/4,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(-5*pi/6,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-');
-plot(time(1:end),repmat(5*pi/6,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-'); hold off;
-% save('./Simulations/'+video_names(CONSTRAINT_TYPE)+'/states.mat','state_sim');
+% plot(time,state_sim(:,1:3),"Linewidth",1.5); grid on; hold on; legend('q1','q2','q3', "Location","best"); hold on;
+% plot(time(1:end),repmat(-3*pi/4,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
+% plot(time(1:end),repmat(3*pi/4,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
+% plot(time(1:end),repmat(-5*pi/6,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-');
+% plot(time(1:end),repmat(5*pi/6,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-'); hold off;
+
+save('./Simulations/'+video_names(CONSTRAINT_TYPE)+'/states.mat','state_sim');
 
 %% Joint velocities:
 
-plot(time,state_sim(:,4:6),"Linewidth",1.5); grid on; hold on; legend('qd1','qd2','qd3', "Location","best");
-plot(time(1:end),repmat(-10,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(10,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(-5,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-');
-plot(time(1:end),repmat(5,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-'); hold off;
+% plot(time,state_sim(:,4:6),"Linewidth",1.5); grid on; hold on; legend('qd1','qd2','qd3', "Location","best");
+% plot(time(1:end),repmat(-10,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
+% plot(time(1:end),repmat(10,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
+% plot(time(1:end),repmat(-5,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-');
+% plot(time(1:end),repmat(5,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-'); hold off;
 
 %% Control inputs [tau1 tau2 tau3]
 
-fig4 = figure(4);
+fig5 = figure(5);
 
-plot(time(1:end-1),[input_sim(:,1)*rw input_sim(:,2:3)],'linewidth',1.5); grid on; hold on; legend('\tau_w','\tau_{ARM1}','\tau_{ARM2}', "Location","best"); hold on;
-plot(time(1:end),repmat(500*rw,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(500*rw,length(time(1:end)),1),'linewidth',1.5,'color','blue','linestyle','-');
-plot(time(1:end),repmat(100,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-');
-plot(time(1:end),repmat(-100,length(time(1:end)),1),'linewidth',1.5,'color','red','linestyle','-'); hold off;
+plot(time(1:end-1),[input_sim(:,1)*rw input_sim(:,2:3)],'linewidth',1.5); grid on; hold on; hold on;
+plot(time(1:end),repmat(TAU1_MAX*rw,length(time(1:end)),1),'LineStyle','--','LineWidth',1.5,'color','blue');
+plot(time(1:end),repmat(-TAU1_MAX*rw,length(time(1:end)),1),'LineStyle','--','LineWidth',1.5,'color','blue');
+plot(time(1:end),repmat(TAU2_3_MAX,length(time(1:end)),1),'LineStyle','--','LineWidth',1.5,'color','red');
+plot(time(1:end),repmat(TAU2_3_MAX,length(time(1:end)),1),'LineStyle','--','LineWidth',1.5,'color','red');
+legend('\tau_w','\tau_{ARM1}','\tau_{ARM2}','\tau_{w max}','','\tau_{23 max}','',"Location","best"); hold off;
 
 
 set(gcf, 'Position',[0 0 1920 961]);
-saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs.png');
-saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs.fig');
-saveas(fig4,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs','epsc');
+saveas(fig5,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs.png');
+saveas(fig5,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs.fig');
+saveas(fig5,'./Simulations/'+video_names(CONSTRAINT_TYPE)+'/control_inputs','epsc');
+save('./Simulations/'+video_names(CONSTRAINT_TYPE)+'/controls.mat','input_sim');
 
 %% Balance constraint evolution
 
-plot(time(1:end-1),MM1.',"LineWidth",2.0,"Color","green"); grid on; hold on;
-plot(time(1:end-1),MM2.',"LineWidth",2.0,"Color","blue");
+% plot(time(1:end-1),MM1.',"LineWidth",2.0,"Color","green"); grid on; hold on;
+% plot(time(1:end-1),MM2.',"LineWidth",2.0,"Color","blue");
+
+%%
+
+% get_ref(obs,0,N+1)
 
 %% function: get the reference points
 
@@ -582,6 +597,7 @@ function samples = get_ref(ref,num_iter,N)
     end
     
 end
+
 
 %% function: compute the gravity term
 function g = compute_gravity_term(q)

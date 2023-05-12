@@ -1,9 +1,8 @@
 function [d, dot_d, ddot_d, d0]=SimplifiedDistanceNDerivatives4Robot(x0)
 
-syms x [6 1] real; syms tau [1 3] real; syms t real; syms x_obs y_obs dx_obs dy_obs real;
+syms x [6 1] real; syms tau [1 3] real; syms t real; syms x_obs y_obs dx_obs dy_obs r_obs real;
 dx = TIAGO(t,x,tau,0,0);
-
-syms x_obs y_obs r_obs real; P_obs = [x_obs;y_obs];
+P_obs = [x_obs;y_obs];
 %coordinate is (x; y) (column vector), x -->horizontal, y --> vertical
 
 
